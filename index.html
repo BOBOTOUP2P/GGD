@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>កាបូបឌីជីថល Telegram</title>
     
-    <!-- ១. ភ្ជាប់ Telegram Web App SDK -->
+    <!-- Telegram Web App SDK -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
     <!-- Google Font Kantumruy Pro -->
@@ -68,7 +68,7 @@
             width: 100%;
         }
 
-        /* រង្វង់មូលរូបភាពអាខោន Telegram (ស៊ុមប្រផេះស្ដើង) */
+        /* រង្វង់មូលរូបភាព Profile (ស៊ុមប្រផេះស្ដើង) */
         .account-avatar-lg {
             width: 95px;
             height: 95px;
@@ -80,7 +80,7 @@
             align-items: center;
             justify-content: center;
             margin-bottom: 14px;
-            overflow: hidden; /* សម្រាប់រូបភាពមូល */
+            overflow: hidden;
         }
 
         .account-avatar-lg svg {
@@ -89,7 +89,6 @@
             color: rgba(255, 255, 255, 0.85);
         }
 
-        /* ឈ្មោះពិតទាញពី Telegram */
         .account-name-lg {
             font-size: 22px;
             font-weight: 700;
@@ -101,7 +100,6 @@
             text-overflow: ellipsis;
         }
 
-        /* UID ពិតទាញពី Telegram */
         .account-uid-lg {
             font-size: 14.5px;
             color: #8e8e93;
@@ -115,7 +113,7 @@
             margin-bottom: 24px;
         }
 
-        /* តារាងបញ្ជី (Table Card) នៅទំព័រដើម */
+        /* តារាងបញ្ជីអនឡាញ (Online Table) */
         .home-table-card {
             width: 100%;
             background-color: #0b0b0d;
@@ -152,7 +150,6 @@
             border-bottom: none;
         }
 
-        /* ជួរឈ្មោះមិនឲ្យធ្លាក់ចុះជា ២ បន្ទាត់ */
         .col-name {
             flex: 2;
             display: flex;
@@ -204,6 +201,7 @@
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
+            overflow: hidden;
         }
 
         .mini-profile-avatar svg {
@@ -442,52 +440,55 @@
 
         <!-- ================= ផ្ទាំងទំព័រដើម (HOME PAGE) ================= -->
         <div class="page-view home-content" id="pageHome">
-            <!-- រង្វង់មូលរូបភាព Profile Telegram -->
+            <!-- រង្វង់មូលរូបភាព Profile -->
             <div class="account-avatar-lg" id="homeAvatar">
                 <i data-lucide="user"></i>
             </div>
 
-            <!-- ឈ្មោះពិត Telegram -->
-            <div class="account-name-lg" id="homeName">កំពុងទាញយកឈ្មោះ...</div>
+            <!-- ឈ្មោះគណនី -->
+            <div class="account-name-lg" id="homeName">(…)</div>
 
-            <!-- UID ពិត Telegram -->
+            <!-- UID គណនី -->
             <div class="account-uid-lg">
-                <span id="homeUID">UID: កំពុងទាញយក...</span>
+                <span id="homeUID">UID: 100413933</span>
             </div>
 
-            <!-- តារាងព័ត៌មាន -->
+            <!-- តារាងព័ត៌មានអនឡាញ -->
             <div class="home-table-card">
-                <!-- ជួរចំណងជើង (Header) -->
+                <!-- ជួរចំណងជើង -->
                 <div class="table-row table-header">
                     <div class="col-name">0. ឈ្មោះ</div>
                     <div class="col-uid">UID</div>
                     <div class="col-count">ដាក់ប្រាក់ចំនួនដង</div>
                 </div>
 
-                <!-- ជួរទិន្នន័យទី១៖ សីហា -->
-                <div class="table-row table-body">
-                    <div class="col-name">
-                        <span>1.</span>
-                        <span class="mini-profile-avatar">
-                            <i data-lucide="user"></i>
-                        </span>
-                        <span class="name-text">សីហា</span>
+                <!-- ជួរទិន្នន័យទាញពី Firebase (Real-time) -->
+                <div id="homeTableList">
+                    <!-- ឧទាហរណ៍ទី១៖ សីហា -->
+                    <div class="table-row table-body">
+                        <div class="col-name">
+                            <span>1.</span>
+                            <span class="mini-profile-avatar">
+                                <i data-lucide="user"></i>
+                            </span>
+                            <span class="name-text">សីហា</span>
+                        </div>
+                        <div class="col-uid">100413934</div>
+                        <div class="col-count">2</div>
                     </div>
-                    <div class="col-uid">100413934</div>
-                    <div class="col-count">2</div>
-                </div>
 
-                <!-- ជួរទិន្នន័យទី២៖ Hort Sao Mona -->
-                <div class="table-row table-body">
-                    <div class="col-name">
-                        <span>2.</span>
-                        <span class="mini-profile-avatar">
-                            <i data-lucide="user"></i>
-                        </span>
-                        <span class="name-text">Hort Sao Mona</span>
+                    <!-- ឧទាហរណ៍ទី២៖ (…) -->
+                    <div class="table-row table-body">
+                        <div class="col-name">
+                            <span>2.</span>
+                            <span class="mini-profile-avatar">
+                                <i data-lucide="user"></i>
+                            </span>
+                            <span class="name-text">(…)</span>
+                        </div>
+                        <div class="col-uid">100413933</div>
+                        <div class="col-count">1</div>
                     </div>
-                    <div class="col-uid">100413933</div>
-                    <div class="col-count">1</div>
                 </div>
             </div>
         </div>
@@ -539,7 +540,7 @@
                         <span>តេឡេក្រាមគណនី:</span>
                     </div>
                     <div class="row-right">
-                        <span class="telegram-badge" id="assetsTelegram">BOBOTOU</span>
+                        <span class="telegram-badge" id="assetsTelegram">@</span>
                     </div>
                 </div>
 
@@ -550,7 +551,7 @@
                         <span>ឈ្មោះអាខោន:</span>
                     </div>
                     <div class="row-right">
-                        <span id="assetsName">កំពុងទាញយក...</span>
+                        <span id="assetsName">(…)</span>
                     </div>
                 </div>
 
@@ -592,74 +593,136 @@
         </div>
     </div>
 
-    <script>
-        lucide.createIcons();
+    <!-- Firebase Script + Logic -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, doc, setDoc, getDoc, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-        // ========== ១. ទាញយកទិន្នន័យពី TELEGRAM WEB APP API ==========
+        // ១. កំណត់រចនាសម្ព័ន្ធ Firebase របស់អ្នក
+        const firebaseConfig = {
+            apiKey: "AIzaSyC6dWAkX-4NfuBLG6vqAAf8DBET1F2NDdQ",
+            authDomain: "my-new-multi-game.firebaseapp.com",
+            projectId: "my-new-multi-game",
+            storageBucket: "my-new-multi-game.firebasestorage.app",
+            messagingSenderId: "234800975858",
+            appId: "1:234800975858:web:6d8923da0862d8ecaf656b",
+            measurementId: "G-CV5QWYLEH1"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // ២. ចាប់យក Telegram WebApp API
         const tg = window.Telegram?.WebApp;
         if (tg) {
-            tg.expand(); // ពង្រីកពេញអេក្រង់ទូរស័ព្ទក្នុង Telegram
+            tg.expand();
             tg.ready();
         }
 
-        const user = tg?.initDataUnsafe?.user;
+        const tgUser = tg?.initDataUnsafe?.user;
 
-        if (user) {
-            // ឈ្មោះពេញ (First Name + Last Name)
-            const fullName = `${user.first_name} ${user.last_name || ''}`.trim();
-            const uid = user.id;
-            const username = user.username ? `@${user.username}` : fullName;
+        // ទិន្នន័យអ្នកប្រើប្រាស់បច្ចុប្បន្ន
+        let currentUser = {
+            name: "(…)",
+            uid: "100413933",
+            username: "@",
+            photo: ""
+        };
 
-            // ១. បញ្ចូលទិន្នន័យលើទំព័រដើម (Home Page)
-            document.getElementById('homeName').innerText = fullName;
-            document.getElementById('homeUID').innerText = `UID: ${uid}`;
+        if (tgUser) {
+            currentUser.name = `${tgUser.first_name} ${tgUser.last_name || ''}`.trim();
+            currentUser.uid = tgUser.id.toString();
+            currentUser.username = tgUser.username ? `@${tgUser.username}` : "@";
+            currentUser.photo = tgUser.photo_url || "";
+        }
 
-            // រូបភាព Profile ធំលើទំព័រដើម
-            const homeAvatar = document.getElementById('homeAvatar');
-            if (user.photo_url) {
-                homeAvatar.innerHTML = `<img src="${user.photo_url}" alt="Profile" style="width:100%; height:100%; object-fit:cover;">`;
-            } else {
-                homeAvatar.innerHTML = `<span style="font-size: 38px; font-weight: bold; color: #ffffff;">${user.first_name.charAt(0).toUpperCase()}</span>`;
+        // ដាក់ទិន្នន័យលើផ្ទាំង UI
+        document.getElementById('homeName').innerText = currentUser.name;
+        document.getElementById('homeUID').innerText = `UID: ${currentUser.uid}`;
+        document.getElementById('assetsName').innerText = currentUser.name;
+        document.getElementById('assetsUID').innerText = currentUser.uid;
+        document.getElementById('assetsTelegram').innerText = currentUser.username;
+
+        if (currentUser.photo) {
+            document.getElementById('homeAvatar').innerHTML = `<img src="${currentUser.photo}" alt="Profile" style="width:100%; height:100%; object-fit:cover;">`;
+        }
+
+        // ៣. រក្សាទុកទិន្នន័យអ្នកប្រើប្រាស់ចូល Firebase
+        async function syncUserToFirebase() {
+            try {
+                const userRef = doc(db, "users", currentUser.uid);
+                const userSnap = await getDoc(userRef);
+
+                if (!userSnap.exists()) {
+                    await setDoc(userRef, {
+                        name: currentUser.name,
+                        uid: currentUser.uid,
+                        username: currentUser.username,
+                        photo: currentUser.photo,
+                        depositCount: 1, // ចំនួនដងដាក់ប្រាក់ដំបូង
+                        createdAt: Date.now()
+                    });
+                } else {
+                    await setDoc(userRef, {
+                        name: currentUser.name,
+                        username: currentUser.username,
+                        photo: currentUser.photo
+                    }, { merge: true });
+                }
+            } catch (error) {
+                console.error("Firebase Error:", error);
             }
-
-            // ២. បញ្ចូលទិន្នន័យលើទំព័រទ្រព្យសកម្ម (Assets Page)
-            document.getElementById('assetsName').innerText = fullName;
-            document.getElementById('assetsUID').innerText = uid;
-            document.getElementById('assetsTelegram').innerText = username;
-
-        } else {
-            // ករណីបើកសាកល្បងលើ Browser ធម្មតាក្រៅ Telegram
-            document.getElementById('homeName').innerText = "Hort Sao Mona";
-            document.getElementById('homeUID').innerText = "UID: 100413933";
-            document.getElementById('assetsName').innerText = "Hort Sao Mona";
-            document.getElementById('assetsUID').innerText = "100413933";
-            document.getElementById('assetsTelegram').innerText = "@HortSaoMona";
         }
 
-        // ========== ២. មុខងារ Hide / Show ទឹកប្រាក់ + ប្ដូររូបភ្នែក (Eye-Off) ==========
-        let isHidden = false;
-        const eyeSvg = document.getElementById('eyeSvg');
+        syncUserToFirebase();
 
-        const eyeOpenSvg = `
-            <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
-            <circle cx="12" cy="12" r="3"/>
-        `;
+        // ៤. ទាញទិន្នន័យអ្នកប្រើប្រាស់ទាំងអស់មកបង្ហាញលើតារាងទំព័រដើម (Real-time)
+        onSnapshot(collection(db, "users"), (snapshot) => {
+            const tableBody = document.getElementById("homeTableList");
+            if (!snapshot.empty) {
+                tableBody.innerHTML = "";
+                let index = 1;
+                snapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const row = document.createElement("div");
+                    row.className = "table-row table-body";
+                    row.innerHTML = `
+                        <div class="col-name">
+                            <span>${index}.</span>
+                            <span class="mini-profile-avatar">
+                                ${data.photo ? `<img src="${data.photo}" style="width:100%; height:100%; object-fit:cover;">` : `<i data-lucide="user"></i>`}
+                            </span>
+                            <span class="name-text">${data.name || '(…)'}</span>
+                        </div>
+                        <div class="col-uid">${data.uid || 'N/A'}</div>
+                        <div class="col-count">${data.depositCount || 0}</div>
+                    `;
+                    tableBody.appendChild(row);
+                    index++;
+                });
+                lucide.createIcons();
+            }
+        });
 
-        const eyeClosedSvg = `
-            <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/>
-            <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/>
-            <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/>
-            <line x1="2" x2="22" y1="2" y2="22"/>
-        `;
+        // ៥. មុខងារប្ដូរ Tab និង Hide/Show ទឹកប្រាក់ (ភ្ជាប់ទៅ window)
+        window.toggleBalance = function() {
+            let isHidden = document.getElementById('balanceNum').innerText.includes('•');
+            const eyeSvg = document.getElementById('eyeSvg');
 
-        function toggleBalance() {
-            isHidden = !isHidden;
-            document.getElementById('balanceNum').innerText = isHidden ? '••••••' : '30.53';
-            document.getElementById('balanceKHR').innerText = isHidden ? '= •••••• KHR' : '= 125,173 KHR';
-            eyeSvg.innerHTML = isHidden ? eyeClosedSvg : eyeOpenSvg;
-        }
+            const eyeOpenSvg = `<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>`;
+            const eyeClosedSvg = `<path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" x2="22" y1="2" y2="22"/>`;
 
-        // ========== ៣. មុខងារប្ដូររវាង ទំព័រដើម (Home) និង ទ្រព្យសកម្ម (Assets) ==========
+            if (!isHidden) {
+                document.getElementById('balanceNum').innerText = '••••••';
+                document.getElementById('balanceKHR').innerText = '= •••••• KHR';
+                eyeSvg.innerHTML = eyeClosedSvg;
+            } else {
+                document.getElementById('balanceNum').innerText = '30.53';
+                document.getElementById('balanceKHR').innerText = '= 125,173 KHR';
+                eyeSvg.innerHTML = eyeOpenSvg;
+            }
+        };
+
         const slidingPill = document.getElementById('slidingPill');
         const btnHome = document.getElementById('btnHome');
         const btnAssets = document.getElementById('btnAssets');
@@ -667,29 +730,23 @@
         const pageAssets = document.getElementById('pageAssets');
         const switchDock = document.getElementById('switchDock');
 
-        let currentTab = 'assets';
-        slidingPill.style.transform = 'translateX(100%)';
-
-        function selectTab(tab) {
-            currentTab = tab;
+        window.selectTab = function(tab) {
             if (tab === 'home') {
                 slidingPill.style.transform = 'translateX(0%)';
                 btnHome.classList.add('active');
                 btnAssets.classList.remove('active');
-                
                 pageHome.classList.add('active');
                 pageAssets.classList.remove('active');
             } else {
                 slidingPill.style.transform = 'translateX(100%)';
                 btnAssets.classList.add('active');
                 btnHome.classList.remove('active');
-                
                 pageAssets.classList.add('active');
                 pageHome.classList.remove('active');
             }
-        }
+        };
 
-        // មុខងារអូសដោយម្រាមដៃ (Swipe Gesture)
+        // អូសដោយម្រាមដៃ (Swipe Touch)
         let startX = 0;
         switchDock.addEventListener('touchstart', (e) => {
             startX = e.touches[0].clientX;
@@ -699,11 +756,13 @@
             let endX = e.changedTouches[0].clientX;
             let diff = endX - startX;
             if (diff > 30) {
-                selectTab('assets');
+                window.selectTab('assets');
             } else if (diff < -30) {
-                selectTab('home');
+                window.selectTab('home');
             }
         });
+
+        lucide.createIcons();
     </script>
 </body>
 </html>
