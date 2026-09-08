@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>កាបូបឌីជីថល Telegram</title>
+    
+    <!-- ១. ភ្ជាប់ Telegram Web App SDK -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+    <!-- Google Font Kantumruy Pro -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Kantumruy Pro', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html, body {
+            width: 100%;
+            min-height: 100vh;
+            background-color: #000000;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        .app-container {
+            width: 100%;
+            min-height: 100vh;
+            background-color: #000000;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            padding: 20px 16px 105px 16px;
+        }
+
+        /* ដំណើរការ Animation ប្ដូរទំព័ររលូន */
+        .page-view {
+            display: none;
+            width: 100%;
+            animation: fadeIn 0.25s ease forwards;
+        }
+
+        .page-view.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ================= ផ្ទាំងទំព័រដើម (HOME PAGE) ================= */
+        .home-content {
+            align-items: center;
+            justify-content: flex-start;
+            padding-top: 40px;
+            text-align: center;
+            width: 100%;
+        }
+
+        /* រង្វង់មូលរូបភាពអាខោន Telegram (ស៊ុមប្រផេះស្ដើង) */
+        .account-avatar-lg {
+            width: 95px;
+            height: 95px;
+            border-radius: 50%;
+            border: 1.5px solid #3f3f46;
+            background: radial-gradient(circle, #f59e0b 35%, #05684d 75%, #022c22 100%);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 14px;
+            overflow: hidden; /* សម្រាប់រូបភាពមូល */
+        }
+
+        .account-avatar-lg svg {
+            width: 44px;
+            height: 44px;
+            color: rgba(255, 255, 255, 0.85);
+        }
+
+        /* ឈ្មោះពិតទាញពី Telegram */
+        .account-name-lg {
+            font-size: 22px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 8px;
+            max-width: 90%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* UID ពិតទាញពី Telegram */
+        .account-uid-lg {
+            font-size: 14.5px;
+            color: #8e8e93;
+            background-color: #0d0d11;
+            padding: 6px 16px;
+            border-radius: 20px;
+            border: 1px solid #1f1f24;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 24px;
+        }
+
+        /* តារាងបញ្ជី (Table Card) នៅទំព័រដើម */
+        .home-table-card {
+            width: 100%;
+            background-color: #0b0b0d;
+            border: 1.2px solid #3f3f46;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .table-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 12px;
+            gap: 6px;
+        }
+
+        .table-header {
+            background-color: #121217;
+            border-bottom: 1.2px solid #23232a;
+            font-size: 13.5px;
+            font-weight: 600;
+            color: #9e9ea4;
+        }
+
+        .table-body {
+            font-size: 14px;
+            font-weight: 500;
+            color: #ffffff;
+            border-bottom: 1px solid #18181c;
+        }
+
+        .table-body:last-child {
+            border-bottom: none;
+        }
+
+        /* ជួរឈ្មោះមិនឲ្យធ្លាក់ចុះជា ២ បន្ទាត់ */
+        .col-name {
+            flex: 2;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            text-align: left;
+            min-width: 0;
+            white-space: nowrap;
+        }
+
+        .name-text {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-size: 13.8px;
+            font-weight: 500;
+        }
+
+        .col-uid {
+            flex: 1.1;
+            text-align: center;
+            font-size: 13px;
+            white-space: nowrap;
+        }
+
+        .col-count {
+            flex: 1;
+            text-align: right;
+            font-size: 13.5px;
+            white-space: nowrap;
+        }
+
+        .table-header .col-uid {
+            color: #00bcd4;
+        }
+
+        .table-body .col-count {
+            color: #00bcd4;
+            font-weight: 700;
+        }
+
+        .mini-profile-avatar {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 1.2px solid #3f3f46;
+            background: radial-gradient(circle, #f59e0b 35%, #05684d 75%, #022c22 100%);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .mini-profile-avatar svg {
+            width: 12px;
+            height: 12px;
+            color: #ffffff;
+        }
+
+        /* ================= ផ្ទាំងទ្រព្យសកម្ម (ASSETS PAGE) ================= */
+        .assets-section {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 22px 16px;
+            border: 1.2px solid #3f3f46;
+            border-radius: 18px;
+            background-color: #0b0b0d;
+            margin-top: 4px;
+        }
+
+        .assets-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: #8e8e93;
+            font-size: 14.5px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .assets-header svg {
+            width: 18px;
+            height: 18px;
+            stroke-width: 1.8;
+            transition: stroke 0.2s ease;
+        }
+
+        .balance-row {
+            margin-top: 8px;
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .balance-val {
+            font-size: 42px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .balance-cur {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .khr-rate {
+            color: #7c7c80;
+            font-size: 14px;
+            margin-top: 4px;
+            text-align: center;
+        }
+
+        .deposit-container {
+            margin: 18px 0 20px 0;
+            width: 100%;
+        }
+
+        .deposit-wide-btn {
+            width: 100%;
+            height: 52px;
+            background-color: #02090b;
+            color: #ffffff;
+            border: 1px solid #016273;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .deposit-wide-btn:active {
+            transform: scale(0.98);
+            background-color: #04181c;
+            border-color: #008fa6;
+        }
+
+        .deposit-wide-btn svg {
+            width: 20px;
+            height: 20px;
+            stroke-width: 2.4;
+            color: #ffffff;
+        }
+
+        .info-list {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .info-row {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 2px;
+            border-bottom: 1px solid #171719;
+        }
+
+        .row-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            font-size: 14.5px;
+            color: #ffffff;
+        }
+
+        .row-left svg {
+            color: #00bcd4;
+            width: 20px;
+            height: 20px;
+            stroke-width: 2;
+        }
+
+        .row-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            color: #ffffff;
+        }
+
+        .avatar-badge {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: 1.2px solid #3f3f46;
+            background: radial-gradient(circle, #f59e0b 35%, #05684d 75%, #022c22 100%);
+            display: inline-block;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .telegram-badge {
+            background-color: #00bcd4;
+            color: #000000;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 4px;
+            letter-spacing: 0.5px;
+        }
+
+        .txt-cyan {
+            color: #00bcd4;
+            font-weight: 600;
+        }
+
+        /* ========== ប៊ូតុងអូសខាងក្រោម ========== */
+        .switch-dock {
+            position: fixed;
+            bottom: 18px;
+            left: 16px;
+            right: 16px;
+            height: 52px;
+            background-color: #02090b;
+            border: 1.2px solid #015260;
+            border-radius: 16px;
+            display: flex;
+            padding: 4px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.9), 0 0 14px rgba(0, 188, 212, 0.15);
+            user-select: none;
+            z-index: 100;
+        }
+
+        .sliding-pill {
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            width: calc(50% - 4px);
+            height: calc(100% - 8px);
+            background-color: #016273;
+            border: 1px solid #00bcd4;
+            border-radius: 12px;
+            box-shadow: 0 0 12px rgba(0, 188, 212, 0.25);
+            transition: transform 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1;
+        }
+
+        .switch-btn {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            border: none;
+            background: transparent;
+            font-size: 15px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.55);
+            cursor: pointer;
+            position: relative;
+            z-index: 2;
+            transition: color 0.25s ease;
+        }
+
+        .switch-btn svg {
+            width: 19px;
+            height: 19px;
+            stroke-width: 2.2;
+            color: rgba(255, 255, 255, 0.55);
+            transition: color 0.25s ease, stroke 0.25s ease;
+        }
+
+        .switch-btn.active {
+            color: #ffffff;
+        }
+
+        .switch-btn.active svg {
+            color: #ffffff;
+            stroke: #ffffff;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+
+        <!-- ================= ផ្ទាំងទំព័រដើម (HOME PAGE) ================= -->
+        <div class="page-view home-content" id="pageHome">
+            <!-- រង្វង់មូលរូបភាព Profile Telegram -->
+            <div class="account-avatar-lg" id="homeAvatar">
+                <i data-lucide="user"></i>
+            </div>
+
+            <!-- ឈ្មោះពិត Telegram -->
+            <div class="account-name-lg" id="homeName">កំពុងទាញយកឈ្មោះ...</div>
+
+            <!-- UID ពិត Telegram -->
+            <div class="account-uid-lg">
+                <span id="homeUID">UID: កំពុងទាញយក...</span>
+            </div>
+
+            <!-- តារាងព័ត៌មាន -->
+            <div class="home-table-card">
+                <!-- ជួរចំណងជើង (Header) -->
+                <div class="table-row table-header">
+                    <div class="col-name">0. ឈ្មោះ</div>
+                    <div class="col-uid">UID</div>
+                    <div class="col-count">ដាក់ប្រាក់ចំនួនដង</div>
+                </div>
+
+                <!-- ជួរទិន្នន័យទី១៖ សីហា -->
+                <div class="table-row table-body">
+                    <div class="col-name">
+                        <span>1.</span>
+                        <span class="mini-profile-avatar">
+                            <i data-lucide="user"></i>
+                        </span>
+                        <span class="name-text">សីហា</span>
+                    </div>
+                    <div class="col-uid">100413934</div>
+                    <div class="col-count">2</div>
+                </div>
+
+                <!-- ជួរទិន្នន័យទី២៖ Hort Sao Mona -->
+                <div class="table-row table-body">
+                    <div class="col-name">
+                        <span>2.</span>
+                        <span class="mini-profile-avatar">
+                            <i data-lucide="user"></i>
+                        </span>
+                        <span class="name-text">Hort Sao Mona</span>
+                    </div>
+                    <div class="col-uid">100413933</div>
+                    <div class="col-count">1</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= ផ្ទាំងទ្រព្យសកម្ម (ASSETS PAGE) ================= -->
+        <div class="page-view active" id="pageAssets">
+            <!-- ទ្រព្យសកម្មសរុប -->
+            <div class="assets-section">
+                <div class="assets-header" onclick="toggleBalance()">
+                    <span>ទ្រព្យសកម្មសរុប</span>
+                    <svg id="eyeSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
+                        <circle cx="12" cy="12" r="3"/>
+                    </svg>
+                </div>
+                <div class="balance-row">
+                    <span class="balance-val" id="balanceNum">30.53</span>
+                    <span class="balance-cur">USD</span>
+                </div>
+                <div class="khr-rate" id="balanceKHR">= 125,173 KHR</div>
+            </div>
+
+            <!-- ប៊ូតុងដាក់ប្រាក់ -->
+            <div class="deposit-container">
+                <button class="deposit-wide-btn">
+                    <i data-lucide="arrow-down"></i>
+                    <span>ដាក់ប្រាក់</span>
+                </button>
+            </div>
+
+            <!-- បញ្ជីព័ត៌មានគណនី -->
+            <div class="info-list">
+                <!-- រូបតំណាងក្រុមហ៊ុន: -->
+                <div class="info-row">
+                    <div class="row-left">
+                        <i data-lucide="camera"></i>
+                        <span>រូបតំណាងក្រុមហ៊ុន:</span>
+                    </div>
+                    <div class="row-right">
+                        <span>មាសបៃតង</span>
+                        <span class="avatar-badge" id="companyAvatarBadge"></span>
+                    </div>
+                </div>
+
+                <!-- តេឡេក្រាមគណនី: -->
+                <div class="info-row">
+                    <div class="row-left">
+                        <i data-lucide="send"></i>
+                        <span>តេឡេក្រាមគណនី:</span>
+                    </div>
+                    <div class="row-right">
+                        <span class="telegram-badge" id="assetsTelegram">BOBOTOU</span>
+                    </div>
+                </div>
+
+                <!-- ឈ្មោះអាខោន: -->
+                <div class="info-row">
+                    <div class="row-left">
+                        <i data-lucide="user"></i>
+                        <span>ឈ្មោះអាខោន:</span>
+                    </div>
+                    <div class="row-right">
+                        <span id="assetsName">កំពុងទាញយក...</span>
+                    </div>
+                </div>
+
+                <!-- លេខសម្គាល់ (UID) -->
+                <div class="info-row">
+                    <div class="row-left">
+                        <i data-lucide="mail"></i>
+                        <span>លេខសម្គាល់ (UID)</span>
+                    </div>
+                    <div class="row-right">
+                        <span id="assetsUID">100413933</span>
+                    </div>
+                </div>
+
+                <!-- ទឹកប្រាក់អតិបរមា សរុបUSD: -->
+                <div class="info-row">
+                    <div class="row-left">
+                        <i data-lucide="dollar-sign"></i>
+                        <span>ទឹកប្រាក់អតិបរមា សរុបUSD:</span>
+                    </div>
+                    <div class="row-right txt-cyan">
+                        <span>200.00 USD</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= ប៊ូតុងអូសប្ដូរទំព័រខាងក្រោម ================= -->
+        <div class="switch-dock" id="switchDock">
+            <div class="sliding-pill" id="slidingPill"></div>
+            <button class="switch-btn" id="btnHome" onclick="selectTab('home')">
+                <i data-lucide="home"></i>
+                <span>ទំព័រដើម</span>
+            </button>
+            <button class="switch-btn active" id="btnAssets" onclick="selectTab('assets')">
+                <i data-lucide="credit-card"></i>
+                <span>ទ្រព្យសកម្ម</span>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        // ========== ១. ទាញយកទិន្នន័យពី TELEGRAM WEB APP API ==========
+        const tg = window.Telegram?.WebApp;
+        if (tg) {
+            tg.expand(); // ពង្រីកពេញអេក្រង់ទូរស័ព្ទក្នុង Telegram
+            tg.ready();
+        }
+
+        const user = tg?.initDataUnsafe?.user;
+
+        if (user) {
+            // ឈ្មោះពេញ (First Name + Last Name)
+            const fullName = `${user.first_name} ${user.last_name || ''}`.trim();
+            const uid = user.id;
+            const username = user.username ? `@${user.username}` : fullName;
+
+            // ១. បញ្ចូលទិន្នន័យលើទំព័រដើម (Home Page)
+            document.getElementById('homeName').innerText = fullName;
+            document.getElementById('homeUID').innerText = `UID: ${uid}`;
+
+            // រូបភាព Profile ធំលើទំព័រដើម
+            const homeAvatar = document.getElementById('homeAvatar');
+            if (user.photo_url) {
+                homeAvatar.innerHTML = `<img src="${user.photo_url}" alt="Profile" style="width:100%; height:100%; object-fit:cover;">`;
+            } else {
+                homeAvatar.innerHTML = `<span style="font-size: 38px; font-weight: bold; color: #ffffff;">${user.first_name.charAt(0).toUpperCase()}</span>`;
+            }
+
+            // ២. បញ្ចូលទិន្នន័យលើទំព័រទ្រព្យសកម្ម (Assets Page)
+            document.getElementById('assetsName').innerText = fullName;
+            document.getElementById('assetsUID').innerText = uid;
+            document.getElementById('assetsTelegram').innerText = username;
+
+        } else {
+            // ករណីបើកសាកល្បងលើ Browser ធម្មតាក្រៅ Telegram
+            document.getElementById('homeName').innerText = "Hort Sao Mona";
+            document.getElementById('homeUID').innerText = "UID: 100413933";
+            document.getElementById('assetsName').innerText = "Hort Sao Mona";
+            document.getElementById('assetsUID').innerText = "100413933";
+            document.getElementById('assetsTelegram').innerText = "@HortSaoMona";
+        }
+
+        // ========== ២. មុខងារ Hide / Show ទឹកប្រាក់ + ប្ដូររូបភ្នែក (Eye-Off) ==========
+        let isHidden = false;
+        const eyeSvg = document.getElementById('eyeSvg');
+
+        const eyeOpenSvg = `
+            <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
+            <circle cx="12" cy="12" r="3"/>
+        `;
+
+        const eyeClosedSvg = `
+            <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/>
+            <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/>
+            <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/>
+            <line x1="2" x2="22" y1="2" y2="22"/>
+        `;
+
+        function toggleBalance() {
+            isHidden = !isHidden;
+            document.getElementById('balanceNum').innerText = isHidden ? '••••••' : '30.53';
+            document.getElementById('balanceKHR').innerText = isHidden ? '= •••••• KHR' : '= 125,173 KHR';
+            eyeSvg.innerHTML = isHidden ? eyeClosedSvg : eyeOpenSvg;
+        }
+
+        // ========== ៣. មុខងារប្ដូររវាង ទំព័រដើម (Home) និង ទ្រព្យសកម្ម (Assets) ==========
+        const slidingPill = document.getElementById('slidingPill');
+        const btnHome = document.getElementById('btnHome');
+        const btnAssets = document.getElementById('btnAssets');
+        const pageHome = document.getElementById('pageHome');
+        const pageAssets = document.getElementById('pageAssets');
+        const switchDock = document.getElementById('switchDock');
+
+        let currentTab = 'assets';
+        slidingPill.style.transform = 'translateX(100%)';
+
+        function selectTab(tab) {
+            currentTab = tab;
+            if (tab === 'home') {
+                slidingPill.style.transform = 'translateX(0%)';
+                btnHome.classList.add('active');
+                btnAssets.classList.remove('active');
+                
+                pageHome.classList.add('active');
+                pageAssets.classList.remove('active');
+            } else {
+                slidingPill.style.transform = 'translateX(100%)';
+                btnAssets.classList.add('active');
+                btnHome.classList.remove('active');
+                
+                pageAssets.classList.add('active');
+                pageHome.classList.remove('active');
+            }
+        }
+
+        // មុខងារអូសដោយម្រាមដៃ (Swipe Gesture)
+        let startX = 0;
+        switchDock.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+        }, { passive: true });
+
+        switchDock.addEventListener('touchend', (e) => {
+            let endX = e.changedTouches[0].clientX;
+            let diff = endX - startX;
+            if (diff > 30) {
+                selectTab('assets');
+            } else if (diff < -30) {
+                selectTab('home');
+            }
+        });
+    </script>
+</body>
+</html>
