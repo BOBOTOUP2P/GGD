@@ -42,7 +42,6 @@
             padding: 20px 16px 105px 16px;
         }
 
-        /* ដំណើរការ Animation ប្ដូរទំព័ររលូន */
         .page-view {
             display: none;
             width: 100%;
@@ -209,7 +208,6 @@
         }
 
         /* ================= ផ្ទាំងទ្រព្យសកម្ម (ASSETS PAGE) ================= */
-        /* ចុចលើប្រអប់នេះ ដើម្បីបើកមើលប្រវត្តិប្រតិបត្តិការ */
         .assets-section {
             width: 100%;
             display: flex;
@@ -358,7 +356,6 @@
             overflow: hidden;
         }
 
-        /* ប៊ូតុង ទំនាក់ទំនង */
         .telegram-badge {
             background-color: #00bcd4;
             color: #000000;
@@ -406,7 +403,6 @@
             color: #ffffff;
         }
 
-        /* កាតប្រវត្តិប្រតិបត្តិការដូចក្នុងរូបភាព */
         .transaction-card {
             position: relative;
             background-color: #0f1012;
@@ -421,7 +417,6 @@
             border: 1px solid #1a1a1e;
         }
 
-        /* ខ្សែបន្ទាត់ហាយឡាយពណ៌ទឹកសមុទ្រនៅគែមឆ្វេង */
         .transaction-card::before {
             content: '';
             position: absolute;
@@ -439,7 +434,6 @@
             gap: 14px;
         }
 
-        /* ប្រអប់ Icon ព្រួញចុះ */
         .trans-icon-box {
             width: 48px;
             height: 48px;
@@ -582,6 +576,7 @@
                     <div class="col-count">ដាក់ប្រាក់ចំនួនដង</div>
                 </div>
 
+                <!-- បញ្ជីសមាជិក (លោតពី Firebase ជួរទី១ ខ្លួនឯង, ទី២, ទី៣...) -->
                 <div id="homeTableList">
                     <div class="table-row table-body">
                         <div class="col-name">
@@ -604,7 +599,6 @@
             <div class="assets-section" onclick="openHistoryPage()">
                 <div class="assets-header">
                     <span>ទ្រព្យសកម្មសរុប</span>
-                    <!-- រូបភ្នែកចុចបិទ/បើកលុយ -->
                     <span onclick="event.stopPropagation(); toggleBalance();" style="display:inline-flex; align-items:center;">
                         <svg id="eyeSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
@@ -629,7 +623,6 @@
 
             <!-- បញ្ជីព័ត៌មានគណនី -->
             <div class="info-list">
-                <!-- រូបតំណាងក្រុមហ៊ុន: -->
                 <div class="info-row">
                     <div class="row-left">
                         <i data-lucide="camera"></i>
@@ -641,7 +634,6 @@
                     </div>
                 </div>
 
-                <!-- តេឡេក្រាមគណនី (ប៊ូតុង ទំនាក់ទំនង មិនផ្លាស់ប្ដូរឡើយ) -->
                 <div class="info-row">
                     <div class="row-left">
                         <i data-lucide="send"></i>
@@ -652,7 +644,6 @@
                     </div>
                 </div>
 
-                <!-- ឈ្មោះអាខោន: -->
                 <div class="info-row">
                     <div class="row-left">
                         <i data-lucide="user"></i>
@@ -663,7 +654,6 @@
                     </div>
                 </div>
 
-                <!-- លេខសម្គាល់ (UID) -->
                 <div class="info-row">
                     <div class="row-left">
                         <i data-lucide="mail"></i>
@@ -674,7 +664,6 @@
                     </div>
                 </div>
 
-                <!-- ទឹកប្រាក់អតិបរមា សរុបUSD: -->
                 <div class="info-row">
                     <div class="row-left">
                         <i data-lucide="dollar-sign"></i>
@@ -687,18 +676,16 @@
             </div>
         </div>
 
-        <!-- ================= ផ្ទាំងប្រវត្តិប្រតិបត្តិការ (HISTORY PAGE ដូចក្នុងរូបភាព) ================= -->
+        <!-- ================= ផ្ទាំងប្រវត្តិប្រតិបត្តិការ (HISTORY PAGE) ================= -->
         <div class="page-view" id="pageHistory">
-            <!-- របារខាងលើសម្រាប់ត្រឡប់ក្រោយ -->
             <div class="history-topbar">
                 <button class="history-back-btn" onclick="closeHistoryPage()">
                     <i data-lucide="arrow-left" style="width: 20px; height: 20px;"></i>
                 </button>
                 <div class="history-topbar-title">ប្រវត្តិប្រតិបត្តិការ</div>
-                <div style="width: 38px;"></div> <!-- Spacer -->
+                <div style="width: 38px;"></div>
             </div>
 
-            <!-- កាតប្រតិបត្តិការដូចក្នុងរូបភាព ១០០% -->
             <div class="transaction-card">
                 <div class="trans-left">
                     <div class="trans-icon-box">
@@ -715,7 +702,6 @@
                 </div>
             </div>
 
-            <!-- ឧទាហរណ៍ប្រតិបត្តិការមុនៗ -->
             <div class="transaction-card">
                 <div class="trans-left">
                     <div class="trans-icon-box">
@@ -750,9 +736,8 @@
     <!-- Firebase Script + Logic -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, doc, setDoc, getDoc, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getFirestore, doc, setDoc, getDoc, collection, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-        // ១. Firebase Configuration
         const firebaseConfig = {
             apiKey: "AIzaSyC6dWAkX-4NfuBLG6vqAAf8DBET1F2NDdQ",
             authDomain: "my-new-multi-game.firebaseapp.com",
@@ -766,7 +751,7 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // ២. ចាប់យក Telegram WebApp User
+        // ចាប់យក Telegram WebApp API
         const tg = window.Telegram?.WebApp;
         if (tg) {
             tg.expand();
@@ -775,20 +760,35 @@
 
         const tgUser = tg?.initDataUnsafe?.user;
 
-        let currentUser = {
-            name: "(…)",
-            uid: "100413933",
-            photo: "",
-            depositCount: 1
-        };
+        let currentUser = {};
 
-        if (tgUser) {
-            currentUser.name = `${tgUser.first_name} ${tgUser.last_name || ''}`.trim();
-            currentUser.uid = tgUser.id.toString();
-            currentUser.photo = tgUser.photo_url || "";
+        // ប្រសិនបើបើកក្នុង Telegram
+        if (tgUser && tgUser.id) {
+            currentUser = {
+                name: `${tgUser.first_name || ''} ${tgUser.last_name || ''}`.trim() || "(…)",
+                uid: tgUser.id.toString(),
+                photo: tgUser.photo_url || "",
+                depositCount: 1
+            };
+        } else {
+            // ប្រសិនបើសាកល្បងក្រៅ Telegram (បង្កើត Unique UID សម្រាប់ឧបករណ៍នីមួយៗ មិនឲ្យជាន់គ្នា)
+            let storedUID = localStorage.getItem("app_user_uid");
+            let storedName = localStorage.getItem("app_user_name");
+            if (!storedUID) {
+                storedUID = "100" + Math.floor(100000 + Math.random() * 900000);
+                storedName = "សមាជិក " + storedUID.slice(-3);
+                localStorage.setItem("app_user_uid", storedUID);
+                localStorage.setItem("app_user_name", storedName);
+            }
+            currentUser = {
+                name: storedName,
+                uid: storedUID,
+                photo: "",
+                depositCount: 1
+            };
         }
 
-        // ដាក់ទិន្នន័យលើ UI (ប៊ូតុងតេឡេក្រាមមិនកែឡើយ គឺនៅជា «ទំនាក់ទំនង» ដដែល)
+        // បង្ហាញទិន្នន័យខ្លួនឯងភ្លាមៗលើ UI
         document.getElementById('homeName').innerText = currentUser.name;
         document.getElementById('homeUID').innerText = `UID: ${currentUser.uid}`;
         document.getElementById('myRowName').innerText = currentUser.name;
@@ -801,7 +801,7 @@
             document.getElementById('myRowAvatar').innerHTML = `<img src="${currentUser.photo}" alt="Profile" style="width:100%; height:100%; object-fit:cover;">`;
         }
 
-        // ៣. រក្សាទុក និងទាញយកទិន្នន័យចូល Firebase
+        // រក្សាទុកសមាជិកចូលទៅក្នុង Firebase Firestore
         async function syncUserToFirebase() {
             try {
                 const userRef = doc(db, "users", currentUser.uid);
@@ -813,11 +813,12 @@
                         uid: currentUser.uid,
                         photo: currentUser.photo,
                         depositCount: 1,
-                        createdAt: Date.now()
+                        joinedAt: Date.now()
                     });
                 } else {
                     const data = userSnap.data();
                     currentUser.depositCount = data.depositCount || 1;
+                    currentUser.name = data.name || currentUser.name;
                     document.getElementById('myRowCount').innerText = currentUser.depositCount;
 
                     await setDoc(userRef, {
@@ -826,56 +827,68 @@
                     }, { merge: true });
                 }
             } catch (error) {
-                console.error("Firebase Error:", error);
+                console.error("Firestore Save Error:", error);
+                if (error.code === 'permission-denied') {
+                    alert("Firebase Error: សូមចូលទៅ Firebase Console -> Firestore -> Rules ហើយដាក់ allow read, write: if true;");
+                }
             }
         }
 
         syncUserToFirebase();
 
-        // ៤. ទាញទិន្នន័យសមាជិកទាំងអស់ (ខ្លួនឯងជាលេខ ១ ជានិច្ច)
-        onSnapshot(collection(db, "users"), (snapshot) => {
-            const tableBody = document.getElementById("homeTableList");
-            
-            let html = `
-                <div class="table-row table-body">
-                    <div class="col-name">
-                        <span>1.</span>
-                        <span class="mini-profile-avatar">
-                            ${currentUser.photo ? `<img src="${currentUser.photo}" style="width:100%; height:100%; object-fit:cover;">` : `<i data-lucide="user"></i>`}
-                        </span>
-                        <span class="name-text">${currentUser.name}</span>
-                    </div>
-                    <div class="col-uid">${currentUser.uid}</div>
-                    <div class="col-count">${currentUser.depositCount}</div>
-                </div>
-            `;
-
-            let index = 2;
-            snapshot.forEach((docSnap) => {
-                const data = docSnap.data();
-                if (data.uid !== currentUser.uid) {
-                    html += `
-                        <div class="table-row table-body">
-                            <div class="col-name">
-                                <span>${index}.</span>
-                                <span class="mini-profile-avatar">
-                                    ${data.photo ? `<img src="${data.photo}" style="width:100%; height:100%; object-fit:cover;">` : `<i data-lucide="user"></i>`}
-                                </span>
-                                <span class="name-text">${data.name || '(…)'}</span>
-                            </div>
-                            <div class="col-uid">${data.uid || 'N/A'}</div>
-                            <div class="col-count">${data.depositCount || 0}</div>
+        // ទាញយកសមាជិកទាំងអស់មកបង្ហាញក្នុងតារាង Real-time (ជួរទី១ ខ្លួនឯង, ជួរទី២, ទី៣... សមាជិកផ្សេងៗ)
+        try {
+            const usersQuery = query(collection(db, "users"), orderBy("joinedAt", "asc"));
+            onSnapshot(usersQuery, (snapshot) => {
+                const tableBody = document.getElementById("homeTableList");
+                
+                // ជួរទី១ គឺខ្លួនឯងជានិច្ច
+                let html = `
+                    <div class="table-row table-body">
+                        <div class="col-name">
+                            <span>1.</span>
+                            <span class="mini-profile-avatar">
+                                ${currentUser.photo ? `<img src="${currentUser.photo}" style="width:100%; height:100%; object-fit:cover;">` : `<i data-lucide="user"></i>`}
+                            </span>
+                            <span class="name-text">${currentUser.name}</span>
                         </div>
-                    `;
-                    index++;
-                }
+                        <div class="col-uid">${currentUser.uid}</div>
+                        <div class="col-count">${currentUser.depositCount}</div>
+                    </div>
+                `;
+
+                // រាប់បន្ថែមសមាជិកដទៃទៀត (ជួរទី២, ទី៣...)
+                let index = 2;
+                snapshot.forEach((docSnap) => {
+                    const data = docSnap.data();
+                    if (data.uid !== currentUser.uid) {
+                        html += `
+                            <div class="table-row table-body">
+                                <div class="col-name">
+                                    <span>${index}.</span>
+                                    <span class="mini-profile-avatar">
+                                        ${data.photo ? `<img src="${data.photo}" style="width:100%; height:100%; object-fit:cover;">` : `<i data-lucide="user"></i>`}
+                                    </span>
+                                    <span class="name-text">${data.name || '(…)'}</span>
+                                </div>
+                                <div class="col-uid">${data.uid || 'N/A'}</div>
+                                <div class="col-count">${data.depositCount || 0}</div>
+                            </div>
+                        `;
+                        index++;
+                    }
+                });
+
+                tableBody.innerHTML = html;
+                lucide.createIcons();
+            }, (err) => {
+                console.error("Firestore Listen Error:", err);
             });
+        } catch (e) {
+            console.error(e);
+        }
 
-            tableBody.innerHTML = html;
-            lucide.createIcons();
-        });
-
-        // ៥. មុខងារ Hide / Show ទឹកប្រាក់
+        // មុខងារ Hide / Show ទឹកប្រាក់
         window.toggleBalance = function() {
             let isHidden = document.getElementById('balanceNum').innerText.includes('•');
             const eyeSvg = document.getElementById('eyeSvg');
@@ -894,7 +907,7 @@
             }
         };
 
-        // ៦. មុខងារបើក/បិទ ផ្ទាំងប្រវត្តិប្រតិបត្តិការ (History)
+        // មុខងារបើក/បិទ ផ្ទាំងប្រវត្តិប្រតិបត្តិការ (History)
         const pageAssets = document.getElementById('pageAssets');
         const pageHistory = document.getElementById('pageHistory');
         const switchDock = document.getElementById('switchDock');
@@ -902,23 +915,22 @@
         window.openHistoryPage = function() {
             pageAssets.classList.remove('active');
             pageHistory.classList.add('active');
-            switchDock.style.display = 'none'; // លាក់ប៊ូតុងអូសបណ្ដោះអាសន្នក្នុងទំព័រ History
+            switchDock.style.display = 'none';
         };
 
         window.closeHistoryPage = function() {
             pageHistory.classList.remove('active');
             pageAssets.classList.add('active');
-            switchDock.style.display = 'flex'; // បង្ហាញប៊ូតុងអូសមកវិញ
+            switchDock.style.display = 'flex';
         };
 
-        // ៧. មុខងារប្ដូរ Tab ខាងក្រោម
+        // មុខងារប្ដូរ Tab ខាងក្រោម
         const slidingPill = document.getElementById('slidingPill');
         const btnHome = document.getElementById('btnHome');
         const btnAssets = document.getElementById('btnAssets');
         const pageHome = document.getElementById('pageHome');
 
         window.selectTab = function(tab) {
-            // បិទផ្ទាំង History បើកំពុងបើក
             pageHistory.classList.remove('active');
             switchDock.style.display = 'flex';
 
