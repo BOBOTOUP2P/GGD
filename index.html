@@ -68,7 +68,6 @@
             width: 100%;
         }
 
-        /* រង្វង់មូលរូបភាព Profile ខ្លួនឯង */
         .account-avatar-lg {
             width: 95px;
             height: 95px;
@@ -113,7 +112,6 @@
             margin-bottom: 24px;
         }
 
-        /* តារាងបញ្ជី (Table Card) នៅទំព័រដើម */
         .home-table-card {
             width: 100%;
             background-color: #0b0b0d;
@@ -211,6 +209,7 @@
         }
 
         /* ================= ផ្ទាំងទ្រព្យសកម្ម (ASSETS PAGE) ================= */
+        /* ចុចលើប្រអប់នេះ ដើម្បីបើកមើលប្រវត្តិប្រតិបត្តិការ */
         .assets-section {
             width: 100%;
             display: flex;
@@ -223,6 +222,13 @@
             border-radius: 18px;
             background-color: #0b0b0d;
             margin-top: 4px;
+            cursor: pointer;
+            transition: border-color 0.2s, background-color 0.2s;
+        }
+
+        .assets-section:active {
+            border-color: #00bcd4;
+            background-color: #101014;
         }
 
         .assets-header {
@@ -232,7 +238,6 @@
             gap: 8px;
             color: #8e8e93;
             font-size: 14.5px;
-            cursor: pointer;
             user-select: none;
         }
 
@@ -353,19 +358,139 @@
             overflow: hidden;
         }
 
+        /* ប៊ូតុង ទំនាក់ទំនង */
         .telegram-badge {
             background-color: #00bcd4;
             color: #000000;
-            font-size: 12px;
+            font-size: 13px;
             font-weight: 700;
-            padding: 4px 10px;
-            border-radius: 4px;
-            letter-spacing: 0.5px;
+            padding: 5px 12px;
+            border-radius: 6px;
+            letter-spacing: 0.3px;
+            cursor: pointer;
+            border: none;
+            display: inline-block;
         }
 
         .txt-cyan {
             color: #00bcd4;
             font-weight: 600;
+        }
+
+        /* ================= ផ្ទាំងប្រវត្តិប្រតិបត្តិការ (HISTORY PAGE) ================= */
+        .history-topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-bottom: 16px;
+            border-bottom: 1px solid #1a1a1f;
+            margin-bottom: 18px;
+        }
+
+        .history-back-btn {
+            background: #141416;
+            border: 1px solid #27272e;
+            color: #ffffff;
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .history-topbar-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        /* កាតប្រវត្តិប្រតិបត្តិការដូចក្នុងរូបភាព */
+        .transaction-card {
+            position: relative;
+            background-color: #0f1012;
+            border-radius: 18px;
+            padding: 16px 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+            border: 1px solid #1a1a1e;
+        }
+
+        /* ខ្សែបន្ទាត់ហាយឡាយពណ៌ទឹកសមុទ្រនៅគែមឆ្វេង */
+        .transaction-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 6px;
+            bottom: 6px;
+            width: 4.5px;
+            background-color: #00d2d3;
+            border-radius: 4px;
+        }
+
+        .trans-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        /* ប្រអប់ Icon ព្រួញចុះ */
+        .trans-icon-box {
+            width: 48px;
+            height: 48px;
+            background-color: #121e24;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .trans-icon-box svg {
+            width: 22px;
+            height: 22px;
+            color: #ffffff;
+            stroke-width: 2.5;
+        }
+
+        .trans-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .trans-title {
+            font-size: 17.5px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .trans-date {
+            font-size: 13.5px;
+            color: #75757d;
+        }
+
+        .trans-right {
+            text-align: right;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .trans-amount {
+            font-size: 18.5px;
+            font-weight: 700;
+            color: #00d2d3;
+        }
+
+        .trans-status {
+            font-size: 14px;
+            font-weight: 600;
+            color: #00d2d3;
         }
 
         /* ========== ប៊ូតុងអូសខាងក្រោម ========== */
@@ -440,31 +565,24 @@
 
         <!-- ================= ផ្ទាំងទំព័រដើម (HOME PAGE) ================= -->
         <div class="page-view home-content" id="pageHome">
-            <!-- រង្វង់មូលរូបភាព Profile ខ្លួនឯង -->
             <div class="account-avatar-lg" id="homeAvatar">
                 <i data-lucide="user"></i>
             </div>
 
-            <!-- ឈ្មោះគណនី -->
             <div class="account-name-lg" id="homeName">(…)</div>
 
-            <!-- UID គណនី -->
             <div class="account-uid-lg">
                 <span id="homeUID">UID: 100413933</span>
             </div>
 
-            <!-- តារាងព័ត៌មាន (គ្មានទទេឡើយ គឺមានខ្លួនឯងជាលេខ ១ ជានិច្ច) -->
             <div class="home-table-card">
-                <!-- ជួរចំណងជើង -->
                 <div class="table-row table-header">
                     <div class="col-name">0. ឈ្មោះ</div>
                     <div class="col-uid">UID</div>
                     <div class="col-count">ដាក់ប្រាក់ចំនួនដង</div>
                 </div>
 
-                <!-- បញ្ជីទិន្នន័យ -->
                 <div id="homeTableList">
-                    <!-- ជួរទី១ គឺខ្លួនឯងជានិច្ច -->
                     <div class="table-row table-body">
                         <div class="col-name">
                             <span>1.</span>
@@ -482,14 +600,17 @@
 
         <!-- ================= ផ្ទាំងទ្រព្យសកម្ម (ASSETS PAGE) ================= -->
         <div class="page-view active" id="pageAssets">
-            <!-- ទ្រព្យសកម្មសរុប -->
-            <div class="assets-section">
-                <div class="assets-header" onclick="toggleBalance()">
+            <!-- ចុចលើប្រអប់នេះដើម្បីបើកមើលប្រវត្តិប្រតិបត្តិការ (History) -->
+            <div class="assets-section" onclick="openHistoryPage()">
+                <div class="assets-header">
                     <span>ទ្រព្យសកម្មសរុប</span>
-                    <svg id="eyeSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
-                        <circle cx="12" cy="12" r="3"/>
-                    </svg>
+                    <!-- រូបភ្នែកចុចបិទ/បើកលុយ -->
+                    <span onclick="event.stopPropagation(); toggleBalance();" style="display:inline-flex; align-items:center;">
+                        <svg id="eyeSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
+                            <circle cx="12" cy="12" r="3"/>
+                        </svg>
+                    </span>
                 </div>
                 <div class="balance-row">
                     <span class="balance-val" id="balanceNum">30.53</span>
@@ -516,18 +637,18 @@
                     </div>
                     <div class="row-right">
                         <span>មាសបៃតង</span>
-                        <span class="avatar-badge" id="companyAvatarBadge"></span>
+                        <span class="avatar-badge"></span>
                     </div>
                 </div>
 
-                <!-- តេឡេក្រាមគណនី: -->
+                <!-- តេឡេក្រាមគណនី (ប៊ូតុង ទំនាក់ទំនង មិនផ្លាស់ប្ដូរឡើយ) -->
                 <div class="info-row">
                     <div class="row-left">
                         <i data-lucide="send"></i>
                         <span>តេឡេក្រាមគណនី:</span>
                     </div>
                     <div class="row-right">
-                        <span class="telegram-badge" id="assetsTelegram">@</span>
+                        <span class="telegram-badge">ទំនាក់ទំនង</span>
                     </div>
                 </div>
 
@@ -562,6 +683,52 @@
                     <div class="row-right txt-cyan">
                         <span>200.00 USD</span>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================= ផ្ទាំងប្រវត្តិប្រតិបត្តិការ (HISTORY PAGE ដូចក្នុងរូបភាព) ================= -->
+        <div class="page-view" id="pageHistory">
+            <!-- របារខាងលើសម្រាប់ត្រឡប់ក្រោយ -->
+            <div class="history-topbar">
+                <button class="history-back-btn" onclick="closeHistoryPage()">
+                    <i data-lucide="arrow-left" style="width: 20px; height: 20px;"></i>
+                </button>
+                <div class="history-topbar-title">ប្រវត្តិប្រតិបត្តិការ</div>
+                <div style="width: 38px;"></div> <!-- Spacer -->
+            </div>
+
+            <!-- កាតប្រតិបត្តិការដូចក្នុងរូបភាព ១០០% -->
+            <div class="transaction-card">
+                <div class="trans-left">
+                    <div class="trans-icon-box">
+                        <i data-lucide="arrow-down"></i>
+                    </div>
+                    <div class="trans-info">
+                        <div class="trans-title">Deposit</div>
+                        <div class="trans-date">30/01/2026 22:02</div>
+                    </div>
+                </div>
+                <div class="trans-right">
+                    <div class="trans-amount">+10.03 USD</div>
+                    <div class="trans-status">Completed</div>
+                </div>
+            </div>
+
+            <!-- ឧទាហរណ៍ប្រតិបត្តិការមុនៗ -->
+            <div class="transaction-card">
+                <div class="trans-left">
+                    <div class="trans-icon-box">
+                        <i data-lucide="arrow-down"></i>
+                    </div>
+                    <div class="trans-info">
+                        <div class="trans-title">Deposit</div>
+                        <div class="trans-date">28/01/2026 15:40</div>
+                    </div>
+                </div>
+                <div class="trans-right">
+                    <div class="trans-amount">+20.50 USD</div>
+                    <div class="trans-status">Completed</div>
                 </div>
             </div>
         </div>
@@ -608,11 +775,9 @@
 
         const tgUser = tg?.initDataUnsafe?.user;
 
-        // ទិន្នន័យខ្លួនឯង (Default គឺ (…) និង 100413933)
         let currentUser = {
             name: "(…)",
             uid: "100413933",
-            username: "@",
             photo: "",
             depositCount: 1
         };
@@ -620,18 +785,16 @@
         if (tgUser) {
             currentUser.name = `${tgUser.first_name} ${tgUser.last_name || ''}`.trim();
             currentUser.uid = tgUser.id.toString();
-            currentUser.username = tgUser.username ? `@${tgUser.username}` : "@";
             currentUser.photo = tgUser.photo_url || "";
         }
 
-        // ដាក់ទិន្នន័យខ្លួនឯងលើ UI ភ្លាមៗ (ធានាមិនឲ្យទទេ)
+        // ដាក់ទិន្នន័យលើ UI (ប៊ូតុងតេឡេក្រាមមិនកែឡើយ គឺនៅជា «ទំនាក់ទំនង» ដដែល)
         document.getElementById('homeName').innerText = currentUser.name;
         document.getElementById('homeUID').innerText = `UID: ${currentUser.uid}`;
         document.getElementById('myRowName').innerText = currentUser.name;
         document.getElementById('myRowUID').innerText = currentUser.uid;
         document.getElementById('assetsName').innerText = currentUser.name;
         document.getElementById('assetsUID').innerText = currentUser.uid;
-        document.getElementById('assetsTelegram').innerText = currentUser.username;
 
         if (currentUser.photo) {
             document.getElementById('homeAvatar').innerHTML = `<img src="${currentUser.photo}" alt="Profile" style="width:100%; height:100%; object-fit:cover;">`;
@@ -648,7 +811,6 @@
                     await setDoc(userRef, {
                         name: currentUser.name,
                         uid: currentUser.uid,
-                        username: currentUser.username,
                         photo: currentUser.photo,
                         depositCount: 1,
                         createdAt: Date.now()
@@ -660,7 +822,6 @@
 
                     await setDoc(userRef, {
                         name: currentUser.name,
-                        username: currentUser.username,
                         photo: currentUser.photo
                     }, { merge: true });
                 }
@@ -671,11 +832,10 @@
 
         syncUserToFirebase();
 
-        // ៤. ទាញទិន្នន័យសមាជិកទាំងអស់ (ខ្លួនឯងជាលេខ ១ ជានិច្ច ហើយអ្នកផ្សេងរាប់បន្ត ២, ៣...)
+        // ៤. ទាញទិន្នន័យសមាជិកទាំងអស់ (ខ្លួនឯងជាលេខ ១ ជានិច្ច)
         onSnapshot(collection(db, "users"), (snapshot) => {
             const tableBody = document.getElementById("homeTableList");
             
-            // ជួរទី១ គឺខ្លួនឯងជានិច្ច
             let html = `
                 <div class="table-row table-body">
                     <div class="col-name">
@@ -690,7 +850,6 @@
                 </div>
             `;
 
-            // សមាជិកដទៃទៀត (Exclude ខ្លួនឯងកុំឲ្យជាន់គ្នា)
             let index = 2;
             snapshot.forEach((docSnap) => {
                 const data = docSnap.data();
@@ -716,7 +875,7 @@
             lucide.createIcons();
         });
 
-        // ៥. មុខងារប្ដូរ Tab និង Hide/Show ទឹកប្រាក់
+        // ៥. មុខងារ Hide / Show ទឹកប្រាក់
         window.toggleBalance = function() {
             let isHidden = document.getElementById('balanceNum').innerText.includes('•');
             const eyeSvg = document.getElementById('eyeSvg');
@@ -735,14 +894,34 @@
             }
         };
 
+        // ៦. មុខងារបើក/បិទ ផ្ទាំងប្រវត្តិប្រតិបត្តិការ (History)
+        const pageAssets = document.getElementById('pageAssets');
+        const pageHistory = document.getElementById('pageHistory');
+        const switchDock = document.getElementById('switchDock');
+
+        window.openHistoryPage = function() {
+            pageAssets.classList.remove('active');
+            pageHistory.classList.add('active');
+            switchDock.style.display = 'none'; // លាក់ប៊ូតុងអូសបណ្ដោះអាសន្នក្នុងទំព័រ History
+        };
+
+        window.closeHistoryPage = function() {
+            pageHistory.classList.remove('active');
+            pageAssets.classList.add('active');
+            switchDock.style.display = 'flex'; // បង្ហាញប៊ូតុងអូសមកវិញ
+        };
+
+        // ៧. មុខងារប្ដូរ Tab ខាងក្រោម
         const slidingPill = document.getElementById('slidingPill');
         const btnHome = document.getElementById('btnHome');
         const btnAssets = document.getElementById('btnAssets');
         const pageHome = document.getElementById('pageHome');
-        const pageAssets = document.getElementById('pageAssets');
-        const switchDock = document.getElementById('switchDock');
 
         window.selectTab = function(tab) {
+            // បិទផ្ទាំង History បើកំពុងបើក
+            pageHistory.classList.remove('active');
+            switchDock.style.display = 'flex';
+
             if (tab === 'home') {
                 slidingPill.style.transform = 'translateX(0%)';
                 btnHome.classList.add('active');
