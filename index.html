@@ -1,1 +1,1319 @@
-<!DOCTYPE html><html lang="km"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>កាបូបឌីជីថល KBK Wallet</title><script src="https://telegram.org/js/telegram-web-app.js"></script><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;500;600;700&display=swap" rel="stylesheet"><script src="https://unpkg.com/lucide@latest"></script><style>*{margin:0;padding:0;box-sizing:border-box;font-family:'Kantumruy Pro',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;-webkit-tap-highlight-color:transparent;scrollbar-width:none;-ms-overflow-style:none;}*::-webkit-scrollbar{display:none;width:0px;height:0px;background:transparent;}html,body{width:100%;min-height:100vh;background-color:#000000;color:#ffffff;overflow-x:hidden;}.app-container{width:100%;min-height:100vh;background-color:#000000;display:flex;flex-direction:column;position:relative;padding:20px 16px 105px 16px;transition:padding 0.3s ease;}.page-view{display:none;width:100%;animation:fadeIn 0.25s ease forwards;}.page-view.active{display:flex;flex-direction:column;}@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}#splashScreen{position:fixed;top:0;left:0;width:100vw;height:100vh;background-color:#000000;display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:99999;transition:opacity 0.5s ease,visibility 0.5s ease;padding:20px;}#splashScreen.fade-out{opacity:0;visibility:hidden;pointer-events:none;}.piggy-svg{width:88vw;max-width:340px;height:auto;aspect-ratio:1/1;overflow:visible;filter:drop-shadow(0 6px 25px rgba(0,0,0,0.9));}.line-art{stroke:#71717a;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;}.highlight-line{stroke:#a1a1aa;stroke-width:1.4;stroke-linecap:round;fill:none;opacity:0.5;}.coin-drop-loop{animation:coinFloatAndDrop 2.2s infinite ease-in-out;transform-origin:140px 105px;}@keyframes coinFloatAndDrop{0%{transform:translateY(-60px);opacity:0;}20%{transform:translateY(-40px);opacity:1;}65%{transform:translateY(-2px);opacity:1;}80%,100%{transform:translateY(30px) scale(0.7);opacity:0;}}.pig-shake{animation:pigJiggle 2.2s infinite ease-in-out;transform-origin:bottom center;}@keyframes pigJiggle{0%,65%,100%{transform:scale(1);}72%{transform:scale(1.03,0.97);}82%{transform:scale(0.98,1.02);}}.splash-counter{margin-top:20px;font-size:1.5rem;font-weight:bold;color:#f1f5f9;letter-spacing:0.5px;text-shadow:0 0 15px rgba(255,255,255,0.25);text-align:center;}.horizontal-line{width:88%;max-width:460px;height:2px;margin-top:10px;background:linear-gradient(90deg,transparent 0%,rgba(56,189,248,0.2) 15%,rgba(56,189,248,1) 50%,rgba(56,189,248,0.2) 85%,transparent 100%);box-shadow:0 0 10px rgba(56,189,248,0.8),0 0 20px rgba(56,189,248,0.4);border-radius:50%;}.progress-section{width:88%;max-width:460px;margin-top:30px;display:flex;flex-direction:column;}.percentage-text{color:#38bdf8;font-size:1.1rem;font-weight:bold;margin-bottom:6px;text-shadow:0 0 8px rgba(56,189,248,0.6);align-self:flex-end;font-variant-numeric:tabular-nums;}.progress-bar-bg{width:100%;height:4px;background:rgba(255,255,255,0.1);border-radius:5px;overflow:hidden;position:relative;}.progress-bar-fill{width:0%;height:100%;background:linear-gradient(90deg,#0284c7,#38bdf8);box-shadow:0 0 10px #38bdf8,0 0 20px #38bdf8;border-radius:5px;transition:width 0.05s linear;}.home-content{align-items:center;justify-content:flex-start;padding-top:40px;text-align:center;width:100%;}#homeProfileSection{display:flex;flex-direction:column;align-items:center;width:100%;}.account-avatar-lg{width:95px;height:95px;border-radius:50%;border:1.5px solid #71717a;background:radial-gradient(circle,#f59e0b 35%,#05684d 75%,#022c22 100%);box-shadow:0 4px 15px rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:center;margin-bottom:14px;overflow:hidden;}.account-avatar-lg svg{width:44px;height:44px;color:rgba(255,255,255,0.85);}.account-name-lg{font-size:22px;font-weight:700;color:#ffffff;margin-bottom:8px;max-width:90%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}.account-uid-lg{font-size:14.5px;color:#d1d1d6;background-color:#0d0d11;padding:6px 16px;border-radius:20px;border:1.3px solid #71717a;display:inline-flex;align-items:center;gap:6px;margin-bottom:20px;}.home-table-card{width:100%;background-color:#0b0b0d;border:1.3px solid #71717a;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.5);display:flex;flex-direction:column;}.table-row{display:flex;align-items:center;justify-content:space-between;padding:13px 12px;gap:6px;min-height:48px;}.table-header{background-color:#121217;border-bottom:1.3px solid #2e2e36;font-size:13px;font-weight:600;color:#d1d1d6;position:sticky;top:0;z-index:10;}#homeTableList{max-height:288px;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;}.table-body{font-size:14px;font-weight:500;color:#ffffff;border-bottom:1px solid #18181c;}.table-body:last-child{border-bottom:none;}.col-name{flex:2;display:flex;align-items:center;gap:6px;text-align:left;min-width:0;white-space:nowrap;}.header-col-name{display:flex;align-items:center;justify-content:space-between;gap:8px;padding-right:6px;}.name-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:13.8px;font-weight:500;}.col-uid{flex:1.1;text-align:center;font-size:13px;white-space:nowrap;}.col-count{flex:1.1;text-align:right;font-size:13.5px;white-space:nowrap;}.table-header .col-uid{color:#00bcd4;}.table-body .col-count{color:#00bcd4;font-weight:700;}.mini-profile-avatar{width:25px;height:25px;border-radius:50%;border:1.3px solid #71717a;background:radial-gradient(circle,#f59e0b 35%,#05684d 75%,#022c22 100%);display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;cursor:pointer;transition:transform 0.15s ease;}.mini-profile-avatar:active{transform:scale(0.85);}.mini-profile-avatar svg{width:12px;height:12px;color:#ffffff;}.view-all-btn{background-color:#0e0e12;border:1.3px solid #71717a;color:#ffffff;padding:3px 8px;border-radius:7px;font-size:11px;font-weight:600;cursor:pointer;display:none;align-items:center;gap:4px;}.view-all-btn svg{width:12px;height:12px;stroke-width:2.2;color:#ffffff;}.app-container.table-fullscreen #homeProfileSection{display:none !important;}.app-container.table-fullscreen .home-content{padding-top:10px;height:calc(100vh - 120px);}.app-container.table-fullscreen .home-table-card{height:100%;}.app-container.table-fullscreen #homeTableList{max-height:none;flex:1;}.profile-modal{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.85);backdrop-filter:blur(8px);z-index:999999;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.3s ease;padding:20px;}.profile-modal.active{opacity:1;pointer-events:auto;}.modal-card{background:#0b0b0f;border:1.4px solid #71717a;border-radius:24px;padding:32px 20px 26px 20px;text-align:center;width:100%;max-width:320px;box-shadow:0 10px 40px rgba(0,0,0,0.9);position:relative;transform:scale(0.9);transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1);}.profile-modal.active .modal-card{transform:scale(1);}.modal-close-btn{position:absolute;top:14px;right:14px;background:#181820;border:1px solid #3f3f46;color:#ffffff;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:10;}.modal-avatar-wrapper{width:130px;height:130px;border-radius:50%;border:2px solid #00bcd4;margin:0 auto 16px auto;overflow:hidden;box-shadow:0 0 25px rgba(0,188,212,0.35);display:flex;align-items:center;justify-content:center;background:radial-gradient(circle,#f59e0b 35%,#05684d 75%,#022c22 100%);cursor:pointer;transition:all 0.35s cubic-bezier(0.25,1,0.5,1);}.modal-avatar-wrapper img{width:100%;height:100%;object-fit:cover;}.modal-avatar-wrapper.square-mode{width:250px;height:250px;border-radius:18px;box-shadow:0 10px 35px rgba(0,188,212,0.45);}.modal-user-name{font-size:21px;font-weight:700;color:#ffffff;margin-bottom:6px;}.modal-user-uid{font-size:13.5px;color:#a1a1aa;background:#121218;padding:5px 14px;border-radius:14px;border:1px solid #3f3f46;display:inline-block;}.wallet-wrapper{display:flex;justify-content:center;align-items:center;padding:65px 0 25px 0;width:100%;}.wallet-container{position:relative;width:100%;max-width:340px;height:215px;cursor:pointer;user-select:none;}.bill{position:absolute;width:calc(100% - 44px);height:105px;background-color:#0e0e12;border:1.4px solid #71717a;border-radius:14px;left:22px;top:62px;transition:transform 0.42s cubic-bezier(0.2,0.9,0.3,1.1);display:flex;justify-content:space-between;align-items:center;padding:0 20px;z-index:1;box-shadow:0 4px 15px rgba(0,0,0,0.5);}.bill-text{font-size:19px;font-weight:bold;color:#22c55e;letter-spacing:0.5px;display:inline-flex;align-items:center;gap:5px;}.bill-text svg{width:19px;height:19px;stroke-width:2.6;color:#22c55e;stroke:#22c55e;}.bill-symbol{font-size:22px;font-weight:bold;color:#e4e4e7;border:1.4px dashed #8e8e96;border-radius:50%;width:46px;height:46px;display:flex;justify-content:center;align-items:center;}.bill-2{top:58px;transform:rotate(-3deg);}.bill-1{top:62px;transform:rotate(2deg);}.coin{position:absolute;width:52px;height:52px;background-color:#0e0e12;border:1.4px solid #71717a;border-radius:50%;right:28px;top:66px;z-index:2;display:flex;justify-content:center;align-items:center;transition:transform 0.42s cubic-bezier(0.2,0.9,0.3,1.1);cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.6);}.coin svg{width:22px;height:22px;stroke-width:2.2;color:#e4e4e7;stroke:#e4e4e7;}.wallet-back{position:absolute;bottom:0;width:100%;height:170px;background-color:#08080b;border:1.4px solid #71717a;border-radius:22px;z-index:0;}.wallet-body{position:absolute;bottom:0;width:100%;height:150px;background-color:#0b0b0f;border:1.4px solid #71717a;border-radius:16px 16px 22px 22px;z-index:3;display:flex;flex-direction:column;justify-content:center;align-items:center;padding-right:25px;box-shadow:0 6px 25px rgba(0,0,0,0.8);}.wallet-body::after{content:'';position:absolute;top:8px;left:8px;right:8px;bottom:8px;border:1.4px dashed #71717a;border-radius:14px;pointer-events:none;}.wallet-label-row{display:flex;align-items:center;gap:7px;color:#a1a1aa;font-size:13.5px;font-weight:500;margin-bottom:3px;z-index:5;user-select:none;}.wallet-eye-btn{background:none;border:none;color:#ffffff;cursor:pointer;display:inline-flex;align-items:center;padding:0;}.wallet-eye-btn svg{width:17px;height:17px;stroke-width:1.8;color:#ffffff;}.wallet-amount{z-index:5;display:inline-flex;align-items:baseline;gap:6px;user-select:none;}.wallet-val{font-size:34px;font-weight:800;color:#ffffff;letter-spacing:0.5px;}.wallet-cur{font-size:17px;font-weight:700;color:#ffffff;letter-spacing:0.5px;}.wallet-deposit-tag{position:absolute;bottom:14px;right:18px;z-index:6;display:inline-flex;align-items:center;gap:5px;padding:4px 10px;background-color:rgba(255,255,255,0.05);border:1.4px dashed #71717a;border-radius:8px;color:#e4e4e7;font-size:12.5px;font-weight:600;letter-spacing:0.5px;cursor:pointer;transition:all 0.2s ease;}.wallet-deposit-tag:active{transform:scale(0.92);background-color:rgba(255,255,255,0.1);border-color:#a1a1aa;}.wallet-deposit-tag svg{width:13px;height:13px;stroke-width:2.5;color:#e4e4e7;}.wallet-flap{position:absolute;right:-8px;top:42px;width:85px;height:54px;background-color:#0b0b0f;border:1.4px solid #71717a;border-radius:10px 25px 25px 10px;z-index:4;display:flex;align-items:center;justify-content:flex-end;padding-right:14px;transition:all 0.3s ease;}.wallet-button{width:22px;height:22px;background-color:#27272e;border:1.4px solid #71717a;border-radius:50%;}.wallet-container.open .bill-1{transform:translateY(-88px) rotate(8deg);}.wallet-container.open .bill-2{transform:translateY(-80px) rotate(-10deg);}.wallet-container.open .coin{transform:translateY(-88px) rotate(15deg);}.wallet-container.open .wallet-flap{transform:rotate(-20deg) translateX(8px);}.info-list{width:100%;display:flex;flex-direction:column;margin-top:10px;}.info-row{width:100%;display:flex;align-items:center;justify-content:space-between;padding:16px 2px;border-bottom:1px solid #171719;}.row-left{display:flex;align-items:center;gap:14px;font-size:14.5px;color:#ffffff;}.row-left svg{color:#00bcd4;width:20px;height:20px;stroke-width:2;}.row-right{display:flex;align-items:center;gap:10px;font-size:14px;color:#ffffff;}.avatar-badge{width:32px;height:32px;border-radius:50%;border:1.4px solid #71717a;background:radial-gradient(circle,#f59e0b 35%,#05684d 75%,#022c22 100%);display:inline-block;flex-shrink:0;overflow:hidden;}.telegram-badge{background-color:#0e0e12;border:1.3px solid #71717a;color:#ffffff;font-size:13px;font-weight:600;padding:5px 12px;border-radius:8px;letter-spacing:0.3px;cursor:pointer;display:inline-block;transition:all 0.2s ease;}.telegram-badge:active{background-color:#1f1f26;border-color:#a1a1aa;}.txt-cyan{color:#00bcd4;font-weight:600;}.deposit-main-card{width:100%;background-color:#0e0f14;border:1.3px solid #27272e;border-radius:20px;padding:20px 14px;display:flex;flex-direction:column;align-items:center;box-shadow:0 6px 25px rgba(0,0,0,0.6);margin-bottom:16px;}.dep-header-title-center{color:#a1a1aa;font-size:14px;font-weight:500;text-align:center;width:100%;margin-bottom:8px;}.dep-amount-input-box-center{display:flex;align-items:center;justify-content:center;width:100%;margin:0 auto 14px auto;gap:3px;}.dep-dollar-sign{color:#00bcd4;font-size:24px;font-weight:700;line-height:1;margin-top:2px;}.dep-number-display{color:#ffffff;font-size:26px;font-weight:700;min-width:70px;text-align:left;line-height:1;padding-left:3px;user-select:none;}.dep-divider{width:100%;height:1px;background-color:#1f1f26;margin-bottom:14px;}.pigs-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;width:100%;margin-bottom:14px;}.pig-option-btn{background-color:#08090d;border:1.2px solid #27272e;border-radius:12px;padding:8px 4px 6px 4px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:all 0.2s ease;}.pig-option-btn:active{transform:scale(0.92);}.pig-option-btn.selected{border-color:#00bcd4;background-color:rgba(0,188,212,0.12);box-shadow:0 0 10px rgba(0,188,212,0.3);}.pig-option-svg{width:46px;height:46px;overflow:visible;}.pig-amount-lbl{font-size:13.5px;font-weight:700;color:#00bcd4;margin-top:4px;}.deposit-form-group{width:100%;display:flex;flex-direction:column;gap:10px;}.dep-input-box{width:100%;height:50px;background-color:#0e0f14;border:1.2px solid #27272e;border-radius:14px;padding:0 16px;display:flex;align-items:center;justify-content:space-between;}.dep-input-box input{width:100%;background:none;border:none;outline:none;color:#ffffff;font-size:14px;font-family:inherit;}.dep-input-box input::placeholder{color:#71717a;}.dep-select-box{width:100%;height:50px;background-color:#0e0f14;border:1.2px solid #27272e;border-radius:14px;padding:0 16px;display:flex;align-items:center;justify-content:space-between;color:#d1d1d6;font-size:14px;cursor:pointer;transition:all 0.2s ease;}.dep-select-box:active{border-color:#00bcd4;background-color:#14151b;}.dep-submit-btn{width:100%;height:50px;background-color:#00bcd4;border:none;border-radius:14px;color:#000000;font-size:15px;font-weight:700;cursor:pointer;margin-top:4px;transition:all 0.2s ease;}.dep-submit-btn:active{transform:scale(0.98);}.dep-submit-btn.disabled{opacity:0.3;pointer-events:none;filter:grayscale(1);}#depositStep2{display:none;flex-direction:column;width:100%;align-items:center;}.khqr-full-sheet{width:100%;max-width:350px;background-color:#ffffff;border-radius:22px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,0.85);display:flex;flex-direction:column;margin-bottom:16px;}.khqr-top-red{background-color:#e11d48;color:#ffffff;font-size:14px;font-weight:900;padding:6px 0;letter-spacing:1px;text-align:center;}.khqr-sheet-body{padding:14px 16px 18px 16px;display:flex;flex-direction:column;align-items:center;color:#0f172a;}.khqr-merchant{font-size:14px;font-weight:800;color:#000000;margin-bottom:2px;}.khqr-currency{font-size:11.5px;font-weight:700;color:#475569;margin-bottom:10px;}.khqr-code-img{width:180px;height:180px;position:relative;display:flex;align-items:center;justify-content:center;margin-bottom:12px;}.khqr-code-img img{width:100%;height:100%;object-fit:contain;}.khqr-center-logo{position:absolute;width:32px;height:32px;background-color:#0b0b0f;border:1.8px solid #ffffff;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 0 10px rgba(0,0,0,0.5);}.khqr-sheet-notice{width:100%;background-color:#f0f9ff;border:1.2px solid #bae6fd;border-radius:12px;padding:9px 12px;color:#0369a1;font-size:12px;line-height:1.5;text-align:center;margin-bottom:12px;}.khqr-sheet-upload-btn{width:100%;height:46px;background-color:#f8fafc;border:1.5px dashed #0284c7;border-radius:12px;padding:0 14px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;color:#334155;font-size:12.5px;font-weight:600;margin-bottom:10px;transition:all 0.2s ease;}.khqr-sheet-upload-btn:active{background-color:#e0f2fe;}.khqr-sheet-hint{color:#0284c7;font-size:11.5px;font-weight:600;text-align:center;margin-bottom:12px;line-height:1.4;}.khqr-sheet-submit-btn{width:100%;height:46px;background-color:#00bcd4;border:none;border-radius:12px;color:#000000;font-size:14.5px;font-weight:700;cursor:pointer;transition:all 0.2s ease;}.khqr-sheet-submit-btn:active{transform:scale(0.98);}.khqr-sheet-submit-btn.disabled{opacity:0.3;pointer-events:none;filter:grayscale(1);}.bank-modal{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.85);backdrop-filter:blur(8px);z-index:999999;display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:all 0.3s ease;}.bank-modal.active{opacity:1;pointer-events:auto;}.bank-sheet{background:#0e0f14;border:1.2px solid #27272e;border-radius:24px 24px 0 0;width:100%;max-width:480px;max-height:80vh;overflow-y:auto;padding:20px 16px 30px 16px;transform:translateY(100%);transition:transform 0.3s ease;display:flex;flex-direction:column;}.bank-modal.active .bank-sheet{transform:translateY(0);}.bank-sheet-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid #1f2026;}.bank-sheet-title{font-size:16.5px;font-weight:700;color:#ffffff;}.bank-sheet-close{background:#181820;border:1px solid #3f3f46;color:#ffffff;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;}.bank-item{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-radius:14px;background:#14151b;border:1.2px solid #23242c;margin-bottom:8px;cursor:pointer;transition:all 0.2s ease;}.bank-item:active{background:#1f202a;border-color:#00bcd4;}.bank-item-left{display:flex;align-items:center;gap:12px;font-weight:600;font-size:14px;color:#ffffff;}.bank-logo-badge{width:36px;height:36px;border-radius:10px;background:radial-gradient(circle,#00bcd4 0%,#0284c7 100%);color:#000000;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:11px;letter-spacing:0.5px;flex-shrink:0;}.history-topbar{position:sticky;top:0;background-color:#000000;z-index:20;display:flex;align-items:center;justify-content:space-between;padding-top:2px;padding-bottom:14px;border-bottom:1px solid #1a1a1f;margin-bottom:14px;}.history-back-btn{background:#141416;border:1px solid #27272e;color:#ffffff;width:38px;height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;cursor:pointer;}.history-topbar-title{font-size:18px;font-weight:700;color:#ffffff;}#historyList{overflow-y:auto;max-height:calc(100vh - 120px);-webkit-overflow-scrolling:touch;padding-bottom:20px;display:flex;flex-direction:column;}.transaction-card{position:relative;background-color:#0f1012;border-radius:18px;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;overflow:hidden;box-shadow:0 4px 15px rgba(0,0,0,0.4);border:1px solid #1a1a1e;cursor:pointer;transition:transform 0.15s ease,background-color 0.15s ease;animation:fadeIn 0.3s ease;}.transaction-card:active{transform:scale(0.98);background-color:#16171d;}.transaction-card::before{content:'';position:absolute;left:0;top:6px;bottom:6px;width:4.5px;background-color:#00d2d3;border-radius:4px;}.trans-left{display:flex;align-items:center;gap:14px;}.trans-icon-box{width:52px;height:52px;background-color:#0e0f14;border:1.3px solid #3f3f46;border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:visible;}.mini-pig-svg{width:46px;height:46px;overflow:visible;}.trans-info{display:flex;flex-direction:column;gap:4px;}.trans-title{font-size:16.5px;font-weight:700;color:#ffffff;}.trans-date{font-size:13px;color:#75757d;}.trans-right{text-align:right;display:flex;flex-direction:column;gap:4px;}.trans-amount{font-size:18px;font-weight:700;color:#00d2d3;}.trans-status{font-size:13px;font-weight:600;color:#00d2d3;}.detail-modal{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.85);backdrop-filter:blur(8px);z-index:999999;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.3s ease;padding:20px;}.detail-modal.active{opacity:1;pointer-events:auto;}.detail-card{background:#0e0f14;border:1.4px solid #27272e;border-radius:22px;padding:24px 20px 20px 20px;width:100%;max-width:340px;box-shadow:0 12px 40px rgba(0,0,0,0.9);display:flex;flex-direction:column;position:relative;transform:scale(0.9);transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1);}.detail-modal.active .detail-card{transform:scale(1);}.detail-header-title{font-size:17.5px;font-weight:700;color:#00bcd4;text-align:center;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid #1f2026;}.detail-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid #16171d;font-size:13.5px;}.detail-row-lbl{color:#8e8e96;font-weight:500;}.detail-row-val{color:#ffffff;font-weight:600;text-align:right;max-width:60%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}.detail-close-btn{width:100%;height:44px;background-color:#1c1d24;border:1.2px solid #3f3f46;border-radius:12px;color:#ffffff;font-size:14px;font-weight:700;cursor:pointer;margin-top:16px;transition:all 0.2s ease;}.detail-close-btn:active{background-color:#2a2b36;border-color:#00bcd4;}.success-page-content{display:flex;flex-direction:column;align-items:center;width:100%;padding:20px 4px 30px 4px;}.success-page-circle{width:76px;height:76px;border-radius:50%;background:rgba(34,197,94,0.12);border:2px solid #22c55e;display:flex;align-items:center;justify-content:center;color:#22c55e;margin-bottom:14px;box-shadow:0 0 25px rgba(34,197,94,0.35);}.success-page-title{font-size:20px;font-weight:700;color:#22c55e;margin-bottom:6px;}.success-page-amount{font-size:28px;font-weight:800;color:#ffffff;margin-bottom:4px;letter-spacing:0.5px;}.success-page-sub{font-size:13.5px;color:#a1a1aa;margin-bottom:20px;text-align:center;}.success-details-card{width:100%;background:#0e0f14;border:1.2px solid #27272e;border-radius:18px;padding:14px 16px;margin-bottom:20px;box-shadow:0 4px 15px rgba(0,0,0,0.5);}.success-page-btn{width:100%;height:50px;background-color:#00bcd4;border:none;border-radius:14px;color:#000000;font-size:15px;font-weight:700;cursor:pointer;transition:all 0.2s ease;}.success-page-btn:active{transform:scale(0.98);}.switch-dock{position:fixed;bottom:18px;left:16px;right:16px;height:52px;background-color:#02090b;border:1.2px solid #015260;border-radius:16px;display:flex;padding:4px;box-shadow:0 8px 25px rgba(0,0,0,0.9),0 0 14px rgba(0,188,212,0.15);user-select:none;z-index:100;}.sliding-pill{position:absolute;top:4px;left:4px;width:calc(50% - 4px);height:calc(100% - 8px);background-color:#016273;border:1px solid #00bcd4;border-radius:12px;box-shadow:0 0 12px rgba(0,188,212,0.25);transition:transform 0.28s cubic-bezier(0.4,0,0.2,1);z-index:1;}.switch-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:9px;border:none;background:transparent;font-size:15px;font-weight:600;color:rgba(255,255,255,0.55);cursor:pointer;position:relative;z-index:2;transition:color 0.25s ease;}.switch-btn svg{width:19px;height:19px;stroke-width:2.2;color:rgba(255,255,255,0.55);transition:color 0.25s ease,stroke 0.25s ease;}.switch-btn.active{color:#ffffff;}.switch-btn.active svg{color:#ffffff;stroke:#ffffff;}</style></head><body><div id="splashScreen"><svg class="piggy-svg" viewBox="0 0 280 280"><defs><linearGradient id="darkCoinGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#272731"/><stop offset="60%" stop-color="#18181f"/><stop offset="100%" stop-color="#0f0f14"/></linearGradient><linearGradient id="pigDarkGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#1c1c24"/><stop offset="60%" stop-color="#121217"/><stop offset="100%" stop-color="#0b0b0e"/></linearGradient><linearGradient id="pigBackLegGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#121217"/><stop offset="100%" stop-color="#08080a"/></linearGradient></defs><ellipse cx="140" cy="245" rx="90" ry="16" fill="rgba(56, 189, 248, 0.1)" /><g class="coin-drop-loop"><circle cx="142" cy="107" r="30" fill="#0b0b0e" stroke="#71717a" stroke-width="1.8" /><circle cx="138" cy="103" r="30" fill="url(#darkCoinGrad)" stroke="#71717a" stroke-width="2.2" /><circle cx="138" cy="103" r="23" fill="none" stroke="#71717a" stroke-width="1.5" stroke-dasharray="3,2" /><text x="137" y="113" font-size="28" font-weight="900" font-family="Arial" fill="#d1d1d6" text-anchor="middle">$</text></g><g class="pig-shake"><path d="M 50 160 Q 28 150 33 133 Q 45 120 56 138" fill="none" stroke="#71717a" stroke-width="2.5" stroke-linecap="round"/><rect x="75" y="200" width="26" height="34" rx="10" fill="url(#pigBackLegGrad)" class="line-art" /><rect x="175" y="200" width="26" height="34" rx="10" fill="url(#pigBackLegGrad)" class="line-art" /><ellipse cx="140" cy="170" rx="86" ry="69" fill="url(#pigDarkGrad)" class="line-art" /><path d="M 80 135 C 105 118, 150 118, 175 128" class="highlight-line" /><rect x="95" y="205" width="26" height="34" rx="10" fill="url(#pigDarkGrad)" class="line-art" /><rect x="155" y="205" width="26" height="34" rx="10" fill="url(#pigDarkGrad)" class="line-art" /><path d="M 90 115 C 78 82, 115 76, 120 110 Z" fill="url(#pigDarkGrad)" class="line-art" /><path d="M 160 110 C 165 76, 202 82, 190 115 Z" fill="url(#pigDarkGrad)" class="line-art" /><path d="M 166 107 C 170 88, 188 92, 182 110 Z" fill="#252530" opacity="0.6"/><ellipse cx="138" cy="115" rx="30" ry="7" fill="#08080b" stroke="#71717a" stroke-width="1.8" /><circle cx="175" cy="150" r="5" fill="#d1d1d6" /><circle cx="174" cy="148" r="1.5" fill="#000000" /><circle cx="205" cy="147" r="5" fill="#d1d1d6" /><circle cx="204" cy="145" r="1.5" fill="#000000" /><ellipse cx="205" cy="172" rx="22" ry="16" fill="url(#pigDarkGrad)" class="line-art" /><ellipse cx="199" cy="172" rx="3.5" ry="5.5" fill="#71717a" /><ellipse cx="212" cy="172" rx="3.5" ry="5.5" fill="#71717a" /></g></svg><div class="splash-counter">ប្រាក់សន្សំ និង ការប្រាក់</div><div class="horizontal-line"></div><div class="progress-section"><div class="percentage-text" id="percentText">0%</div><div class="progress-bar-bg"><div class="progress-bar-fill" id="progressFill"></div></div></div></div><div id="profileModal" class="profile-modal" onclick="closeProfileModal()"><div class="modal-card" onclick="event.stopPropagation()"><button class="modal-close-btn" onclick="closeProfileModal()"><i data-lucide="x" style="width: 18px; height: 18px;"></i></button><div class="modal-avatar-wrapper" id="modalAvatar" onclick="toggleAvatarShape()" title="ចុចដើម្បីមើលរូបភាពជ្រុងពេញលេញ"><i data-lucide="user" style="width: 60px; height: 60px; color: #ffffff;"></i></div><div class="modal-user-name" id="modalName">(…)</div><div class="modal-user-uid" id="modalUid">UID: ...</div></div></div><div id="bankModal" class="bank-modal" onclick="closeBankModal()"><div class="bank-sheet" onclick="event.stopPropagation()"><div class="bank-sheet-header"><div class="bank-sheet-title">ជ្រើសរើសធនាគារ</div><button class="bank-sheet-close" onclick="closeBankModal()"><i data-lucide="x" style="width: 16px; height: 16px;"></i></button></div><div class="bank-item" onclick="selectBank('ABA Bank')"><div class="bank-item-left"><div class="bank-logo-badge">ABA</div><span>ABA Bank</span></div><i data-lucide="chevron-right" style="width: 18px; height: 18px; color: #71717a;"></i></div><div class="bank-item" onclick="selectBank('ACLEDA Bank')"><div class="bank-item-left"><div class="bank-logo-badge" style="background: radial-gradient(circle, #f59e0b 0%, #b45309 100%); color:#ffffff;">ACL</div><span>ACLEDA Bank</span></div><i data-lucide="chevron-right" style="width: 18px; height: 18px; color: #71717a;"></i></div><div class="bank-item" onclick="selectBank('Wing Bank')"><div class="bank-item-left"><div class="bank-logo-badge" style="background: radial-gradient(circle, #84cc16 0%, #4d7c0f 100%); color:#ffffff;">WING</div><span>Wing Bank</span></div><i data-lucide="chevron-right" style="width: 18px; height: 18px; color: #71717a;"></i></div><div class="bank-item" onclick="selectBank('True Money')"><div class="bank-item-left"><div class="bank-logo-badge" style="background: radial-gradient(circle, #f97316 0%, #c2410c 100%); color:#ffffff;">TRUE</div><span>True Money</span></div><i data-lucide="chevron-right" style="width: 18px; height: 18px; color: #71717a;"></i></div><div class="bank-item" onclick="selectBank('Amret')"><div class="bank-item-left"><div class="bank-logo-badge" style="background: radial-gradient(circle, #10b981 0%, #047857 100%); color:#ffffff;">AMR</div><span>Amret</span></div><i data-lucide="chevron-right" style="width: 18px; height: 18px; color: #71717a;"></i></div><div class="bank-item" onclick="selectBank('Woori Bank')"><div class="bank-item-left"><div class="bank-logo-badge" style="background: radial-gradient(circle, #38bdf8 0%, #0369a1 100%); color:#ffffff;">WRI</div><span>Woori Bank</span></div><i data-lucide="chevron-right" style="width: 18px; height: 18px; color: #71717a;"></i></div><div class="bank-item" onclick="selectBank('MB Cambodia')"><div class="bank-item-left"><div class="bank-logo-badge" style="background: radial-gradient(circle, #3b82f6 0%, #1d4ed8 100%); color:#ffffff;">MB</div><span>MB Cambodia</span></div><i data-lucide="chevron-right" style="width: 18px; height: 18px; color: #71717a;"></i></div><div class="bank-item" onclick="selectBank('KB PRASAC')"><div class="bank-item-left"><div class="bank-logo-badge" style="background: radial-gradient(circle, #eab308 0%, #a16207 100%); color:#000000;">KBP</div><span>KB PRASAC</span></div><i data-lucide="chevron-right" style="width: 18px; height: 18px; color: #71717a;"></i></div></div></div><div id="transDetailModal" class="detail-modal" onclick="closeTransDetailModal()"><div class="detail-card" onclick="event.stopPropagation()"><div class="detail-header-title">ព័ត៌មានលម្អិតប្រតិបត្តិការ</div><div class="detail-row"><span class="detail-row-lbl">លេខសម្គាល់ (ID):</span><span class="detail-row-val" id="dtlTxnID">TXN-000000</span></div><div class="detail-row"><span class="detail-row-lbl">ឈ្មោះអាខោន:</span><span class="detail-row-val" id="dtlAccountName">(…)</span></div><div class="detail-row"><span class="detail-row-lbl">លេខសម្គាល់ (UID):</span><span class="detail-row-val" id="dtlUID">...</span></div><div class="detail-row"><span class="detail-row-lbl">វិធីបង់ប្រាក់:</span><span class="detail-row-val" id="dtlBank" style="color: #00bcd4;">KHQR</span></div><div class="detail-row"><span class="detail-row-lbl">ឈ្មោះគណនីរបស់អ្នក:</span><span class="detail-row-val" id="dtlSenderName">...</span></div><div class="detail-row"><span class="detail-row-lbl">កាលបរិច្ឆេទ:</span><span class="detail-row-val" id="dtlDate">--/--/----</span></div><div class="detail-row"><span class="detail-row-lbl">ចំនួនទឹកប្រាក់:</span><span class="detail-row-val" id="dtlAmount" style="color: #00d2d3; font-size: 15px;">+0.00 USD</span></div><button class="detail-close-btn" onclick="closeTransDetailModal()">បិទ</button></div></div><div class="app-container"><div class="page-view home-content active" id="pageHome"><div id="homeProfileSection"><div class="account-avatar-lg" id="homeAvatar"><i data-lucide="user"></i></div><div class="account-name-lg" id="homeName">(…)</div><div class="account-uid-lg"><span id="homeUID">UID: កំពុងផ្ទុក...</span></div></div><div class="home-table-card"><div class="table-row table-header"><div class="col-name header-col-name"><span>0. ឈ្មោះ</span><button id="btnViewAll" class="view-all-btn" onclick="toggleTableFullscreen()"><span id="viewAllText">មើលទាំងអស់</span><span id="fullscreenIcon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg></span></button></div><div class="col-uid">UID</div><div class="col-count">ដាក់ប្រាក់ចំនួនដង</div></div><div id="homeTableList"><div class="table-row table-body"><div class="col-name"><span>1.</span><span class="mini-profile-avatar" id="myRowAvatar"><i data-lucide="user"></i></span><span class="name-text" id="myRowName">(…)</span></div><div class="col-uid" id="myRowUID">...</div><div class="col-count" id="myRowCount">1</div></div></div></div></div><div class="page-view" id="pageAssets"><div class="wallet-wrapper"><div class="wallet-container" id="wallet"><div class="bill bill-2"><span class="bill-text"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg><span>+0.00%</span></span><div class="bill-symbol">$</div></div><div class="bill bill-1"><span class="bill-text"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg><span>+0.00%</span></span><div class="bill-symbol">$</div></div><div class="coin" onclick="event.stopPropagation(); openHistoryPage();" title="ប្រវត្តិប្រតិបត្តិការ"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></svg></div><div class="wallet-back"></div><div class="wallet-body"><div class="wallet-label-row"><span>សមតុល្យគណនី</span><button class="wallet-eye-btn" onclick="event.stopPropagation(); toggleBalance();" title="បិទ/បើកមើលលុយ"><svg id="eyeSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg></button></div><div class="wallet-amount" id="balanceNum"><span class="wallet-val" id="balanceVal">30.53</span><span class="wallet-cur">USD</span></div><div class="wallet-deposit-tag" onclick="event.stopPropagation(); openDepositPage();"><i data-lucide="arrow-down"></i><span>ដាក់ប្រាក់</span></div></div><div class="wallet-flap"><div class="wallet-button"></div></div></div></div><div class="info-list"><div class="info-row"><div class="row-left"><i data-lucide="camera"></i><span>រូបតំណាងក្រុមហ៊ុន:</span></div><div class="row-right"><span>មាសបៃតង</span><span class="avatar-badge"></span></div></div><div class="info-row"><div class="row-left"><i data-lucide="send"></i><span>តេឡេក្រាមគណនី:</span></div><div class="row-right"><span class="telegram-badge">ទំនាក់ទំនង</span></div></div><div class="info-row"><div class="row-left"><i data-lucide="user"></i><span>ឈ្មោះអាខោន:</span></div><div class="row-right"><span id="assetsName">(…)</span></div></div><div class="info-row"><div class="row-left"><i data-lucide="mail"></i><span>លេខសម្គាល់ (UID)</span></div><div class="row-right"><span id="assetsUID">...</span></div></div><div class="info-row"><div class="row-left"><i data-lucide="dollar-sign"></i><span>ទឹកប្រាក់អតិបរមា សរុបUSD:</span></div><div class="row-right txt-cyan"><span>200.00 USD</span></div></div></div></div><div class="page-view" id="pageDeposit"><div class="history-topbar"><button class="history-back-btn" onclick="closeDepositPage()"><i data-lucide="arrow-left" style="width: 20px; height: 20px;"></i></button><div class="history-topbar-title">ដាក់ប្រាក់</div><div style="width: 38px;"></div></div><div id="depositStep1" style="display: flex; flex-direction: column; width: 100%;"><div class="deposit-main-card"><div class="dep-header-title-center">ចំនួនទឹកប្រាក់ដែលត្រូវដាក់</div><div class="dep-amount-input-box-center"><span class="dep-dollar-sign">$</span><span id="depositDisplayVal" class="dep-number-display">0.00</span></div><div class="dep-divider"></div><div class="pigs-grid"><div class="pig-option-btn" onclick="selectPigAmount(10, this)"><svg class="pig-option-svg" viewBox="0 0 280 280"><defs><linearGradient id="pigOptG1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#1c1c24"/><stop offset="100%" stop-color="#0b0b0e"/></linearGradient></defs><g class="coin-drop-loop"><circle cx="138" cy="103" r="28" fill="#121217" stroke="#ffffff" stroke-width="3.5"/><text x="137" y="113" font-size="28" font-weight="900" fill="#ffffff" text-anchor="middle">$</text></g><g class="pig-shake"><path d="M 50 160 Q 28 150 33 133 Q 45 120 56 138" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/><rect x="75" y="200" width="26" height="34" rx="10" fill="#08080a" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><rect x="175" y="200" width="26" height="34" rx="10" fill="#08080a" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="140" cy="170" rx="86" ry="69" fill="url(#pigOptG1)" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round"/><rect x="95" y="205" width="26" height="34" rx="10" fill="url(#pigOptG1)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><rect x="155" y="205" width="26" height="34" rx="10" fill="url(#pigOptG1)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><path d="M 90 115 C 78 82, 115 76, 120 110 Z" fill="url(#pigOptG1)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><path d="M 160 110 C 165 76, 202 82, 190 115 Z" fill="url(#pigOptG1)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="138" cy="115" rx="30" ry="7" fill="#08080b" stroke="#ffffff" stroke-width="2.5"/><circle cx="175" cy="150" r="5" fill="#ffffff"/><circle cx="205" cy="147" r="5" fill="#ffffff"/><ellipse cx="205" cy="172" rx="22" ry="16" fill="url(#pigOptG1)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="199" cy="172" rx="3.5" ry="5.5" fill="#ffffff"/><ellipse cx="212" cy="172" rx="3.5" ry="5.5" fill="#ffffff"/></g></svg><span class="pig-amount-lbl">$10</span></div><div class="pig-option-btn" onclick="selectPigAmount(20, this)"><svg class="pig-option-svg" viewBox="0 0 280 280"><defs><linearGradient id="pigOptG2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#1c1c24"/><stop offset="100%" stop-color="#0b0b0e"/></linearGradient></defs><g class="coin-drop-loop"><circle cx="138" cy="103" r="28" fill="#121217" stroke="#ffffff" stroke-width="3.5"/><text x="137" y="113" font-size="28" font-weight="900" fill="#ffffff" text-anchor="middle">$</text></g><g class="pig-shake"><path d="M 50 160 Q 28 150 33 133 Q 45 120 56 138" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/><rect x="75" y="200" width="26" height="34" rx="10" fill="#08080a" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><rect x="175" y="200" width="26" height="34" rx="10" fill="#08080a" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="140" cy="170" rx="86" ry="69" fill="url(#pigOptG2)" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round"/><rect x="95" y="205" width="26" height="34" rx="10" fill="url(#pigOptG2)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><rect x="155" y="205" width="26" height="34" rx="10" fill="url(#pigOptG2)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><path d="M 90 115 C 78 82, 115 76, 120 110 Z" fill="url(#pigOptG2)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><path d="M 160 110 C 165 76, 202 82, 190 115 Z" fill="url(#pigOptG2)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="138" cy="115" rx="30" ry="7" fill="#08080b" stroke="#ffffff" stroke-width="2.5"/><circle cx="175" cy="150" r="5" fill="#ffffff"/><circle cx="205" cy="147" r="5" fill="#ffffff"/><ellipse cx="205" cy="172" rx="22" ry="16" fill="url(#pigOptG2)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="199" cy="172" rx="3.5" ry="5.5" fill="#ffffff"/><ellipse cx="212" cy="172" rx="3.5" ry="5.5" fill="#ffffff"/></g></svg><span class="pig-amount-lbl">$20</span></div><div class="pig-option-btn" onclick="selectPigAmount(30, this)"><svg class="pig-option-svg" viewBox="0 0 280 280"><defs><linearGradient id="pigOptG3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#1c1c24"/><stop offset="100%" stop-color="#0b0b0e"/></linearGradient></defs><g class="coin-drop-loop"><circle cx="138" cy="103" r="28" fill="#121217" stroke="#ffffff" stroke-width="3.5"/><text x="137" y="113" font-size="28" font-weight="900" fill="#ffffff" text-anchor="middle">$</text></g><g class="pig-shake"><path d="M 50 160 Q 28 150 33 133 Q 45 120 56 138" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/><rect x="75" y="200" width="26" height="34" rx="10" fill="#08080a" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><rect x="175" y="200" width="26" height="34" rx="10" fill="#08080a" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="140" cy="170" rx="86" ry="69" fill="url(#pigOptG3)" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round"/><rect x="95" y="205" width="26" height="34" rx="10" fill="url(#pigOptG3)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><rect x="155" y="205" width="26" height="34" rx="10" fill="url(#pigOptG3)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><path d="M 90 115 C 78 82, 115 76, 120 110 Z" fill="url(#pigOptG3)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><path d="M 160 110 C 165 76, 202 82, 190 115 Z" fill="url(#pigOptG3)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="138" cy="115" rx="30" ry="7" fill="#08080b" stroke="#ffffff" stroke-width="2.5"/><circle cx="175" cy="150" r="5" fill="#ffffff"/><circle cx="205" cy="147" r="5" fill="#ffffff"/><ellipse cx="205" cy="172" rx="22" ry="16" fill="url(#pigOptG3)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="199" cy="172" rx="3.5" ry="5.5" fill="#ffffff"/><ellipse cx="212" cy="172" rx="3.5" ry="5.5" fill="#ffffff"/></g></svg><span class="pig-amount-lbl">$30</span></div><div class="pig-option-btn" onclick="selectPigAmount(40, this)"><svg class="pig-option-svg" viewBox="0 0 280 280"><defs><linearGradient id="pigOptG4" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#1c1c24"/><stop offset="100%" stop-color="#0b0b0e"/></linearGradient></defs><g class="coin-drop-loop"><circle cx="138" cy="103" r="28" fill="#121217" stroke="#ffffff" stroke-width="3.5"/><text x="137" y="113" font-size="28" font-weight="900" fill="#ffffff" text-anchor="middle">$</text></g><g class="pig-shake"><path d="M 50 160 Q 28 150 33 133 Q 45 120 56 138" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/><rect x="75" y="200" width="26" height="34" rx="10" fill="#08080a" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><rect x="175" y="200" width="26" height="34" rx="10" fill="#08080a" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="140" cy="170" rx="86" ry="69" fill="url(#pigOptG4)" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round"/><rect x="95" y="205" width="26" height="34" rx="10" fill="url(#pigOptG4)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><rect x="155" y="205" width="26" height="34" rx="10" fill="url(#pigOptG4)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><path d="M 90 115 C 78 82, 115 76, 120 110 Z" fill="url(#pigOptG4)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><path d="M 160 110 C 165 76, 202 82, 190 115 Z" fill="url(#pigOptG4)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="138" cy="115" rx="30" ry="7" fill="#08080b" stroke="#ffffff" stroke-width="2.5"/><circle cx="175" cy="150" r="5" fill="#ffffff"/><circle cx="205" cy="147" r="5" fill="#ffffff"/><ellipse cx="205" cy="172" rx="22" ry="16" fill="url(#pigOptG4)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="199" cy="172" rx="3.5" ry="5.5" fill="#ffffff"/><ellipse cx="212" cy="172" rx="3.5" ry="5.5" fill="#ffffff"/></g></svg><span class="pig-amount-lbl">$40</span></div><div class="pig-option-btn" onclick="selectPigAmount(50, this)"><svg class="pig-option-svg" viewBox="0 0 280 280"><defs><linearGradient id="pigOptG5" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#1c1c24"/><stop offset="100%" stop-color="#0b0b0e"/></linearGradient></defs><g class="coin-drop-loop"><circle cx="138" cy="103" r="28" fill="#121217" stroke="#ffffff" stroke-width="3.5"/><text x="137" y="113" font-size="28" font-weight="900" fill="#ffffff" text-anchor="middle">$</text></g><g class="pig-shake"><path d="M 50 160 Q 28 150 33 133 Q 45 120 56 138" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/><rect x="75" y="200" width="26" height="34" rx="10" fill="#08080a" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><rect x="175" y="200" width="26" height="34" rx="10" fill="#08080a" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="140" cy="170" rx="86" ry="69" fill="url(#pigOptG5)" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round"/><rect x="95" y="205" width="26" height="34" rx="10" fill="url(#pigOptG5)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><rect x="155" y="205" width="26" height="34" rx="10" fill="url(#pigOptG5)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><path d="M 90 115 C 78 82, 115 76, 120 110 Z" fill="url(#pigOptG5)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><path d="M 160 110 C 165 76, 202 82, 190 115 Z" fill="url(#pigOptG5)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="138" cy="115" rx="30" ry="7" fill="#08080b" stroke="#ffffff" stroke-width="2.5"/><circle cx="175" cy="150" r="5" fill="#ffffff"/><circle cx="205" cy="147" r="5" fill="#ffffff"/><ellipse cx="205" cy="172" rx="22" ry="16" fill="url(#pigOptG5)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="199" cy="172" rx="3.5" ry="5.5" fill="#ffffff"/><ellipse cx="212" cy="172" rx="3.5" ry="5.5" fill="#ffffff"/></g></svg><span class="pig-amount-lbl">$50</span></div><div class="pig-option-btn" onclick="selectPigAmount(100, this)"><svg class="pig-option-svg" viewBox="0 0 280 280"><defs><linearGradient id="pigOptG6" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#1c1c24"/><stop offset="100%" stop-color="#0b0b0e"/></linearGradient></defs><g class="coin-drop-loop"><circle cx="138" cy="103" r="28" fill="#121217" stroke="#ffffff" stroke-width="3.5"/><text x="137" y="113" font-size="28" font-weight="900" fill="#ffffff" text-anchor="middle">$</text></g><g class="pig-shake"><path d="M 50 160 Q 28 150 33 133 Q 45 120 56 138" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/><rect x="75" y="200" width="26" height="34" rx="10" fill="#08080a" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><rect x="175" y="200" width="26" height="34" rx="10" fill="#08080a" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="140" cy="170" rx="86" ry="69" fill="url(#pigOptG6)" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round"/><rect x="95" y="205" width="26" height="34" rx="10" fill="url(#pigOptG6)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><rect x="155" y="205" width="26" height="34" rx="10" fill="url(#pigOptG6)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><path d="M 90 115 C 78 82, 115 76, 120 110 Z" fill="url(#pigOptG6)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><path d="M 160 110 C 165 76, 202 82, 190 115 Z" fill="url(#pigOptG6)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="138" cy="115" rx="30" ry="7" fill="#08080b" stroke="#ffffff" stroke-width="2.5"/><circle cx="175" cy="150" r="5" fill="#ffffff"/><circle cx="205" cy="147" r="5" fill="#ffffff"/><ellipse cx="205" cy="172" rx="22" ry="16" fill="url(#pigOptG6)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="199" cy="172" rx="3.5" ry="5.5" fill="#ffffff"/><ellipse cx="212" cy="172" rx="3.5" ry="5.5" fill="#ffffff"/></g></svg><span class="pig-amount-lbl">$100</span></div><div class="pig-option-btn" onclick="selectPigAmount(300, this)"><svg class="pig-option-svg" viewBox="0 0 280 280"><defs><linearGradient id="pigOptG7" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#1c1c24"/><stop offset="100%" stop-color="#0b0b0e"/></linearGradient></defs><g class="coin-drop-loop"><circle cx="138" cy="103" r="28" fill="#121217" stroke="#ffffff" stroke-width="3.5"/><text x="137" y="113" font-size="28" font-weight="900" fill="#ffffff" text-anchor="middle">$</text></g><g class="pig-shake"><path d="M 50 160 Q 28 150 33 133 Q 45 120 56 138" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/><rect x="75" y="200" width="26" height="34" rx="10" fill="#08080a" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><rect x="175" y="200" width="26" height="34" rx="10" fill="#08080a" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="140" cy="170" rx="86" ry="69" fill="url(#pigOptG7)" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round"/><rect x="95" y="205" width="26" height="34" rx="10" fill="url(#pigOptG7)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><rect x="155" y="205" width="26" height="34" rx="10" fill="url(#pigOptG7)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><path d="M 90 115 C 78 82, 115 76, 120 110 Z" fill="url(#pigOptG7)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><path d="M 160 110 C 165 76, 202 82, 190 115 Z" fill="url(#pigOptG7)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="138" cy="115" rx="30" ry="7" fill="#08080b" stroke="#ffffff" stroke-width="2.5"/><circle cx="175" cy="150" r="5" fill="#ffffff"/><circle cx="205" cy="147" r="5" fill="#ffffff"/><ellipse cx="205" cy="172" rx="22" ry="16" fill="url(#pigOptG7)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="199" cy="172" rx="3.5" ry="5.5" fill="#ffffff"/><ellipse cx="212" cy="172" rx="3.5" ry="5.5" fill="#ffffff"/></g></svg><span class="pig-amount-lbl">$300</span></div><div class="pig-option-btn" onclick="selectPigAmount(500, this)"><svg class="pig-option-svg" viewBox="0 0 280 280"><defs><linearGradient id="pigOptG8" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#1c1c24"/><stop offset="100%" stop-color="#0b0b0e"/></linearGradient></defs><g class="coin-drop-loop"><circle cx="138" cy="103" r="28" fill="#121217" stroke="#ffffff" stroke-width="3.5"/><text x="137" y="113" font-size="28" font-weight="900" fill="#ffffff" text-anchor="middle">$</text></g><g class="pig-shake"><path d="M 50 160 Q 28 150 33 133 Q 45 120 56 138" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/><rect x="75" y="200" width="26" height="34" rx="10" fill="#08080a" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><rect x="175" y="200" width="26" height="34" rx="10" fill="#08080a" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="140" cy="170" rx="86" ry="69" fill="url(#pigOptG8)" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round"/><rect x="95" y="205" width="26" height="34" rx="10" fill="url(#pigOptG8)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><rect x="155" y="205" width="26" height="34" rx="10" fill="url(#pigOptG8)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><path d="M 90 115 C 78 82, 115 76, 120 110 Z" fill="url(#pigOptG8)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><path d="M 160 110 C 165 76, 202 82, 190 115 Z" fill="url(#pigOptG8)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="138" cy="115" rx="30" ry="7" fill="#08080b" stroke="#ffffff" stroke-width="2.5"/><circle cx="175" cy="150" r="5" fill="#ffffff"/><circle cx="205" cy="147" r="5" fill="#ffffff"/><ellipse cx="205" cy="172" rx="22" ry="16" fill="url(#pigOptG8)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="199" cy="172" rx="3.5" ry="5.5" fill="#ffffff"/><ellipse cx="212" cy="172" rx="3.5" ry="5.5" fill="#ffffff"/></g></svg><span class="pig-amount-lbl">$500</span></div></div></div><div class="deposit-form-group"><div class="dep-select-box" onclick="openBankModal()"><span id="selectedMethodText">ជ្រើសរើសវិធីដាក់ប្រាក់</span><i data-lucide="chevron-down" style="width: 18px; height: 18px; color: #00bcd4;"></i></div><div class="dep-input-box"><input type="text" id="senderAccountName" placeholder="ឈ្មោះគណនីរបស់អ្នក" oninput="checkStep1Validation()"></div><button class="dep-submit-btn disabled" id="btnConfirmDeposit" onclick="goToDepositStep2()">ស្កេនទូទាត់ប្រាក់</button></div></div><div id="depositStep2"><div class="khqr-full-sheet"><div class="khqr-top-red">KHQR</div><div class="khqr-sheet-body"><div class="khqr-merchant">BOBOTOU TOPUP</div><div class="khqr-currency">( USD )</div><div class="khqr-code-img"><img src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=BOBOTOU_TOPUP_KHQR" alt="KHQR Code"><div class="khqr-center-logo"><span style="color: #ffffff; font-weight: 800; font-size: 15px; font-family: Arial;">$</span></div></div><div class="khqr-sheet-notice">សូមធ្វើការបាញ់ប្រាក់តាមរយៈ QR Code ខាងលើ រួចភ្ជាប់រូបភាពវិក្កយបត្រមកកាន់យើងខ្ញុំដើម្បីផ្ទៀងផ្ទាត់</div><div class="khqr-sheet-upload-btn" onclick="document.getElementById('receiptFileInput').click()"><span id="receiptFileName">បញ្ចូលរូបភាពវិក្កយបត្របាញ់ប្រាក់ (Receipt)</span><i data-lucide="image" style="width: 20px; height: 20px; color: #00bcd4;"></i><input type="file" id="receiptFileInput" accept="image/*" style="display: none;" onchange="handleReceiptUpload(this)"></div><div class="khqr-sheet-hint">បន្ទាប់ពីស្កេនបង់ប្រាក់រួច សូមចុចប៊ូតុងផ្ញើរសំណើរដាក់ប្រាក់</div><button class="khqr-sheet-submit-btn disabled" id="btnFinalSubmit" onclick="submitFinalDeposit()">ផ្ញើរសំណើរដាក់ប្រាក់</button></div></div></div></div><div class="page-view" id="pageSuccess"><div class="success-page-content"><div class="success-page-circle"><i data-lucide="check" style="width: 44px; height: 44px; stroke-width: 3.2;"></i></div><div class="success-page-title">ទទួលបានជោគជ័យ</div><div class="success-page-amount"><span id="scAmountHeader">0.00</span> USD</div><div class="success-page-sub">ចំនួនទឹកប្រាក់ទូទាត់ទទួលបានជោគជ័យ</div><div class="success-details-card"><div class="detail-header-title" style="margin-bottom: 12px; font-size: 16px;">ព័ត៌មានលម្អិតប្រតិបត្តិការ</div><div class="detail-row"><span class="detail-row-lbl">លេខសម្គាល់ (ID):</span><span class="detail-row-val" id="scTxnID">TXN-000000</span></div><div class="detail-row"><span class="detail-row-lbl">ឈ្មោះអាខោន:</span><span class="detail-row-val" id="scAccountName">(…)</span></div><div class="detail-row"><span class="detail-row-lbl">លេខសម្គាល់ (UID):</span><span class="detail-row-val" id="scUID">...</span></div><div class="detail-row"><span class="detail-row-lbl">វិធីបង់ប្រាក់:</span><span class="detail-row-val" id="scBank" style="color: #00bcd4;">KHQR</span></div><div class="detail-row"><span class="detail-row-lbl">ឈ្មោះគណនីរបស់អ្នក:</span><span class="detail-row-val" id="scSenderName">...</span></div><div class="detail-row"><span class="detail-row-lbl">កាលបរិច្ឆេទ:</span><span class="detail-row-val" id="scDate">--/--/----</span></div><div class="detail-row"><span class="detail-row-lbl">ចំនួនទឹកប្រាក់:</span><span class="detail-row-val" id="scAmount" style="color: #00d2d3; font-size: 15px;">+0.00 USD</span></div></div><button class="success-page-btn" onclick="confirmSuccessPage()">យល់ព្រម</button></div></div><div class="page-view" id="pageHistory"><div class="history-topbar"><button class="history-back-btn" onclick="closeHistoryPage()"><i data-lucide="arrow-left" style="width: 20px; height: 20px;"></i></button><div class="history-topbar-title">ប្រវត្តិប្រតិបត្តិការ</div><div style="width: 38px;"></div></div><div id="historyList"></div><div id="historyEmptyState" style="display:none; flex-direction:column; align-items:center; justify-content:center; padding: 65px 20px;"><svg viewBox="0 0 120 120" style="width: 85px; height: 85px; margin-bottom: 16px; opacity: 0.75;"><path d="M 20 35 Q 40 30 60 38 Q 80 30 100 35 L 100 85 Q 80 80 60 88 Q 40 80 20 85 Z" fill="none" stroke="#52525b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M 60 38 L 60 88" stroke="#52525b" stroke-width="2.5"/><path d="M 28 48 Q 42 44 54 49" stroke="#3f3f46" stroke-width="2" stroke-linecap="round"/><path d="M 28 60 Q 42 56 54 61" stroke="#3f3f46" stroke-width="2" stroke-linecap="round"/><path d="M 66 49 Q 78 44 92 48" stroke="#3f3f46" stroke-width="2" stroke-linecap="round"/><path d="M 66 61 Q 78 56 92 60" stroke="#3f3f46" stroke-width="2" stroke-linecap="round"/><circle cx="70" cy="55" r="18" fill="none" stroke="#71717a" stroke-width="3"/><line x1="83" y1="68" x2="102" y2="87" stroke="#71717a" stroke-width="4" stroke-linecap="round"/><circle cx="70" cy="55" r="14" fill="rgba(255,255,255,0.03)"/></svg><span style="color: #71717a; font-size: 14px; font-weight: 500;">មិនទាន់មានប្រវត្តិប្រតិបត្តិការនៅឡើយទេ</span></div></div><div class="switch-dock" id="switchDock"><div class="sliding-pill" id="slidingPill"></div><button class="switch-btn active" id="btnHome" onclick="selectTab('home')"><i data-lucide="home"></i><span>ទំព័រដើម</span></button><button class="switch-btn" id="btnAssets" onclick="selectTab('assets')"><i data-lucide="credit-card"></i><span>ទ្រព្យសកម្ម</span></button></div></div><script type="module">import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";import { getDatabase, ref, set, get, onValue, update } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";document.addEventListener('touchstart', (e) => { if (document.activeElement && (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA')) { if (!document.activeElement.contains(e.target)) { document.activeElement.blur(); } } }, { passive: true });const percentText = document.getElementById('percentText');const progressFill = document.getElementById('progressFill');const splashScreen = document.getElementById('splashScreen');let currentPercent = 0;function updateProgress(val) { percentText.textContent = val + '%'; progressFill.style.width = val + '%'; }function startLoading() { const stage1 = setInterval(() => { if (currentPercent < 71) { currentPercent++; updateProgress(currentPercent); } else { clearInterval(stage1); setTimeout(() => { finishLoading(); }, 2000); } }, 25); }function finishLoading() { const stage2 = setInterval(() => { if (currentPercent < 100) { currentPercent++; updateProgress(currentPercent); } else { clearInterval(stage2); setTimeout(() => { splashScreen.classList.add('fade-out'); }, 400); } }, 25); }startLoading();const firebaseConfig = { apiKey: "AIzaSyCjyPTgZrs_lYXXIVn0hZz3H64U47jEvjo", authDomain: "kbk-wallet-app.firebaseapp.com", databaseURL: "https://kbk-wallet-app-default-rtdb.firebaseio.com", projectId: "kbk-wallet-app", storageBucket: "kbk-wallet-app.firebasestorage.app", messagingSenderId: "298749872136", appId: "1:298749872136:web:0630e7b1efea1308c329bd", measurementId: "G-S35PQT4V2J" };const app = initializeApp(firebaseConfig);const db = getDatabase(app);const tg = window.Telegram?.WebApp;if (tg) { tg.expand(); tg.ready(); }const tgUser = tg?.initDataUnsafe?.user;let currentUser = { name: "(…)", uid: "", photo: "", depositCount: 1, balance: 30.53, transactions: {} };if (tgUser && tgUser.id) { currentUser.name = `${tgUser.first_name || ''} ${tgUser.last_name || ''}`.trim() || "(…)"; currentUser.uid = tgUser.id.toString(); currentUser.photo = tgUser.photo_url || ""; } else { let storedId = localStorage.getItem("kbk_user_uid"); if (!storedId) { storedId = Math.floor(100000000 + Math.random() * 900000000).toString(); localStorage.setItem("kbk_user_uid", storedId); } currentUser.uid = storedId; currentUser.name = "(…)"; }document.getElementById('homeName').innerText = currentUser.name;document.getElementById('homeUID').innerText = `UID: ${currentUser.uid}`;document.getElementById('myRowName').innerText = currentUser.name;document.getElementById('myRowUID').innerText = currentUser.uid;document.getElementById('assetsName').innerText = currentUser.name;document.getElementById('assetsUID').innerText = currentUser.uid;if (currentUser.photo) { document.getElementById('homeAvatar').innerHTML = `<img src="${currentUser.photo}" alt="Profile" style="width:100%; height:100%; object-fit:cover;">`; document.getElementById('myRowAvatar').innerHTML = `<img src="${currentUser.photo}" alt="Profile" style="width:100%; height:100%; object-fit:cover;">`; }function renderHistory(txns) { const historyList = document.getElementById('historyList'); const emptyState = document.getElementById('historyEmptyState'); if (!txns || Object.keys(txns).length === 0) { historyList.innerHTML = ''; historyList.style.display = 'none'; emptyState.style.display = 'flex'; return; } emptyState.style.display = 'none'; historyList.style.display = 'flex'; const sortedKeys = Object.keys(txns).sort((a,b) => (txns[b].timestamp || 0) - (txns[a].timestamp || 0)); let html = ''; sortedKeys.forEach(key => { const t = txns[key]; html += `<div class="transaction-card" onclick="openCardDetail(this)" data-id="${t.id}" data-name="${t.name || currentUser.name}" data-uid="${t.uid || currentUser.uid}" data-bank="${t.bank || 'KHQR'}" data-sender="${t.sender || '(មិនបានបញ្ជាក់)'}" data-date="${t.date}" data-amount="${t.amount}"><div class="trans-left"><div class="trans-icon-box"><svg class="mini-pig-svg" viewBox="0 0 280 280"><defs><linearGradient id="miniPig_${t.id}" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#1c1c24"/><stop offset="100%" stop-color="#0b0b0e"/></linearGradient></defs><g class="coin-drop-loop"><circle cx="138" cy="103" r="28" fill="#121217" stroke="#ffffff" stroke-width="3.5"/><text x="137" y="113" font-size="28" font-weight="900" fill="#ffffff" text-anchor="middle">$</text></g><g class="pig-shake"><path d="M 50 160 Q 28 150 33 133 Q 45 120 56 138" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/><rect x="75" y="200" width="26" height="34" rx="10" fill="#08080a" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><rect x="175" y="200" width="26" height="34" rx="10" fill="#08080a" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="140" cy="170" rx="86" ry="69" fill="url(#miniPig_${t.id})" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round"/><rect x="95" y="205" width="26" height="34" rx="10" fill="url(#miniPig_${t.id})" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><rect x="155" y="205" width="26" height="34" rx="10" fill="url(#miniPig_${t.id})" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><path d="M 90 115 C 78 82, 115 76, 120 110 Z" fill="url(#miniPig_${t.id})" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><path d="M 160 110 C 165 76, 202 82, 190 115 Z" fill="url(#miniPig_${t.id})" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="138" cy="115" rx="30" ry="7" fill="#08080b" stroke="#ffffff" stroke-width="2.5"/><circle cx="175" cy="150" r="5" fill="#ffffff"/><circle cx="205" cy="147" r="5" fill="#ffffff"/><ellipse cx="205" cy="172" rx="22" ry="16" fill="url(#miniPig_${t.id})" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="199" cy="172" rx="3.5" ry="5.5" fill="#ffffff"/><ellipse cx="212" cy="172" rx="3.5" ry="5.5" fill="#ffffff"/></g></svg></div><div class="trans-info"><div class="trans-title">ដាក់ប្រាក់</div><div class="trans-date">${t.date}</div></div></div><div class="trans-right"><div class="trans-amount">${t.amount}</div><div class="trans-status">${t.status || 'ទទួលបានជោគជ័យ'}</div></div></div>`; }); historyList.innerHTML = html; }async function syncUserToDatabase() { try { const userRef = ref(db, 'users/' + currentUser.uid); const snapshot = await get(userRef); if (!snapshot.exists()) { await set(userRef, { name: currentUser.name, uid: currentUser.uid, photo: currentUser.photo, depositCount: 1, balance: 30.53, transactions: {}, createdAt: Date.now() }); } else { const data = snapshot.val(); currentUser.depositCount = data.depositCount || 1; currentUser.balance = data.balance !== undefined ? data.balance : 30.53; currentUser.transactions = data.transactions || {}; updateUIFromData(data); await update(userRef, { name: currentUser.name, photo: currentUser.photo }); } onValue(userRef, (snap) => { if (snap.exists()) { const d = snap.val(); updateUIFromData(d); } }); } catch (error) { console.error("Firebase Sync Error:", error); } }function updateUIFromData(data) { if (!data) return; currentUser.depositCount = data.depositCount || 1; currentUser.balance = data.balance !== undefined ? data.balance : 30.53; currentUser.transactions = data.transactions || {}; const rowCount = document.getElementById('myRowCount'); if (rowCount) rowCount.innerText = currentUser.depositCount; const balVal = document.getElementById('balanceVal'); if (balVal && !isHidden) balVal.innerText = currentUser.balance.toFixed(2); renderHistory(currentUser.transactions); }syncUserToDatabase();const btnViewAll = document.getElementById('btnViewAll');const allUsersRef = ref(db, 'users');onValue(allUsersRef, (snapshot) => { const tableBody = document.getElementById("homeTableList"); let totalMembers = 1; let html = `<div class="table-row table-body"><div class="col-name"><span>1.</span><span class="mini-profile-avatar" onclick="openProfileModal('${currentUser.photo}', '${currentUser.name}', '${currentUser.uid}')">${currentUser.photo ? `<img src="${currentUser.photo}" style="width:100%; height:100%; object-fit:cover;">` : `<i data-lucide="user"></i>`}</span><span class="name-text">${currentUser.name} (ខ្ញុំ)</span></div><div class="col-uid">${currentUser.uid}</div><div class="col-count" id="myRowCount">${currentUser.depositCount}</div></div>`; let index = 2; if (snapshot.exists()) { const usersData = snapshot.val(); Object.keys(usersData).forEach((key) => { const user = usersData[key]; if (user.uid !== currentUser.uid) { html += `<div class="table-row table-body"><div class="col-name"><span>${index}.</span><span class="mini-profile-avatar" onclick="openProfileModal('${user.photo || ''}', '${user.name || '(…)'}', '${user.uid || 'N/A'}')">${user.photo ? `<img src="${user.photo}" style="width:100%; height:100%; object-fit:cover;">` : `<i data-lucide="user"></i>`}</span><span class="name-text">${user.name || '(…)'}</span></div><div class="col-uid">${user.uid || 'N/A'}</div><div class="col-count">${user.depositCount || 0}</div></div>`; index++; totalMembers++; } }); } tableBody.innerHTML = html; lucide.createIcons(); if (totalMembers >= 6) { btnViewAll.style.display = 'inline-flex'; } else { btnViewAll.style.display = 'none'; } });let isTableFullscreen = false;const viewAllText = document.getElementById('viewAllText');const fullscreenIcon = document.getElementById('fullscreenIcon');const appContainer = document.querySelector('.app-container');const maxIconSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>`;const minIconSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14h6v6"/><path d="M20 10h-6V4"/><path d="M14 10l7-7"/><path d="M3 21l7-7"/></svg>`;window.toggleTableFullscreen = function() { isTableFullscreen = !isTableFullscreen; if (isTableFullscreen) { appContainer.classList.add('table-fullscreen'); viewAllText.innerText = 'បង្រួម'; fullscreenIcon.innerHTML = minIconSvg; } else { appContainer.classList.remove('table-fullscreen'); viewAllText.innerText = 'មើលទាំងអស់'; fullscreenIcon.innerHTML = maxIconSvg; } };window.openProfileModal = function(photoUrl, name, uid) { const modal = document.getElementById('profileModal'); const modalAvatar = document.getElementById('modalAvatar'); const modalName = document.getElementById('modalName'); const modalUid = document.getElementById('modalUid'); modalAvatar.classList.remove('square-mode'); modalName.innerText = name || '(…)'; modalUid.innerText = uid ? `UID: ${uid}` : ''; if (photoUrl && photoUrl !== 'null' && photoUrl !== 'undefined' && photoUrl !== '') { modalAvatar.innerHTML = `<img src="${photoUrl}" alt="${name}">`; } else { modalAvatar.innerHTML = `<i data-lucide="user" style="width: 60px; height: 60px; color: #ffffff;"></i>`; } modal.classList.add('active'); lucide.createIcons(); };window.toggleAvatarShape = function() { const avatarWrapper = document.getElementById('modalAvatar'); avatarWrapper.classList.toggle('square-mode'); };window.closeProfileModal = function() { const modal = document.getElementById('profileModal'); const avatarWrapper = document.getElementById('modalAvatar'); modal.classList.remove('active'); avatarWrapper.classList.remove('square-mode'); };let selectedBankName = "";let currentDepositAmount = 0;let hasUploadedReceipt = false;window.checkStep1Validation = function() { const btn = document.getElementById('btnConfirmDeposit'); const sender = document.getElementById('senderAccountName').value.trim(); if (currentDepositAmount > 0 && selectedBankName !== "" && sender !== "") { btn.classList.remove('disabled'); } else { btn.classList.add('disabled'); } };window.openBankModal = function() { document.getElementById('bankModal').classList.add('active'); };window.closeBankModal = function() { document.getElementById('bankModal').classList.remove('active'); };window.selectBank = function(name) { selectedBankName = name; document.getElementById('selectedMethodText').innerText = name; document.getElementById('selectedMethodText').style.color = "#ffffff"; closeBankModal(); checkStep1Validation(); };window.openTransDetailModal = function(data) { document.getElementById('dtlTxnID').innerText = data.id || 'TXN-' + Math.floor(1000000 + Math.random() * 9000000); document.getElementById('dtlAccountName').innerText = currentUser.name || '(…)'; document.getElementById('dtlUID').innerText = currentUser.uid || 'N/A'; document.getElementById('dtlBank').innerText = data.bank || 'KHQR'; document.getElementById('dtlSenderName').innerText = data.sender || '(មិនបានបញ្ជាក់)'; document.getElementById('dtlDate').innerText = data.date || '--/--/----'; document.getElementById('dtlAmount').innerText = data.amount || '+0.00 USD'; document.getElementById('transDetailModal').classList.add('active'); };window.closeTransDetailModal = function() { document.getElementById('transDetailModal').classList.remove('active'); };window.openCardDetail = function(el) { const data = { id: el.getAttribute('data-id'), name: el.getAttribute('data-name'), uid: el.getAttribute('data-uid'), bank: el.getAttribute('data-bank'), sender: el.getAttribute('data-sender'), date: el.getAttribute('data-date'), amount: el.getAttribute('data-amount') }; openTransDetailModal(data); };let tempPendingDeposit = null;const pageAssets = document.getElementById('pageAssets');const pageDeposit = document.getElementById('pageDeposit');const pageHistory = document.getElementById('pageHistory');const pageSuccess = document.getElementById('pageSuccess');const switchDock = document.getElementById('switchDock');window.openDepositPage = function() { pageAssets.classList.remove('active'); pageDeposit.classList.add('active'); switchDock.style.display = 'none'; document.getElementById('depositStep1').style.display = 'flex'; document.getElementById('depositStep2').style.display = 'none'; checkStep1Validation(); };window.closeDepositPage = function() { pageDeposit.classList.remove('active'); pageAssets.classList.add('active'); switchDock.style.display = 'flex'; };window.selectPigAmount = function(amount, el) { currentDepositAmount = amount; document.getElementById('depositDisplayVal').innerText = amount.toFixed(2); document.querySelectorAll('.pig-option-btn').forEach(btn => btn.classList.remove('selected')); if (el) el.classList.add('selected'); checkStep1Validation(); };window.goToDepositStep2 = function() { if (currentDepositAmount <= 0 || selectedBankName === "" || document.getElementById('senderAccountName').value.trim() === "") { return; } document.getElementById('depositStep1').style.display = 'none'; document.getElementById('depositStep2').style.display = 'flex'; hasUploadedReceipt = false; document.getElementById('btnFinalSubmit').classList.add('disabled'); };window.handleReceiptUpload = function(input) { if (input.files && input.files[0]) { const fileName = input.files[0].name; document.getElementById('receiptFileName').innerText = "បានជ្រើសរើស៖ " + fileName; document.getElementById('receiptFileName').style.color = "#00bcd4"; hasUploadedReceipt = true; document.getElementById('btnFinalSubmit').classList.remove('disabled'); } };window.submitFinalDeposit = async function() { if (!hasUploadedReceipt) return; const val = currentDepositAmount || 0.00; const senderName = document.getElementById('senderAccountName').value.trim() || '(មិនបានបញ្ជាក់)'; const now = new Date(); const dateStr = ("0" + now.getDate()).slice(-2) + "/" + ("0" + (now.getMonth() + 1)).slice(-2) + "/" + now.getFullYear() + " " + ("0" + now.getHours()).slice(-2) + ":" + ("0" + now.getMinutes()).slice(-2); const txnID = 'TXN-' + Math.floor(1000000 + Math.random() * 9000000); currentUser.depositCount = (currentUser.depositCount || 0) + 1; currentUser.balance = (currentUser.balance || 30.53) + val; const newTxn = { id: txnID, name: currentUser.name, uid: currentUser.uid, bank: selectedBankName, sender: senderName, date: dateStr, amount: '+' + val.toFixed(2) + ' USD', status: 'ទទួលបានជោគជ័យ', timestamp: Date.now() }; tempPendingDeposit = newTxn; if (currentUser.uid) { try { await set(ref(db, `users/${currentUser.uid}/transactions/${txnID}`), newTxn); await update(ref(db, `users/${currentUser.uid}`), { depositCount: currentUser.depositCount, balance: currentUser.balance }); } catch(e) { console.error(e); } } document.getElementById('scAmountHeader').innerText = val.toFixed(2); document.getElementById('scTxnID').innerText = txnID; document.getElementById('scAccountName').innerText = currentUser.name; document.getElementById('scUID').innerText = currentUser.uid; document.getElementById('scBank').innerText = selectedBankName; document.getElementById('scSenderName').innerText = senderName; document.getElementById('scDate').innerText = dateStr; document.getElementById('scAmount').innerText = '+' + val.toFixed(2) + ' USD'; pageDeposit.classList.remove('active'); pageSuccess.classList.add('active'); lucide.createIcons(); };window.confirmSuccessPage = function() { pageSuccess.classList.remove('active'); pageHistory.classList.add('active'); switchDock.style.display = 'none'; currentDepositAmount = 0; selectedBankName = ""; hasUploadedReceipt = false; document.getElementById('depositDisplayVal').innerText = '0.00'; document.getElementById('selectedMethodText').innerText = 'ជ្រើសរើសវិធីដាក់ប្រាក់'; document.getElementById('selectedMethodText').style.color = '#d1d1d6'; document.getElementById('senderAccountName').value = ''; document.getElementById('receiptFileName').innerText = "បញ្ចូលរូបភាពវិក្កយបត្របាញ់ប្រាក់ (Receipt)"; document.getElementById('receiptFileName').style.color = "#334155"; document.getElementById('receiptFileInput').value = ''; document.querySelectorAll('.pig-option-btn').forEach(btn => btn.classList.remove('selected')); checkStep1Validation(); };const wallet = document.getElementById('wallet');wallet.addEventListener('click', () => { wallet.classList.toggle('open'); });let isHidden = false;const eyeSvg = document.getElementById('eyeSvg');const eyeOpenSvg = `<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" stroke="#ffffff"/><circle cx="12" cy="12" r="3" stroke="#ffffff"/>`;const eyeClosedSvg = `<path d="M9.88 9.88a3 3 0 1 0 4.24 4.24" stroke="#ffffff" stroke-width="1.8"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68" stroke="#ffffff" stroke-width="1.8"/><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61" stroke="#ffffff" stroke-width="1.8"/><line x1="2" y1="2" x2="22" y2="22" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round"/>`;window.toggleBalance = function() { isHidden = !isHidden; const balanceVal = document.getElementById('balanceVal'); if (isHidden) { balanceVal.innerText = '••••••'; eyeSvg.innerHTML = eyeClosedSvg; } else { balanceVal.innerText = currentUser.balance.toFixed(2); eyeSvg.innerHTML = eyeOpenSvg; } };window.openHistoryPage = function() { pageAssets.classList.remove('active'); pageHistory.classList.add('active'); switchDock.style.display = 'none'; };window.closeHistoryPage = function() { pageHistory.classList.remove('active'); pageAssets.classList.add('active'); switchDock.style.display = 'flex'; };const slidingPill = document.getElementById('slidingPill');const btnHome = document.getElementById('btnHome');const btnAssets = document.getElementById('btnAssets');const pageHome = document.getElementById('pageHome');slidingPill.style.transform = 'translateX(0%)';window.selectTab = function(tab) { pageHistory.classList.remove('active'); pageDeposit.classList.remove('active'); pageSuccess.classList.remove('active'); switchDock.style.display = 'flex'; if (tab === 'home') { slidingPill.style.transform = 'translateX(0%)'; btnHome.classList.add('active'); btnAssets.classList.remove('active'); pageHome.classList.add('active'); pageAssets.classList.remove('active'); } else { slidingPill.style.transform = 'translateX(100%)'; btnAssets.classList.add('active'); btnHome.classList.remove('active'); pageAssets.classList.add('active'); pageHome.classList.remove('active'); } };let startX = 0;switchDock.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; }, { passive: true });switchDock.addEventListener('touchend', (e) => { let endX = e.changedTouches[0].clientX; let diff = endX - startX; if (diff > 30) { window.selectTab('assets'); } else if (diff < -30) { window.selectTab('home'); } });lucide.createIcons();</script></body></html>
+<!DOCTYPE html>
+<html lang="km">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>កាបូបឌីជីថល KBK Wallet</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Kantumruy Pro',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;-webkit-tap-highlight-color:transparent;scrollbar-width:none;-ms-overflow-style:none;}
+*::-webkit-scrollbar{display:none;width:0px;height:0px;background:transparent;}
+html,body{width:100%;min-height:100vh;background-color:#000000;color:#ffffff;overflow-x:hidden;}
+.app-container{width:100%;min-height:100vh;background-color:#000000;display:flex;flex-direction:column;position:relative;padding:20px 16px 105px 16px;transition:padding 0.3s ease;}
+.page-view{display:none;width:100%;animation:fadeIn 0.25s ease forwards;}
+.page-view.active{display:flex;flex-direction:column;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:translateY(0);}}
+#splashScreen{position:fixed;top:0;left:0;width:100vw;height:100vh;background-color:#000000;display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:99999;transition:opacity 0.5s ease,visibility 0.5s ease;padding:20px;}
+#splashScreen.fade-out{opacity:0;visibility:hidden;pointer-events:none;}
+.piggy-svg{width:88vw;max-width:340px;height:auto;aspect-ratio:1/1;overflow:visible;filter:drop-shadow(0 6px 25px rgba(0,0,0,0.9));}
+.line-art{stroke:#71717a;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;}
+.highlight-line{stroke:#a1a1aa;stroke-width:1.4;stroke-linecap:round;fill:none;opacity:0.5;}
+.coin-drop-loop{animation:coinFloatAndDrop 2.2s infinite ease-in-out;transform-origin:140px 105px;}
+@keyframes coinFloatAndDrop{0%{transform:translateY(-60px);opacity:0;}20%{transform:translateY(-40px);opacity:1;}65%{transform:translateY(-2px);opacity:1;}80%,100%{transform:translateY(30px) scale(0.7);opacity:0;}}
+.pig-shake{animation:pigJiggle 2.2s infinite ease-in-out;transform-origin:bottom center;}
+@keyframes pigJiggle{0%,65%,100%{transform:scale(1);}72%{transform:scale(1.03,0.97);}82%{transform:scale(0.98,1.02);}}
+.splash-counter{margin-top:20px;font-size:1.5rem;font-weight:bold;color:#f1f5f9;letter-spacing:0.5px;text-shadow:0 0 15px rgba(255,255,255,0.25);text-align:center;}
+.horizontal-line{width:88%;max-width:460px;height:2px;margin-top:10px;background:linear-gradient(90deg,transparent 0%,rgba(56,189,248,0.2) 15%,rgba(56,189,248,1) 50%,rgba(56,189,248,0.2) 85%,transparent 100%);box-shadow:0 0 10px rgba(56,189,248,0.8),0 0 20px rgba(56,189,248,0.4);border-radius:50%;}
+.progress-section{width:88%;max-width:460px;margin-top:30px;display:flex;flex-direction:column;}
+.percentage-text{color:#38bdf8;font-size:1.1rem;font-weight:bold;margin-bottom:6px;text-shadow:0 0 8px rgba(56,189,248,0.6);align-self:flex-end;font-variant-numeric:tabular-nums;}
+.progress-bar-bg{width:100%;height:4px;background:rgba(255,255,255,0.1);border-radius:5px;overflow:hidden;position:relative;}
+.progress-bar-fill{width:0%;height:100%;background:linear-gradient(90deg,#0284c7,#38bdf8);box-shadow:0 0 10px #38bdf8,0 0 20px #38bdf8;border-radius:5px;transition:width 0.05s linear;}
+.home-content{align-items:center;justify-content:flex-start;padding-top:40px;text-align:center;width:100%;}
+#homeProfileSection{display:flex;flex-direction:column;align-items:center;width:100%;}
+.account-avatar-lg{width:95px;height:95px;border-radius:50%;border:1.5px solid #71717a;background:radial-gradient(circle,#f59e0b 35%,#05684d 75%,#022c22 100%);box-shadow:0 4px 15px rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:center;margin-bottom:14px;overflow:hidden;}
+.account-avatar-lg svg{width:44px;height:44px;color:rgba(255,255,255,0.85);}
+.account-name-lg{font-size:22px;font-weight:700;color:#ffffff;margin-bottom:8px;max-width:90%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.account-uid-lg{font-size:14.5px;color:#d1d1d6;background-color:#0d0d11;padding:6px 16px;border-radius:20px;border:1.3px solid #71717a;display:inline-flex;align-items:center;gap:6px;margin-bottom:20px;}
+.home-table-card{width:100%;background-color:#0b0b0d;border:1.3px solid #71717a;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.5);display:flex;flex-direction:column;}
+.table-row{display:flex;align-items:center;justify-content:space-between;padding:13px 12px;gap:6px;min-height:48px;}
+.table-header{background-color:#121217;border-bottom:1.3px solid #2e2e36;font-size:13px;font-weight:600;color:#d1d1d6;position:sticky;top:0;z-index:10;}
+#homeTableList{max-height:288px;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;}
+.table-body{font-size:14px;font-weight:500;color:#ffffff;border-bottom:1px solid #18181c;}
+.table-body:last-child{border-bottom:none;}
+.col-name{flex:2;display:flex;align-items:center;gap:6px;text-align:left;min-width:0;white-space:nowrap;}
+.header-col-name{display:flex;align-items:center;justify-content:space-between;gap:8px;padding-right:6px;}
+.name-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:13.8px;font-weight:500;}
+.col-uid{flex:1.1;text-align:center;font-size:13px;white-space:nowrap;}
+.col-count{flex:1.1;text-align:right;font-size:13.5px;white-space:nowrap;}
+.table-header .col-uid{color:#00bcd4;}
+.table-body .col-count{color:#00bcd4;font-weight:700;}
+.mini-profile-avatar{width:25px;height:25px;border-radius:50%;border:1.3px solid #71717a;background:radial-gradient(circle,#f59e0b 35%,#05684d 75%,#022c22 100%);display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;cursor:pointer;transition:transform 0.15s ease;}
+.mini-profile-avatar:active{transform:scale(0.85);}
+.mini-profile-avatar svg{width:12px;height:12px;color:#ffffff;}
+.view-all-btn{background-color:#0e0e12;border:1.3px solid #71717a;color:#ffffff;padding:3px 8px;border-radius:7px;font-size:11px;font-weight:600;cursor:pointer;display:none;align-items:center;gap:4px;}
+.view-all-btn svg{width:12px;height:12px;stroke-width:2.2;color:#ffffff;}
+.app-container.table-fullscreen #homeProfileSection{display:none !important;}
+.app-container.table-fullscreen .home-content{padding-top:10px;height:calc(100vh - 120px);}
+.app-container.table-fullscreen .home-table-card{height:100%;}
+.app-container.table-fullscreen #homeTableList{max-height:none;flex:1;}
+.profile-modal{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.85);backdrop-filter:blur(8px);z-index:999999;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.3s ease;padding:20px;}
+.profile-modal.active{opacity:1;pointer-events:auto;}
+.modal-card{background:#0b0b0f;border:1.4px solid #71717a;border-radius:24px;padding:32px 20px 26px 20px;text-align:center;width:100%;max-width:320px;box-shadow:0 10px 40px rgba(0,0,0,0.9);position:relative;transform:scale(0.9);transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1);}
+.profile-modal.active .modal-card{transform:scale(1);}
+.modal-close-btn{position:absolute;top:14px;right:14px;background:#181820;border:1px solid #3f3f46;color:#ffffff;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:10;}
+.modal-avatar-wrapper{width:130px;height:130px;border-radius:50%;border:2px solid #00bcd4;margin:0 auto 16px auto;overflow:hidden;box-shadow:0 0 25px rgba(0,188,212,0.35);display:flex;align-items:center;justify-content:center;background:radial-gradient(circle,#f59e0b 35%,#05684d 75%,#022c22 100%);cursor:pointer;transition:all 0.35s cubic-bezier(0.25,1,0.5,1);}
+.modal-avatar-wrapper img{width:100%;height:100%;object-fit:cover;}
+.modal-avatar-wrapper.square-mode{width:250px;height:250px;border-radius:18px;box-shadow:0 10px 35px rgba(0,188,212,0.45);}
+.modal-user-name{font-size:21px;font-weight:700;color:#ffffff;margin-bottom:6px;}
+.modal-user-uid{font-size:13.5px;color:#a1a1aa;background:#121218;padding:5px 14px;border-radius:14px;border:1px solid #3f3f46;display:inline-block;}
+.assets-carousel-wrapper{width:100%;overflow:hidden;position:relative;padding-top:10px;}
+.assets-carousel-track{display:flex;width:200%;transition:transform 0.35s cubic-bezier(0.25,1,0.5,1);}
+.assets-slide{width:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;}
+.carousel-dots{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:8px;margin-bottom:4px;}
+.carousel-dot{width:8px;height:8px;border-radius:50%;background:#3f3f46;transition:all 0.25s ease;cursor:pointer;}
+.carousel-dot.active{width:22px;border-radius:10px;background:#00bcd4;}
+.wallet-wrapper, .pig-card-wrapper{display:flex;justify-content:center;align-items:center;padding:45px 0 10px 0;width:100%;}
+.wallet-container, .pig-card-container{position:relative;width:100%;max-width:340px;height:215px;cursor:pointer;user-select:none;display:flex;align-items:center;justify-content:center;}
+.bill{position:absolute;width:calc(100% - 44px);height:105px;background-color:#0e0e12;border:1.4px solid #71717a;border-radius:14px;left:22px;top:62px;transition:transform 0.42s cubic-bezier(0.2,0.9,0.3,1.1);display:flex;justify-content:space-between;align-items:center;padding:0 20px;z-index:1;box-shadow:0 4px 15px rgba(0,0,0,0.5);}
+.bill-text{font-size:19px;font-weight:bold;color:#22c55e;letter-spacing:0.5px;display:inline-flex;align-items:center;gap:5px;}
+.bill-text svg{width:19px;height:19px;stroke-width:2.6;color:#22c55e;stroke:#22c55e;}
+.bill-symbol{font-size:22px;font-weight:bold;color:#e4e4e7;border:1.4px dashed #8e8e96;border-radius:50%;width:46px;height:46px;display:flex;justify-content:center;align-items:center;}
+.bill-2{top:58px;transform:rotate(-3deg);}
+.bill-1{top:62px;transform:rotate(2deg);}
+.coin{position:absolute;width:52px;height:52px;background-color:#0e0e12;border:1.4px solid #71717a;border-radius:50%;right:28px;top:66px;z-index:2;display:flex;justify-content:center;align-items:center;transition:transform 0.42s cubic-bezier(0.2,0.9,0.3,1.1);cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.6);}
+.coin svg{width:22px;height:22px;stroke-width:2.2;color:#e4e4e7;stroke:#e4e4e7;}
+.wallet-back{position:absolute;bottom:0;width:100%;height:170px;background-color:#08080b;border:1.4px solid #71717a;border-radius:22px;z-index:0;}
+.wallet-body{position:absolute;bottom:0;width:100%;height:150px;background-color:#0b0b0f;border:1.4px solid #71717a;border-radius:16px 16px 22px 22px;z-index:3;display:flex;flex-direction:column;justify-content:center;align-items:center;padding-right:25px;box-shadow:0 6px 25px rgba(0,0,0,0.8);}
+.wallet-body::after{content:'';position:absolute;top:8px;left:8px;right:8px;bottom:8px;border:1.4px dashed #71717a;border-radius:14px;pointer-events:none;}
+.wallet-label-row{display:flex;align-items:center;gap:7px;color:#a1a1aa;font-size:13.5px;font-weight:500;margin-bottom:3px;z-index:5;user-select:none;}
+.wallet-eye-btn{background:none;border:none;color:#ffffff;cursor:pointer;display:inline-flex;align-items:center;padding:0;}
+.wallet-eye-btn svg{width:17px;height:17px;stroke-width:1.8;color:#ffffff;}
+.wallet-amount{z-index:5;display:inline-flex;align-items:baseline;gap:6px;user-select:none;}
+.wallet-val{font-size:34px;font-weight:800;color:#ffffff;letter-spacing:0.5px;}
+.wallet-cur{font-size:17px;font-weight:700;color:#ffffff;letter-spacing:0.5px;}
+.wallet-deposit-tag{position:absolute;bottom:14px;right:18px;z-index:6;display:inline-flex;align-items:center;gap:5px;padding:4px 10px;background-color:rgba(255,255,255,0.05);border:1.4px dashed #71717a;border-radius:8px;color:#e4e4e7;font-size:12.5px;font-weight:600;letter-spacing:0.5px;cursor:pointer;transition:all 0.2s ease;}
+.wallet-deposit-tag:active{transform:scale(0.92);background-color:rgba(255,255,255,0.1);border-color:#a1a1aa;}
+.wallet-deposit-tag svg{width:13px;height:13px;stroke-width:2.5;color:#e4e4e7;}
+.wallet-flap{position:absolute;right:-8px;top:42px;width:85px;height:54px;background-color:#0b0b0f;border:1.4px solid #71717a;border-radius:10px 25px 25px 10px;z-index:4;display:flex;align-items:center;justify-content:flex-end;padding-right:14px;transition:all 0.3s ease;}
+.wallet-button{width:22px;height:22px;background-color:#27272e;border:1.4px solid #71717a;border-radius:50%;}
+.wallet-container.open .bill-1{transform:translateY(-88px) rotate(8deg);}
+.wallet-container.open .bill-2{transform:translateY(-80px) rotate(-10deg);}
+.wallet-container.open .coin{transform:translateY(-88px) rotate(15deg);}
+.wallet-container.open .wallet-flap{transform:rotate(-20deg) translateX(8px);}
+.piggy-card-svg{width:100%;max-width:315px;height:auto;aspect-ratio:1/1;overflow:visible;filter:drop-shadow(0 8px 25px rgba(0,0,0,0.85));transform:translateY(-6px);}
+.pig-belly-content{position:absolute;bottom:30px;left:0;right:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none;z-index:10;transform:translateX(-14px);}
+.pig-belly-label{color:#cbd5e1;font-size:13px;font-weight:600;margin-bottom:2px;letter-spacing:0.3px;text-shadow:0 1px 4px rgba(0,0,0,0.8);}
+.pig-belly-amount{color:#ffffff;font-size:28px;font-weight:800;letter-spacing:0.5px;text-shadow:0 2px 8px rgba(0,0,0,0.9);display:flex;align-items:baseline;gap:4px;white-space:nowrap;transition:font-size 0.2s ease;}
+.pig-belly-rate{color:#22c55e;font-size:13.5px;font-weight:700;margin-top:2px;text-shadow:0 0 6px rgba(34,197,94,0.4);}
+.info-list{width:100%;display:flex;flex-direction:column;margin-top:4px;}
+.info-row{width:100%;display:flex;align-items:center;justify-content:space-between;padding:16px 2px;border-bottom:1px solid #171719;}
+.row-left{display:flex;align-items:center;gap:14px;font-size:14.5px;color:#ffffff;}
+.row-left svg{color:#00bcd4;width:20px;height:20px;stroke-width:2;}
+.row-right{display:flex;align-items:center;gap:10px;font-size:14px;color:#ffffff;}
+.avatar-badge{width:32px;height:32px;border-radius:50%;border:1.4px solid #71717a;background:radial-gradient(circle,#f59e0b 35%,#05684d 75%,#022c22 100%);display:inline-block;flex-shrink:0;overflow:hidden;}
+.telegram-badge{background-color:#0e0e12;border:1.3px solid #71717a;color:#ffffff;font-size:13px;font-weight:600;padding:5px 12px;border-radius:8px;letter-spacing:0.3px;cursor:pointer;display:inline-block;transition:all 0.2s ease;}
+.telegram-badge:active{background-color:#1f1f26;border-color:#a1a1aa;}
+.txt-cyan{color:#00bcd4;font-weight:600;}
+.deposit-main-card{width:100%;background-color:#0e0f14;border:1.3px solid #27272e;border-radius:20px;padding:20px 14px;display:flex;flex-direction:column;align-items:center;box-shadow:0 6px 25px rgba(0,0,0,0.6);margin-bottom:16px;}
+.dep-header-title-center{color:#a1a1aa;font-size:14px;font-weight:500;text-align:center;width:100%;margin-bottom:8px;}
+.dep-amount-input-box-center{display:flex;align-items:center;justify-content:center;width:100%;margin:0 auto 14px auto;gap:3px;}
+.dep-dollar-sign{color:#00bcd4;font-size:24px;font-weight:700;line-height:1;margin-top:2px;}
+.dep-number-display{color:#ffffff;font-size:26px;font-weight:700;min-width:70px;text-align:left;line-height:1;padding-left:3px;user-select:none;}
+.dep-divider{width:100%;height:1px;background-color:#1f1f26;margin-bottom:14px;}
+.pigs-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;width:100%;margin-bottom:14px;}
+.pig-option-btn{background-color:#08090d;border:1.2px solid #27272e;border-radius:12px;padding:8px 4px 6px 4px;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;transition:all 0.2s ease;}
+.pig-option-btn:active{transform:scale(0.92);}
+.pig-option-btn.selected{border-color:#00bcd4;background-color:rgba(0,188,212,0.12);box-shadow:0 0 10px rgba(0,188,212,0.3);}
+.pig-option-svg{width:46px;height:46px;overflow:visible;}
+.pig-amount-lbl{font-size:13.5px;font-weight:700;color:#00bcd4;margin-top:4px;}
+.deposit-form-group{width:100%;display:flex;flex-direction:column;gap:10px;}
+.dep-input-box{width:100%;height:50px;background-color:#0e0f14;border:1.2px solid #27272e;border-radius:14px;padding:0 16px;display:flex;align-items:center;justify-content:space-between;}
+.dep-input-box input{width:100%;background:none;border:none;outline:none;color:#ffffff;font-size:14px;font-family:inherit;}
+.dep-input-box input::placeholder{color:#71717a;}
+.dep-select-box{width:100%;height:50px;background-color:#0e0f14;border:1.2px solid #27272e;border-radius:14px;padding:0 16px;display:flex;align-items:center;justify-content:space-between;color:#d1d1d6;font-size:14px;cursor:pointer;transition:all 0.2s ease;}
+.dep-select-box:active{border-color:#00bcd4;background-color:#14151b;}
+.dep-submit-btn{width:100%;height:50px;background-color:#00bcd4;border:none;border-radius:14px;color:#000000;font-size:15px;font-weight:700;cursor:pointer;margin-top:4px;transition:all 0.2s ease;}
+.dep-submit-btn:active{transform:scale(0.98);}
+.dep-submit-btn.disabled{opacity:0.3;pointer-events:none;filter:grayscale(1);}
+#depositStep2{display:none;flex-direction:column;width:100%;align-items:center;}
+.khqr-full-sheet{width:100%;max-width:350px;background-color:#ffffff;border-radius:22px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,0.85);display:flex;flex-direction:column;margin-bottom:16px;}
+.khqr-top-red{background-color:#e11d48;color:#ffffff;font-size:14px;font-weight:900;padding:6px 0;letter-spacing:1px;text-align:center;}
+.khqr-sheet-body{padding:14px 16px 18px 16px;display:flex;flex-direction:column;align-items:center;color:#0f172a;}
+.khqr-merchant{font-size:14px;font-weight:800;color:#000000;margin-bottom:2px;}
+.khqr-currency{font-size:11.5px;font-weight:700;color:#475569;margin-bottom:10px;}
+.khqr-code-img{width:180px;height:180px;position:relative;display:flex;align-items:center;justify-content:center;margin-bottom:12px;}
+.khqr-code-img img{width:100%;height:100%;object-fit:contain;}
+.khqr-center-logo{position:absolute;width:32px;height:32px;background-color:#0b0b0f;border:1.8px solid #ffffff;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 0 10px rgba(0,0,0,0.5);}
+.khqr-sheet-notice{width:100%;background-color:#f0f9ff;border:1.2px solid #bae6fd;border-radius:12px;padding:9px 12px;color:#0369a1;font-size:12px;line-height:1.5;text-align:center;margin-bottom:12px;}
+.khqr-sheet-upload-btn{width:100%;height:46px;background-color:#f8fafc;border:1.5px dashed #0284c7;border-radius:12px;padding:0 14px;display:flex;align-items:center;justify-content:space-between;cursor:pointer;color:#334155;font-size:12.5px;font-weight:600;margin-bottom:10px;transition:all 0.2s ease;}
+.khqr-sheet-upload-btn:active{background-color:#e0f2fe;}
+.khqr-sheet-hint{color:#0284c7;font-size:11.5px;font-weight:600;text-align:center;margin-bottom:12px;line-height:1.4;}
+.khqr-sheet-submit-btn{width:100%;height:46px;background-color:#00bcd4;border:none;border-radius:12px;color:#000000;font-size:14.5px;font-weight:700;cursor:pointer;transition:all 0.2s ease;}
+.khqr-sheet-submit-btn:active{transform:scale(0.98);}
+.khqr-sheet-submit-btn.disabled{opacity:0.3;pointer-events:none;filter:grayscale(1);}
+.bank-modal{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.85);backdrop-filter:blur(8px);z-index:999999;display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:all 0.3s ease;}
+.bank-modal.active{opacity:1;pointer-events:auto;}
+.bank-sheet{background:#0e0f14;border:1.2px solid #27272e;border-radius:24px 24px 0 0;width:100%;max-width:480px;max-height:80vh;overflow-y:auto;padding:20px 16px 30px 16px;transform:translateY(100%);transition:transform 0.3s ease;display:flex;flex-direction:column;}
+.bank-modal.active .bank-sheet{transform:translateY(0);}
+.bank-sheet-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid #1f2026;}
+.bank-sheet-title{font-size:16.5px;font-weight:700;color:#ffffff;}
+.bank-sheet-close{background:#181820;border:1px solid #3f3f46;color:#ffffff;width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;}
+.bank-item{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-radius:14px;background:#14151b;border:1.2px solid #23242c;margin-bottom:8px;cursor:pointer;transition:all 0.2s ease;}
+.bank-item:active{background:#1f202a;border-color:#00bcd4;}
+.bank-item-left{display:flex;align-items:center;gap:12px;font-weight:600;font-size:14px;color:#ffffff;}
+.bank-logo-badge{width:36px;height:36px;border-radius:10px;overflow:hidden;background:#181820;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid #27272e;}
+.bank-logo-badge img{width:100%;height:100%;object-fit:cover;}
+.history-topbar{position:sticky;top:0;background-color:#000000;z-index:20;display:flex;align-items:center;justify-content:space-between;padding-top:2px;padding-bottom:14px;border-bottom:1px solid #1a1a1f;margin-bottom:14px;}
+.history-back-btn{background:#141416;border:1px solid #27272e;color:#ffffff;width:38px;height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;cursor:pointer;}
+.history-topbar-title{font-size:18px;font-weight:700;color:#ffffff;}
+#historyList, #interestList{overflow-y:auto;max-height:calc(100vh - 120px);-webkit-overflow-scrolling:touch;padding-bottom:20px;display:flex;flex-direction:column;}
+.transaction-card{position:relative;background-color:#0f1012;border-radius:18px;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;overflow:hidden;box-shadow:0 4px 15px rgba(0,0,0,0.4);border:1px solid #1a1a1e;cursor:pointer;transition:transform 0.15s ease,background-color 0.15s ease;animation:fadeIn 0.3s ease;}
+.transaction-card:active{transform:scale(0.98);background-color:#16171d;}
+.transaction-card::before{content:'';position:absolute;left:0;top:6px;bottom:6px;width:4.5px;background-color:#00d2d3;border-radius:4px;}
+.trans-left{display:flex;align-items:center;gap:14px;}
+.trans-icon-box{width:52px;height:52px;background-color:#0e0f14;border:1.3px solid #3f3f46;border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:visible;}
+.mini-pig-svg{width:46px;height:46px;overflow:visible;}
+.trans-info{display:flex;flex-direction:column;gap:4px;}
+.trans-title{font-size:16.5px;font-weight:700;color:#ffffff;}
+.trans-date{font-size:13px;color:#75757d;}
+.trans-right{text-align:right;display:flex;flex-direction:column;gap:4px;}
+.trans-amount{font-size:18px;font-weight:700;color:#00d2d3;}
+.trans-status{font-size:13px;font-weight:600;color:#00d2d3;}
+.detail-modal{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.85);backdrop-filter:blur(8px);z-index:999999;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.3s ease;padding:20px;}
+.detail-modal.active{opacity:1;pointer-events:auto;}
+.detail-card{background:#0e0f14;border:1.4px solid #27272e;border-radius:22px;padding:24px 20px 20px 20px;width:100%;max-width:340px;box-shadow:0 12px 40px rgba(0,0,0,0.9);display:flex;flex-direction:column;position:relative;transform:scale(0.9);transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1);}
+.detail-modal.active .detail-card{transform:scale(1);}
+.detail-header-title{font-size:17.5px;font-weight:700;color:#00bcd4;text-align:center;margin-bottom:16px;padding-bottom:10px;border-bottom:1px solid #1f2026;}
+.detail-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid #16171d;font-size:13.5px;}
+.detail-row-lbl{color:#8e8e96;font-weight:500;}
+.detail-row-val{color:#ffffff;font-weight:600;text-align:right;max-width:60%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.detail-close-btn{width:100%;height:44px;background-color:#1c1d24;border:1.2px solid #3f3f46;border-radius:12px;color:#ffffff;font-size:14px;font-weight:700;cursor:pointer;margin-top:16px;transition:all 0.2s ease;}
+.detail-close-btn:active{background-color:#2a2b36;border-color:#00bcd4;}
+.success-page-content{display:flex;flex-direction:column;align-items:center;width:100%;padding:20px 4px 30px 4px;}
+.success-page-circle{width:76px;height:76px;border-radius:50%;background:rgba(34,197,94,0.12);border:2px solid #22c55e;display:flex;align-items:center;justify-content:center;color:#22c55e;margin-bottom:14px;box-shadow:0 0 25px rgba(34,197,94,0.35);}
+.success-page-title{font-size:20px;font-weight:700;color:#22c55e;margin-bottom:6px;}
+.success-page-amount{font-size:28px;font-weight:800;color:#ffffff;margin-bottom:4px;letter-spacing:0.5px;}
+.success-page-sub{font-size:13.5px;color:#a1a1aa;margin-bottom:20px;text-align:center;}
+.success-details-card{width:100%;background:#0e0f14;border:1.2px solid #27272e;border-radius:18px;padding:14px 16px;margin-bottom:20px;box-shadow:0 4px 15px rgba(0,0,0,0.5);}
+.success-page-btn{width:100%;height:50px;background-color:#00bcd4;border:none;border-radius:14px;color:#000000;font-size:15px;font-weight:700;cursor:pointer;transition:all 0.2s ease;}
+.success-page-btn:active{transform:scale(0.98);}
+@keyframes arrowFly3D{0%{transform:translateY(4px) scale(0.92) rotateX(15deg);filter:drop-shadow(0 0 4px rgba(255,255,255,0.4));}50%{transform:translateY(-5px) scale(1.08) rotateX(0deg);filter:drop-shadow(0 0 10px rgba(255,255,255,0.9));}100%{transform:translateY(4px) scale(0.92) rotateX(15deg);filter:drop-shadow(0 0 4px rgba(255,255,255,0.4));}}
+.flying-arrow-3d{animation:arrowFly3D 2.2s infinite ease-in-out;color:#ffffff;display:flex;align-items:center;justify-content:center;}
+.interest-card{position:relative;background-color:#0f1012;border-radius:18px;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;overflow:hidden;box-shadow:0 4px 15px rgba(0,0,0,0.4);border:1px solid #1a1a1e;animation:fadeIn 0.3s ease;cursor:pointer;transition:transform 0.15s ease,background-color 0.15s ease;}
+.interest-card:active{transform:scale(0.98);background-color:#16171d;}
+.interest-card::before{content:'';position:absolute;left:0;top:6px;bottom:6px;width:4.5px;background-color:#22c55e;border-radius:4px;box-shadow:0 0 8px #22c55e;}
+.interest-icon-box{width:52px;height:52px;background-color:#0e0f14;border:1.3px solid #3f3f46;border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.switch-dock{position:fixed;bottom:18px;left:16px;right:16px;height:52px;background-color:#02090b;border:1.2px solid #015260;border-radius:16px;display:flex;padding:4px;box-shadow:0 8px 25px rgba(0,0,0,0.9),0 0 14px rgba(0,188,212,0.15);user-select:none;z-index:100;}
+.sliding-pill{position:absolute;top:4px;left:4px;width:calc(50% - 4px);height:calc(100% - 8px);background-color:#016273;border:1px solid #00bcd4;border-radius:12px;box-shadow:0 0 12px rgba(0,188,212,0.25);transition:transform 0.28s cubic-bezier(0.4,0,0.2,1);z-index:1;}
+.switch-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:9px;border:none;background:transparent;font-size:15px;font-weight:600;color:rgba(255,255,255,0.55);cursor:pointer;position:relative;z-index:2;transition:color 0.25s ease;}
+.switch-btn svg{width:19px;height:19px;stroke-width:2.2;color:rgba(255,255,255,0.55);transition:color 0.25s ease,stroke 0.25s ease;}
+.switch-btn.active{color:#ffffff;}
+.switch-btn.active svg{color:#ffffff;stroke:#ffffff;}
+</style>
+</head>
+<body>
+
+<div id="splashScreen">
+  <svg class="piggy-svg" viewBox="0 0 280 280">
+    <defs>
+      <linearGradient id="darkCoinGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#272731"/><stop offset="60%" stop-color="#18181f"/><stop offset="100%" stop-color="#0f0f14"/></linearGradient>
+      <linearGradient id="pigDarkGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#1c1c24"/><stop offset="60%" stop-color="#121217"/><stop offset="100%" stop-color="#0b0b0e"/></linearGradient>
+      <linearGradient id="pigBackLegGrad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#121217"/><stop offset="100%" stop-color="#08080a"/></linearGradient>
+    </defs>
+    <ellipse cx="140" cy="245" rx="90" ry="16" fill="rgba(56, 189, 248, 0.1)" />
+    <g class="coin-drop-loop">
+      <circle cx="142" cy="107" r="30" fill="#0b0b0e" stroke="#71717a" stroke-width="1.8" />
+      <circle cx="138" cy="103" r="30" fill="url(#darkCoinGrad)" stroke="#71717a" stroke-width="2.2" />
+      <circle cx="138" cy="103" r="23" fill="none" stroke="#71717a" stroke-width="1.5" stroke-dasharray="3,2" />
+      <text x="137" y="113" font-size="28" font-weight="900" font-family="Arial" fill="#d1d1d6" text-anchor="middle">$</text>
+    </g>
+    <g class="pig-shake">
+      <path d="M 50 160 Q 28 150 33 133 Q 45 120 56 138" fill="none" stroke="#71717a" stroke-width="2.5" stroke-linecap="round"/>
+      <rect x="75" y="200" width="26" height="34" rx="10" fill="url(#pigBackLegGrad)" class="line-art" />
+      <rect x="175" y="200" width="26" height="34" rx="10" fill="url(#pigBackLegGrad)" class="line-art" />
+      <ellipse cx="140" cy="170" rx="86" ry="69" fill="url(#pigDarkGrad)" class="line-art" />
+      <path d="M 80 135 C 105 118, 150 118, 175 128" class="highlight-line" />
+      <rect x="95" y="205" width="26" height="34" rx="10" fill="url(#pigDarkGrad)" class="line-art" />
+      <rect x="155" y="205" width="26" height="34" rx="10" fill="url(#pigDarkGrad)" class="line-art" />
+      <path d="M 90 115 C 78 82, 115 76, 120 110 Z" fill="url(#pigDarkGrad)" class="line-art" />
+      <path d="M 160 110 C 165 76, 202 82, 190 115 Z" fill="url(#pigDarkGrad)" class="line-art" />
+      <path d="M 166 107 C 170 88, 188 92, 182 110 Z" fill="#252530" opacity="0.6"/>
+      <ellipse cx="138" cy="115" rx="30" ry="7" fill="#08080b" stroke="#71717a" stroke-width="1.8" />
+      <circle cx="175" cy="150" r="5" fill="#d1d1d6" />
+      <circle cx="174" cy="148" r="1.5" fill="#000000" />
+      <circle cx="205" cy="147" r="5" fill="#d1d1d6" />
+      <circle cx="204" cy="145" r="1.5" fill="#000000" />
+      <ellipse cx="205" cy="172" rx="22" ry="16" fill="url(#pigDarkGrad)" class="line-art" />
+      <ellipse cx="199" cy="172" rx="3.5" ry="5.5" fill="#71717a" />
+      <ellipse cx="212" cy="172" rx="3.5" ry="5.5" fill="#71717a" />
+    </g>
+  </svg>
+  <div class="splash-counter">ប្រាក់សន្សំ និង ការប្រាក់</div>
+  <div class="horizontal-line"></div>
+  <div class="progress-section">
+    <div class="percentage-text" id="percentText">0%</div>
+    <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressFill"></div></div>
+  </div>
+</div>
+
+<div id="profileModal" class="profile-modal" onclick="closeProfileModal()">
+  <div class="modal-card" onclick="event.stopPropagation()">
+    <button class="modal-close-btn" onclick="closeProfileModal()"><i data-lucide="x" style="width: 18px; height: 18px;"></i></button>
+    <div class="modal-avatar-wrapper" id="modalAvatar" onclick="toggleAvatarShape()" title="ចុចដើម្បីមើលរូបភាពជ្រុងពេញលេញ">
+      <i data-lucide="user" style="width: 60px; height: 60px; color: #ffffff;"></i>
+    </div>
+    <div class="modal-user-name" id="modalName">(…)</div>
+    <div class="modal-user-uid" id="modalUid">UID: ...</div>
+  </div>
+</div>
+
+<div id="bankModal" class="bank-modal" onclick="closeBankModal()">
+  <div class="bank-sheet" onclick="event.stopPropagation()">
+    <div class="bank-sheet-header">
+      <div class="bank-sheet-title">ជ្រើសរើសធនាគារ</div>
+      <button class="bank-sheet-close" onclick="closeBankModal()"><i data-lucide="x" style="width: 16px; height: 16px;"></i></button>
+    </div>
+    <div class="bank-item" onclick="selectBank('ABA Bank')"><div class="bank-item-left"><div class="bank-logo-badge"><img src="https://i.ibb.co/TDXnTQ01/IMG-3152.png" alt="ABA Bank"></div><span>ABA Bank</span></div><i data-lucide="chevron-right" style="width: 18px; height: 18px; color: #71717a;"></i></div>
+    <div class="bank-item" onclick="selectBank('ACLEDA Bank')"><div class="bank-item-left"><div class="bank-logo-badge"><img src="https://i.ibb.co/nqn8K7Mr/IMG-3153.png" alt="ACLEDA Bank"></div><span>ACLEDA Bank</span></div><i data-lucide="chevron-right" style="width: 18px; height: 18px; color: #71717a;"></i></div>
+    <div class="bank-item" onclick="selectBank('Wing Bank')"><div class="bank-item-left"><div class="bank-logo-badge"><img src="https://i.ibb.co/G3FtMhM2/IMG-3154.png" alt="Wing Bank"></div><span>Wing Bank</span></div><i data-lucide="chevron-right" style="width: 18px; height: 18px; color: #71717a;"></i></div>
+    <div class="bank-item" onclick="selectBank('True Money')"><div class="bank-item-left"><div class="bank-logo-badge"><img src="https://i.ibb.co/QvLt2MyK/IMG-3155.jpg" alt="True Money"></div><span>True Money</span></div><i data-lucide="chevron-right" style="width: 18px; height: 18px; color: #71717a;"></i></div>
+    <div class="bank-item" onclick="selectBank('Amret')"><div class="bank-item-left"><div class="bank-logo-badge"><img src="https://i.ibb.co/QvgwD59n/IMG-3156.png" alt="Amret"></div><span>Amret</span></div><i data-lucide="chevron-right" style="width: 18px; height: 18px; color: #71717a;"></i></div>
+    <div class="bank-item" onclick="selectBank('Woori Bank')"><div class="bank-item-left"><div class="bank-logo-badge"><img src="https://i.ibb.co/r2bBQWtr/IMG-3157.png" alt="Woori Bank"></div><span>Woori Bank</span></div><i data-lucide="chevron-right" style="width: 18px; height: 18px; color: #71717a;"></i></div>
+    <div class="bank-item" onclick="selectBank('MB Cambodia')"><div class="bank-item-left"><div class="bank-logo-badge"><img src="https://i.ibb.co/NnF4S5hV/IMG-3158.png" alt="MB Cambodia"></div><span>MB Cambodia</span></div><i data-lucide="chevron-right" style="width: 18px; height: 18px; color: #71717a;"></i></div>
+    <div class="bank-item" onclick="selectBank('KB PRASAC')"><div class="bank-item-left"><div class="bank-logo-badge"><img src="https://i.ibb.co/933n14L9/IMG-3159.png" alt="KB PRASAC"></div><span>KB PRASAC</span></div><i data-lucide="chevron-right" style="width: 18px; height: 18px; color: #71717a;"></i></div>
+  </div>
+</div>
+
+<div id="transDetailModal" class="detail-modal" onclick="closeTransDetailModal()">
+  <div class="detail-card" onclick="event.stopPropagation()">
+    <div class="detail-header-title">ព័ត៌មានលម្អិតប្រតិបត្តិការ</div>
+    <div class="detail-row"><span class="detail-row-lbl">លេខសម្គាល់ (ID):</span><span class="detail-row-val" id="dtlTxnID">TXN-000000</span></div>
+    <div class="detail-row"><span class="detail-row-lbl">ឈ្មោះអាខោន:</span><span class="detail-row-val" id="dtlAccountName">(…)</span></div>
+    <div class="detail-row"><span class="detail-row-lbl">លេខសម្គាល់ (UID):</span><span class="detail-row-val" id="dtlUID">...</span></div>
+    <div class="detail-row"><span class="detail-row-lbl">វិធីបង់ប្រាក់:</span><span class="detail-row-val" id="dtlBank" style="color: #00bcd4;">KHQR</span></div>
+    <div class="detail-row"><span class="detail-row-lbl">ឈ្មោះគណនីរបស់អ្នក:</span><span class="detail-row-val" id="dtlSenderName">...</span></div>
+    <div class="detail-row"><span class="detail-row-lbl">កាលបរិច្ឆេទ:</span><span class="detail-row-val" id="dtlDate">--/--/----</span></div>
+    <div class="detail-row"><span class="detail-row-lbl">ចំនួនទឹកប្រាក់:</span><span class="detail-row-val" id="dtlAmount" style="color: #00d2d3; font-size: 15px;">+0.00 USD</span></div>
+    <button class="detail-close-btn" onclick="closeTransDetailModal()">បិទ</button>
+  </div>
+</div>
+
+<!-- Modal ព័ត៌មានលម្អិតនៃការប្រាក់ -->
+<div id="interestDetailModal" class="detail-modal" onclick="closeInterestDetailModal()">
+  <div class="detail-card" onclick="event.stopPropagation()">
+    <div class="detail-header-title" style="color: #22c55e;">ព័ត៌មានលម្អិតនៃការប្រាក់</div>
+    <div class="detail-row"><span class="detail-row-lbl">លេខសម្គាល់ (ID):</span><span class="detail-row-val" id="dtlIntID">INT-000001</span></div>
+    <div class="detail-row"><span class="detail-row-lbl">ឈ្មោះអាខោន:</span><span class="detail-row-val" id="dtlIntName">(…)</span></div>
+    <div class="detail-row"><span class="detail-row-lbl">លេខសម្គាល់ (UID):</span><span class="detail-row-val" id="dtlIntUID">...</span></div>
+    <div class="detail-row"><span class="detail-row-lbl">កាលបរិច្ឆេទ:</span><span class="detail-row-val" id="dtlIntDate">30/01/2026 00:00</span></div>
+    <div class="detail-row"><span class="detail-row-lbl">សមតុល្យគណនី:</span><span class="detail-row-val" id="dtlIntBalance">30.53 USD</span></div>
+    <!-- ដាក់បន្ថែម "គិតជាភាគរយ:" នៅក្រោមសមតុល្យគណនី -->
+    <div class="detail-row"><span class="detail-row-lbl">គិតជាភាគរយ:</span><span class="detail-row-val" id="dtlIntRate" style="color: #22c55e;">+0.00%</span></div>
+    <div class="detail-row"><span class="detail-row-lbl">ការប្រាក់ទទួលបាន:</span><span class="detail-row-val" id="dtlIntAmount" style="color: #22c55e; font-size: 15px;">+0.00 USD</span></div>
+    <button class="detail-close-btn" onclick="closeInterestDetailModal()">បិទ</button>
+  </div>
+</div>
+
+<div class="app-container">
+  
+  <div class="page-view home-content active" id="pageHome">
+    <div id="homeProfileSection">
+      <div class="account-avatar-lg" id="homeAvatar"><i data-lucide="user"></i></div>
+      <div class="account-name-lg" id="homeName">(…)</div>
+      <div class="account-uid-lg"><span id="homeUID">UID: កំពុងផ្ទុក...</span></div>
+    </div>
+    <div class="home-table-card">
+      <div class="table-row table-header">
+        <div class="col-name header-col-name">
+          <span>0. ឈ្មោះ</span>
+          <button id="btnViewAll" class="view-all-btn" onclick="toggleTableFullscreen()">
+            <span id="viewAllText">មើលទាំងអស់</span>
+            <span id="fullscreenIcon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
+            </span>
+          </button>
+        </div>
+        <div class="col-uid">UID</div>
+        <div class="col-count">ដាក់ប្រាក់ចំនួនដង</div>
+      </div>
+      <div id="homeTableList">
+        <div class="table-row table-body">
+          <div class="col-name">
+            <span>1.</span>
+            <span class="mini-profile-avatar" id="myRowAvatar"><i data-lucide="user"></i></span>
+            <span class="name-text" id="myRowName">(…)</span>
+          </div>
+          <div class="col-uid" id="myRowUID">...</div>
+          <div class="col-count" id="myRowCount">1</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-view" id="pageAssets">
+    <div class="assets-carousel-wrapper">
+      <div class="assets-carousel-track" id="assetsTrack">
+        <div class="assets-slide">
+          <div class="wallet-wrapper">
+            <div class="wallet-container" id="wallet">
+              <div class="bill bill-2" onclick="event.stopPropagation(); openInterestPage();">
+                <span class="bill-text"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg><span>+0.00%</span></span>
+                <div class="bill-symbol">$</div>
+              </div>
+              <div class="bill bill-1" onclick="event.stopPropagation(); openInterestPage();">
+                <span class="bill-text"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg><span>+0.00%</span></span>
+                <div class="bill-symbol">$</div>
+              </div>
+              <div class="coin" onclick="event.stopPropagation(); openHistoryPage();" title="ប្រវត្តិប្រតិបត្តិការ">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l4 2"/></svg>
+              </div>
+              <div class="wallet-back"></div>
+              <div class="wallet-body">
+                <div class="wallet-label-row">
+                  <span>សមតុល្យគណនី</span>
+                  <button class="wallet-eye-btn" onclick="event.stopPropagation(); toggleBalance();" title="បិទ/បើកមើលលុយ">
+                    <svg id="eyeSvg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                  </button>
+                </div>
+                <div class="wallet-amount" id="balanceNum">
+                  <span class="wallet-val" id="balanceVal">30.53</span>
+                  <span class="wallet-cur">USD</span>
+                </div>
+                <div class="wallet-deposit-tag" onclick="event.stopPropagation(); openDepositPage();">
+                  <i data-lucide="arrow-down"></i>
+                  <span>ដាក់ប្រាក់</span>
+                </div>
+              </div>
+              <div class="wallet-flap"><div class="wallet-button"></div></div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Slide រូបជ្រូកការប្រាក់ (បានដកជើងមុខទាំងពីរដែលបាំងលើពោះចេញ) -->
+        <div class="assets-slide">
+          <div class="pig-card-wrapper" onclick="event.stopPropagation(); openInterestPage();">
+            <div class="pig-card-container">
+              <svg class="piggy-card-svg" viewBox="0 0 280 280">
+                <ellipse cx="140" cy="245" rx="90" ry="16" fill="rgba(56, 189, 248, 0.1)"/>
+                <g class="coin-drop-loop">
+                  <circle cx="142" cy="107" r="30" fill="#0b0b0e" stroke="#71717a" stroke-width="1.8"/>
+                  <circle cx="138" cy="103" r="30" fill="url(#darkCoinGrad)" stroke="#71717a" stroke-width="2.2"/>
+                  <circle cx="138" cy="103" r="23" fill="none" stroke="#71717a" stroke-width="1.5" stroke-dasharray="3,2"/>
+                  <text x="137" y="113" font-size="28" font-weight="900" font-family="Arial" fill="#d1d1d6" text-anchor="middle">$</text>
+                </g>
+                <g class="pig-shake">
+                  <path d="M 50 160 Q 28 150 33 133 Q 45 120 56 138" fill="none" stroke="#71717a" stroke-width="2.5" stroke-linecap="round"/>
+                  <!-- ជើងបាតក្រោមទាំងពីរ -->
+                  <rect x="75" y="200" width="26" height="34" rx="10" fill="url(#pigBackLegGrad)" class="line-art"/>
+                  <rect x="175" y="200" width="26" height="34" rx="10" fill="url(#pigBackLegGrad)" class="line-art"/>
+                  <!-- តួខ្លួនជ្រូក -->
+                  <ellipse cx="140" cy="170" rx="86" ry="69" fill="url(#pigDarkGrad)" class="line-art"/>
+                  <path d="M 80 135 C 105 118, 150 118, 175 128" class="highlight-line"/>
+                  <!-- ជើងមុខទាំងពីរដែលកាត់ក្បាលពោះត្រូវបានដកចេញទាំងស្រុង ដើម្បីកុំឱ្យបាំងអក្សរ -->
+                  <path d="M 90 115 C 78 82, 115 76, 120 110 Z" fill="url(#pigDarkGrad)" class="line-art"/>
+                  <path d="M 160 110 C 165 76, 202 82, 190 115 Z" fill="url(#pigDarkGrad)" class="line-art"/>
+                  <path d="M 166 107 C 170 88, 188 92, 182 110 Z" fill="#252530" opacity="0.6"/>
+                  <ellipse cx="138" cy="115" rx="30" ry="7" fill="#08080b" stroke="#71717a" stroke-width="1.8"/>
+                  <circle cx="175" cy="150" r="5" fill="#d1d1d6"/>
+                  <circle cx="174" cy="148" r="1.5" fill="#000000"/>
+                  <circle cx="205" cy="147" r="5" fill="#d1d1d6"/>
+                  <circle cx="204" cy="145" r="1.5" fill="#000000"/>
+                  <ellipse cx="205" cy="172" rx="22" ry="16" fill="url(#pigDarkGrad)" class="line-art"/>
+                  <ellipse cx="199" cy="172" rx="3.5" ry="5.5" fill="#71717a"/>
+                  <ellipse cx="212" cy="172" rx="3.5" ry="5.5" fill="#71717a"/>
+                </g>
+              </svg>
+              <div class="pig-belly-content">
+                <div class="pig-belly-label">ការប្រាក់សរុប</div>
+                <!-- ដាក់ ID សម្រាប់ Auto-Scale ទំហំអក្សរពេលលេខច្រើន -->
+                <div class="pig-belly-amount" id="pigBellyAmount">
+                  <span id="pigBellyVal">0.00</span> 
+                  <span id="pigBellyCur" style="font-size:16px; font-weight:700;">USD</span>
+                </div>
+                <div class="pig-belly-rate" id="pigBellyRate">+0.00%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-dots">
+        <span class="carousel-dot active" id="dot0" onclick="setAssetsSlide(0)"></span>
+        <span class="carousel-dot" id="dot1" onclick="setAssetsSlide(1)"></span>
+      </div>
+    </div>
+
+    <div class="info-list">
+      <div class="info-row">
+        <div class="row-left"><i data-lucide="camera"></i><span>រូបតំណាងក្រុមហ៊ុន:</span></div>
+        <div class="row-right"><span>មាសបៃតង</span><span class="avatar-badge"></span></div>
+      </div>
+      <div class="info-row">
+        <div class="row-left"><i data-lucide="send"></i><span>តេឡេក្រាមគណនី:</span></div>
+        <div class="row-right"><span class="telegram-badge">ទំនាក់ទំនង</span></div>
+      </div>
+      <div class="info-row">
+        <div class="row-left"><i data-lucide="user"></i><span>ឈ្មោះអាខោន:</span></div>
+        <div class="row-right"><span id="assetsName">(…)</span></div>
+      </div>
+      <div class="info-row">
+        <div class="row-left"><i data-lucide="mail"></i><span>លេខសម្គាល់ (UID)</span></div>
+        <div class="row-right"><span id="assetsUID">...</span></div>
+      </div>
+      <div class="info-row">
+        <div class="row-left"><i data-lucide="dollar-sign"></i><span>ទឹកប្រាក់អតិបរមា សរុបUSD:</span></div>
+        <div class="row-right txt-cyan"><span>200.00 USD</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-view" id="pageDeposit">
+    <div class="history-topbar">
+      <button class="history-back-btn" onclick="closeDepositPage()"><i data-lucide="arrow-left" style="width: 20px; height: 20px;"></i></button>
+      <div class="history-topbar-title">ដាក់ប្រាក់</div>
+      <div style="width: 38px;"></div>
+    </div>
+    
+    <div id="depositStep1" style="display: flex; flex-direction: column; width: 100%;">
+      <div class="deposit-main-card">
+        <div class="dep-header-title-center">ចំនួនទឹកប្រាក់ដែលត្រូវដាក់</div>
+        <div class="dep-amount-input-box-center">
+          <span class="dep-dollar-sign">$</span>
+          <span id="depositDisplayVal" class="dep-number-display">0.00</span>
+        </div>
+        <div class="dep-divider"></div>
+        <div class="pigs-grid">
+          <div class="pig-option-btn" onclick="selectPigAmount(10, this)">
+            <svg class="pig-option-svg" viewBox="0 0 280 280">
+              <defs><linearGradient id="pigOptG1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#1c1c24"/><stop offset="100%" stop-color="#0b0b0e"/></linearGradient></defs>
+              <g class="coin-drop-loop"><circle cx="138" cy="103" r="28" fill="#121217" stroke="#ffffff" stroke-width="3.5"/><text x="137" y="113" font-size="28" font-weight="900" fill="#ffffff" text-anchor="middle">$</text></g>
+              <g class="pig-shake"><path d="M 50 160 Q 28 150 33 133 Q 45 120 56 138" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/><rect x="75" y="200" width="26" height="34" rx="10" fill="#08080a" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><rect x="175" y="200" width="26" height="34" rx="10" fill="#08080a" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="140" cy="170" rx="86" ry="69" fill="url(#pigOptG1)" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round"/><rect x="95" y="205" width="26" height="34" rx="10" fill="url(#pigOptG1)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><rect x="155" y="205" width="26" height="34" rx="10" fill="url(#pigOptG1)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><path d="M 90 115 C 78 82, 115 76, 120 110 Z" fill="url(#pigOptG1)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><path d="M 160 110 C 165 76, 202 82, 190 115 Z" fill="url(#pigOptG1)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="138" cy="115" rx="30" ry="7" fill="#08080b" stroke="#ffffff" stroke-width="2.5"/><circle cx="175" cy="150" r="5" fill="#ffffff"/><circle cx="205" cy="147" r="5" fill="#ffffff"/><ellipse cx="205" cy="172" rx="22" ry="16" fill="url(#pigOptG1)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="199" cy="172" rx="3.5" ry="5.5" fill="#ffffff"/><ellipse cx="212" cy="172" rx="3.5" ry="5.5" fill="#ffffff"/></g>
+            </svg>
+            <span class="pig-amount-lbl">$10</span>
+          </div>
+          <div class="pig-option-btn" onclick="selectPigAmount(20, this)">
+            <svg class="pig-option-svg" viewBox="0 0 280 280">
+              <defs><linearGradient id="pigOptG2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#1c1c24"/><stop offset="100%" stop-color="#0b0b0e"/></linearGradient></defs>
+              <g class="coin-drop-loop"><circle cx="138" cy="103" r="28" fill="#121217" stroke="#ffffff" stroke-width="3.5"/><text x="137" y="113" font-size="28" font-weight="900" fill="#ffffff" text-anchor="middle">$</text></g>
+              <g class="pig-shake"><path d="M 50 160 Q 28 150 33 133 Q 45 120 56 138" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/><rect x="75" y="200" width="26" height="34" rx="10" fill="#08080a" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><rect x="175" y="200" width="26" height="34" rx="10" fill="#08080a" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="140" cy="170" rx="86" ry="69" fill="url(#pigOptG2)" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round"/><rect x="95" y="205" width="26" height="34" rx="10" fill="url(#pigOptG2)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><rect x="155" y="205" width="26" height="34" rx="10" fill="url(#pigOptG2)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><path d="M 90 115 C 78 82, 115 76, 120 110 Z" fill="url(#pigOptG2)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><path d="M 160 110 C 165 76, 202 82, 190 115 Z" fill="url(#pigOptG2)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="138" cy="115" rx="30" ry="7" fill="#08080b" stroke="#ffffff" stroke-width="2.5"/><circle cx="175" cy="150" r="5" fill="#ffffff"/><circle cx="205" cy="147" r="5" fill="#ffffff"/><ellipse cx="205" cy="172" rx="22" ry="16" fill="url(#pigOptG2)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="199" cy="172" rx="3.5" ry="5.5" fill="#ffffff"/><ellipse cx="212" cy="172" rx="3.5" ry="5.5" fill="#ffffff"/></g>
+            </svg>
+            <span class="pig-amount-lbl">$20</span>
+          </div>
+          <div class="pig-option-btn" onclick="selectPigAmount(30, this)">
+            <svg class="pig-option-svg" viewBox="0 0 280 280">
+              <defs><linearGradient id="pigOptG3" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#1c1c24"/><stop offset="100%" stop-color="#0b0b0e"/></linearGradient></defs>
+              <g class="coin-drop-loop"><circle cx="138" cy="103" r="28" fill="#121217" stroke="#ffffff" stroke-width="3.5"/><text x="137" y="113" font-size="28" font-weight="900" fill="#ffffff" text-anchor="middle">$</text></g>
+              <g class="pig-shake"><path d="M 50 160 Q 28 150 33 133 Q 45 120 56 138" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/><rect x="75" y="200" width="26" height="34" rx="10" fill="#08080a" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><rect x="175" y="200" width="26" height="34" rx="10" fill="#08080a" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="140" cy="170" rx="86" ry="69" fill="url(#pigOptG3)" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round"/><rect x="95" y="205" width="26" height="34" rx="10" fill="url(#pigOptG3)" stroke-width="3.2" stroke-linecap="round"/><rect x="155" y="205" width="26" height="34" rx="10" fill="url(#pigOptG3)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><path d="M 90 115 C 78 82, 115 76, 120 110 Z" fill="url(#pigOptG3)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><path d="M 160 110 C 165 76, 202 82, 190 115 Z" fill="url(#pigOptG3)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="138" cy="115" rx="30" ry="7" fill="#08080b" stroke="#ffffff" stroke-width="2.5"/><circle cx="175" cy="150" r="5" fill="#ffffff"/><circle cx="205" cy="147" r="5" fill="#ffffff"/><ellipse cx="205" cy="172" rx="22" ry="16" fill="url(#pigOptG3)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="199" cy="172" rx="3.5" ry="5.5" fill="#ffffff"/><ellipse cx="212" cy="172" rx="3.5" ry="5.5" fill="#ffffff"/></g>
+            </svg>
+            <span class="pig-amount-lbl">$30</span>
+          </div>
+          <div class="pig-option-btn" onclick="selectPigAmount(40, this)">
+            <svg class="pig-option-svg" viewBox="0 0 280 280">
+              <defs><linearGradient id="pigOptG4" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#1c1c24"/><stop offset="100%" stop-color="#0b0b0e"/></linearGradient></defs>
+              <g class="coin-drop-loop"><circle cx="138" cy="103" r="28" fill="#121217" stroke="#ffffff" stroke-width="3.5"/><text x="137" y="113" font-size="28" font-weight="900" fill="#ffffff" text-anchor="middle">$</text></g>
+              <g class="pig-shake"><path d="M 50 160 Q 28 150 33 133 Q 45 120 56 138" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/><rect x="75" y="200" width="26" height="34" rx="10" fill="#08080a" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><rect x="175" y="200" width="26" height="34" rx="10" fill="#08080a" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="140" cy="170" rx="86" ry="69" fill="url(#pigOptG4)" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round"/><rect x="95" y="205" width="26" height="34" rx="10" fill="url(#pigOptG4)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><rect x="155" y="205" width="26" height="34" rx="10" fill="url(#pigOptG4)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><path d="M 90 115 C 78 82, 115 76, 120 110 Z" fill="url(#pigOptG4)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><path d="M 160 110 C 165 76, 202 82, 190 115 Z" fill="url(#pigOptG4)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="138" cy="115" rx="30" ry="7" fill="#08080b" stroke="#ffffff" stroke-width="2.5"/><circle cx="175" cy="150" r="5" fill="#ffffff"/><circle cx="205" cy="147" r="5" fill="#ffffff"/><ellipse cx="205" cy="172" rx="22" ry="16" fill="url(#pigOptG4)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="199" cy="172" rx="3.5" ry="5.5" fill="#ffffff"/><ellipse cx="212" cy="172" rx="3.5" ry="5.5" fill="#ffffff"/></g>
+            </svg>
+            <span class="pig-amount-lbl">$40</span>
+          </div>
+          <div class="pig-option-btn" onclick="selectPigAmount(50, this)">
+            <svg class="pig-option-svg" viewBox="0 0 280 280">
+              <defs><linearGradient id="pigOptG5" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#1c1c24"/><stop offset="100%" stop-color="#0b0b0e"/></linearGradient></defs>
+              <g class="coin-drop-loop"><circle cx="138" cy="103" r="28" fill="#121217" stroke="#ffffff" stroke-width="3.5"/><text x="137" y="113" font-size="28" font-weight="900" fill="#ffffff" text-anchor="middle">$</text></g>
+              <g class="pig-shake"><path d="M 50 160 Q 28 150 33 133 Q 45 120 56 138" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/><rect x="75" y="200" width="26" height="34" rx="10" fill="#08080a" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><rect x="175" y="200" width="26" height="34" rx="10" fill="#08080a" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="140" cy="170" rx="86" ry="69" fill="url(#pigOptG5)" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round"/><rect x="95" y="205" width="26" height="34" rx="10" fill="url(#pigOptG5)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><rect x="155" y="205" width="26" height="34" rx="10" fill="url(#pigOptG5)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><path d="M 90 115 C 78 82, 115 76, 120 110 Z" fill="url(#pigOptG5)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><path d="M 160 110 C 165 76, 202 82, 190 115 Z" fill="url(#pigOptG5)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="138" cy="115" rx="30" ry="7" fill="#08080b" stroke="#ffffff" stroke-width="2.5"/><circle cx="175" cy="150" r="5" fill="#ffffff"/><circle cx="205" cy="147" r="5" fill="#ffffff"/><ellipse cx="205" cy="172" rx="22" ry="16" fill="url(#pigOptG5)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="199" cy="172" rx="3.5" ry="5.5" fill="#ffffff"/><ellipse cx="212" cy="172" rx="3.5" ry="5.5" fill="#ffffff"/></g>
+            </svg>
+            <span class="pig-amount-lbl">$50</span>
+          </div>
+          <div class="pig-option-btn" onclick="selectPigAmount(100, this)">
+            <svg class="pig-option-svg" viewBox="0 0 280 280">
+              <defs><linearGradient id="pigOptG6" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#1c1c24"/><stop offset="100%" stop-color="#0b0b0e"/></linearGradient></defs>
+              <g class="coin-drop-loop"><circle cx="138" cy="103" r="28" fill="#121217" stroke="#ffffff" stroke-width="3.5"/><text x="137" y="113" font-size="28" font-weight="900" fill="#ffffff" text-anchor="middle">$</text></g>
+              <g class="pig-shake"><path d="M 50 160 Q 28 150 33 133 Q 45 120 56 138" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/><rect x="75" y="200" width="26" height="34" rx="10" fill="#08080a" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><rect x="175" y="200" width="26" height="34" rx="10" fill="#08080a" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="140" cy="170" rx="86" ry="69" fill="url(#pigOptG6)" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round"/><rect x="95" y="205" width="26" height="34" rx="10" fill="url(#pigOptG6)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><rect x="155" y="205" width="26" height="34" rx="10" fill="url(#pigOptG6)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><path d="M 90 115 C 78 82, 115 76, 120 110 Z" fill="url(#pigOptG6)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><path d="M 160 110 C 165 76, 202 82, 190 115 Z" fill="url(#pigOptG6)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="138" cy="115" rx="30" ry="7" fill="#08080b" stroke="#ffffff" stroke-width="2.5"/><circle cx="175" cy="150" r="5" fill="#ffffff"/><circle cx="205" cy="147" r="5" fill="#ffffff"/><ellipse cx="205" cy="172" rx="22" ry="16" fill="url(#pigOptG6)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="199" cy="172" rx="3.5" ry="5.5" fill="#ffffff"/><ellipse cx="212" cy="172" rx="3.5" ry="5.5" fill="#ffffff"/></g>
+            </svg>
+            <span class="pig-amount-lbl">$100</span>
+          </div>
+          <div class="pig-option-btn" onclick="selectPigAmount(300, this)">
+            <svg class="pig-option-svg" viewBox="0 0 280 280">
+              <defs><linearGradient id="pigOptG7" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#1c1c24"/><stop offset="100%" stop-color="#0b0b0e"/></linearGradient></defs>
+              <g class="coin-drop-loop"><circle cx="138" cy="103" r="28" fill="#121217" stroke="#ffffff" stroke-width="3.5"/><text x="137" y="113" font-size="28" font-weight="900" fill="#ffffff" text-anchor="middle">$</text></g>
+              <g class="pig-shake"><path d="M 50 160 Q 28 150 33 133 Q 45 120 56 138" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/><rect x="75" y="200" width="26" height="34" rx="10" fill="#08080a" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><rect x="175" y="200" width="26" height="34" rx="10" fill="#08080a" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="140" cy="170" rx="86" ry="69" fill="url(#pigOptG7)" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round"/><rect x="95" y="205" width="26" height="34" rx="10" fill="url(#pigOptG7)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><rect x="155" y="205" width="26" height="34" rx="10" fill="url(#pigOptG7)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><path d="M 90 115 C 78 82, 115 76, 120 110 Z" fill="url(#pigOptG7)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><path d="M 160 110 C 165 76, 202 82, 190 115 Z" fill="url(#pigOptG7)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="138" cy="115" rx="30" ry="7" fill="#08080b" stroke="#ffffff" stroke-width="2.5"/><circle cx="175" cy="150" r="5" fill="#ffffff"/><circle cx="205" cy="147" r="5" fill="#ffffff"/><ellipse cx="205" cy="172" rx="22" ry="16" fill="url(#pigOptG7)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="199" cy="172" rx="3.5" ry="5.5" fill="#ffffff"/><ellipse cx="212" cy="172" rx="3.5" ry="5.5" fill="#ffffff"/></g>
+            </svg>
+            <span class="pig-amount-lbl">$300</span>
+          </div>
+          <div class="pig-option-btn" onclick="selectPigAmount(500, this)">
+            <svg class="pig-option-svg" viewBox="0 0 280 280">
+              <defs><linearGradient id="pigOptG8" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#1c1c24"/><stop offset="100%" stop-color="#0b0b0e"/></linearGradient></defs>
+              <g class="coin-drop-loop"><circle cx="138" cy="103" r="28" fill="#121217" stroke="#ffffff" stroke-width="3.5"/><text x="137" y="113" font-size="28" font-weight="900" fill="#ffffff" text-anchor="middle">$</text></g>
+              <g class="pig-shake"><path d="M 50 160 Q 28 150 33 133 Q 45 120 56 138" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/><rect x="75" y="200" width="26" height="34" rx="10" fill="#08080a" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><rect x="175" y="200" width="26" height="34" rx="10" fill="#08080a" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="140" cy="170" rx="86" ry="69" fill="url(#pigOptG8)" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round"/><rect x="95" y="205" width="26" height="34" rx="10" fill="url(#pigOptG8)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><rect x="155" y="205" width="26" height="34" rx="10" fill="url(#pigOptG8)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><path d="M 90 115 C 78 82, 115 76, 120 110 Z" fill="url(#pigOptG8)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><path d="M 160 110 C 165 76, 202 82, 190 115 Z" fill="url(#pigOptG8)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="138" cy="115" rx="30" ry="7" fill="#08080b" stroke="#ffffff" stroke-width="2.5"/><circle cx="175" cy="150" r="5" fill="#ffffff"/><circle cx="205" cy="147" r="5" fill="#ffffff"/><ellipse cx="205" cy="172" rx="22" ry="16" fill="url(#pigOptG8)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="199" cy="172" rx="3.5" ry="5.5" fill="#ffffff"/><ellipse cx="212" cy="172" rx="3.5" ry="5.5" fill="#ffffff"/></g>
+            </svg>
+            <span class="pig-amount-lbl">$500</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="deposit-form-group">
+        <div class="dep-select-box" onclick="openBankModal()">
+          <span id="selectedMethodText">ជ្រើសរើសវិធីដាក់ប្រាក់</span>
+          <i data-lucide="chevron-down" style="width: 18px; height: 18px; color: #00bcd4;"></i>
+        </div>
+        <div class="dep-input-box">
+          <input type="text" id="senderAccountName" placeholder="ឈ្មោះគណនីរបស់អ្នក" oninput="checkStep1Validation()">
+        </div>
+        <button class="dep-submit-btn disabled" id="btnConfirmDeposit" onclick="goToDepositStep2()">ស្កេនទូទាត់ប្រាក់</button>
+      </div>
+    </div>
+
+    <div id="depositStep2">
+      <div class="khqr-full-sheet">
+        <div class="khqr-top-red">KHQR</div>
+        <div class="khqr-sheet-body">
+          <div class="khqr-merchant">BOBOTOU TOPUP</div>
+          <div class="khqr-currency">( USD )</div>
+          <div class="khqr-code-img">
+            <img src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=BOBOTOU_TOPUP_KHQR" alt="KHQR Code">
+            <div class="khqr-center-logo">
+              <span style="color: #ffffff; font-weight: 800; font-size: 15px; font-family: Arial;">$</span>
+            </div>
+          </div>
+          <div class="khqr-sheet-notice">
+            សូមធ្វើការបាញ់ប្រាក់តាមរយៈ QR Code ខាងលើ រួចភ្ជាប់រូបភាពវិក្កយបត្រមកកាន់យើងខ្ញុំដើម្បីផ្ទៀងផ្ទាត់
+          </div>
+          <div class="khqr-sheet-upload-btn" onclick="document.getElementById('receiptFileInput').click()">
+            <span id="receiptFileName">បញ្ចូលរូបភាពវិក្កយបត្របាញ់ប្រាក់ (Receipt)</span>
+            <i data-lucide="image" style="width: 20px; height: 20px; color: #00bcd4;"></i>
+            <input type="file" id="receiptFileInput" accept="image/*" style="display: none;" onchange="handleReceiptUpload(this)">
+          </div>
+          <div class="khqr-sheet-hint">បន្ទាប់ពីស្កេនបង់ប្រាក់រួច សូមចុចប៊ូតុងផ្ញើរសំណើរដាក់ប្រាក់</div>
+          <button class="khqr-sheet-submit-btn disabled" id="btnFinalSubmit" onclick="submitFinalDeposit()">ផ្ញើរសំណើរដាក់ប្រាក់</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-view" id="pageSuccess">
+    <div class="success-page-content">
+      <div class="success-page-circle"><i data-lucide="check" style="width: 44px; height: 44px; stroke-width: 3.2;"></i></div>
+      <div class="success-page-title">ទទួលបានជោគជ័យ</div>
+      <div class="success-page-amount"><span id="scAmountHeader">0.00</span> USD</div>
+      <div class="success-page-sub">ចំនួនទឹកប្រាក់ទូទាត់ទទួលបានជោគជ័យ</div>
+      <div class="success-details-card">
+        <div class="detail-header-title" style="margin-bottom: 12px; font-size: 16px;">ព័ត៌មានលម្អិតប្រតិបត្តិការ</div>
+        <div class="detail-row"><span class="detail-row-lbl">លេខសម្គាល់ (ID):</span><span class="detail-row-val" id="scTxnID">TXN-000000</span></div>
+        <div class="detail-row"><span class="detail-row-lbl">ឈ្មោះអាខោន:</span><span class="detail-row-val" id="scAccountName">(…)</span></div>
+        <div class="detail-row"><span class="detail-row-lbl">លេខសម្គាល់ (UID):</span><span class="detail-row-val" id="scUID">...</span></div>
+        <div class="detail-row"><span class="detail-row-lbl">វិធីបង់ប្រាក់:</span><span class="detail-row-val" id="scBank" style="color: #00bcd4;">KHQR</span></div>
+        <div class="detail-row"><span class="detail-row-lbl">ឈ្មោះគណនីរបស់អ្នក:</span><span class="detail-row-val" id="scSenderName">...</span></div>
+        <div class="detail-row"><span class="detail-row-lbl">កាលបរិច្ឆេទ:</span><span class="detail-row-val" id="scDate">--/--/----</span></div>
+        <div class="detail-row"><span class="detail-row-lbl">ចំនួនទឹកប្រាក់:</span><span class="detail-row-val" id="scAmount" style="color: #00d2d3; font-size: 15px;">+0.00 USD</span></div>
+      </div>
+      <button class="success-page-btn" onclick="confirmSuccessPage()">យល់ព្រម</button>
+    </div>
+  </div>
+
+  <div class="page-view" id="pageHistory">
+    <div class="history-topbar">
+      <button class="history-back-btn" onclick="closeHistoryPage()"><i data-lucide="arrow-left" style="width: 20px; height: 20px;"></i></button>
+      <div class="history-topbar-title">ប្រវត្តិប្រតិបត្តិការ</div>
+      <div style="width: 38px;"></div>
+    </div>
+    <div id="historyList"></div>
+    <div id="historyEmptyState" style="display:none; flex-direction:column; align-items:center; justify-content:center; padding: 65px 20px;">
+      <svg viewBox="0 0 120 120" style="width: 85px; height: 85px; margin-bottom: 16px; opacity: 0.75;">
+        <path d="M 20 35 Q 40 30 60 38 Q 80 30 100 35 L 100 85 Q 80 80 60 88 Q 40 80 20 85 Z" fill="none" stroke="#52525b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M 60 38 L 60 88" stroke="#52525b" stroke-width="2.5"/>
+        <path d="M 28 48 Q 42 44 54 49" stroke="#3f3f46" stroke-width="2" stroke-linecap="round"/>
+        <path d="M 28 60 Q 42 56 54 61" stroke="#3f3f46" stroke-width="2" stroke-linecap="round"/>
+        <path d="M 66 49 Q 78 44 92 48" stroke="#3f3f46" stroke-width="2" stroke-linecap="round"/>
+        <path d="M 66 61 Q 78 56 92 60" stroke="#3f3f46" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="70" cy="55" r="18" fill="none" stroke="#71717a" stroke-width="3"/>
+        <line x1="83" y1="68" x2="102" y2="87" stroke="#71717a" stroke-width="4" stroke-linecap="round"/>
+        <circle cx="70" cy="55" r="14" fill="rgba(255,255,255,0.03)"/>
+      </svg>
+      <span style="color: #71717a; font-size: 14px; font-weight: 500;">មិនទាន់មានប្រវត្តិប្រតិបត្តិការនៅឡើយទេ</span>
+    </div>
+  </div>
+
+  <div class="page-view" id="pageInterest">
+    <div class="history-topbar">
+      <button class="history-back-btn" onclick="closeInterestPage()"><i data-lucide="arrow-left" style="width: 20px; height: 20px;"></i></button>
+      <div class="history-topbar-title">ប្រវត្តិការប្រាក់</div>
+      <div style="width: 38px;"></div>
+    </div>
+    <div id="interestList">
+      <div class="interest-card" onclick="openInterestDetailModal({id:'INT-883921', date:'30/01/2026 00:00', rate:'+0.00%', amount:'+0.00 USD'})">
+        <div class="trans-left">
+          <div class="interest-icon-box">
+            <div class="flying-arrow-3d">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" style="width:28px;height:28px;">
+                <line x1="12" y1="19" x2="12" y2="5"></line>
+                <polyline points="5 12 12 5 19 12"></polyline>
+              </svg>
+            </div>
+          </div>
+          <div class="trans-info">
+            <div class="trans-title" style="color:#ffffff;">ការប្រាក់ទទួលបាន</div>
+            <div class="trans-date">30/01/2026 00:00</div>
+          </div>
+        </div>
+        <div class="trans-right">
+          <div class="trans-amount" style="color:#22c55e;">+0.00 USD</div>
+          <div class="trans-status" style="color:#22c55e; font-size:13px; font-weight:700;">+0.00%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="switch-dock" id="switchDock">
+    <div class="sliding-pill" id="slidingPill"></div>
+    <button class="switch-btn active" id="btnHome" onclick="selectTab('home')">
+      <i data-lucide="home"></i>
+      <span>ទំព័រដើម</span>
+    </button>
+    <button class="switch-btn" id="btnAssets" onclick="selectTab('assets')">
+      <i data-lucide="credit-card"></i>
+      <span>ទ្រព្យសកម្ម</span>
+    </button>
+  </div>
+
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+import { getDatabase, ref, set, get, onValue, update } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+document.addEventListener('touchstart', (e) => {
+  if (document.activeElement && (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA')) {
+    if (!document.activeElement.contains(e.target)) {
+      document.activeElement.blur();
+    }
+  }
+}, { passive: true });
+
+const percentText = document.getElementById('percentText');
+const progressFill = document.getElementById('progressFill');
+const splashScreen = document.getElementById('splashScreen');
+let currentPercent = 0;
+
+function updateProgress(val) {
+  percentText.textContent = val + '%';
+  progressFill.style.width = val + '%';
+}
+
+function startLoading() {
+  const stage1 = setInterval(() => {
+    if (currentPercent < 71) {
+      currentPercent++;
+      updateProgress(currentPercent);
+    } else {
+      clearInterval(stage1);
+      setTimeout(() => { finishLoading(); }, 2000);
+    }
+  }, 25);
+}
+
+function finishLoading() {
+  const stage2 = setInterval(() => {
+    if (currentPercent < 100) {
+      currentPercent++;
+      updateProgress(currentPercent);
+    } else {
+      clearInterval(stage2);
+      setTimeout(() => { splashScreen.classList.add('fade-out'); }, 400);
+    }
+  }, 25);
+}
+
+startLoading();
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCjyPTgZrs_lYXXIVn0hZz3H64U47jEvjo",
+  authDomain: "kbk-wallet-app.firebaseapp.com",
+  databaseURL: "https://kbk-wallet-app-default-rtdb.firebaseio.com",
+  projectId: "kbk-wallet-app",
+  storageBucket: "kbk-wallet-app.firebasestorage.app",
+  messagingSenderId: "298749872136",
+  appId: "1:298749872136:web:0630e7b1efea1308c329bd",
+  measurementId: "G-S35PQT4V2J"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+const tg = window.Telegram?.WebApp;
+if (tg) {
+  tg.expand();
+  tg.ready();
+}
+
+const tgUser = tg?.initDataUnsafe?.user;
+let currentUser = {
+  name: "(…)",
+  uid: "",
+  photo: "",
+  depositCount: 1,
+  balance: 30.53,
+  transactions: {}
+};
+
+if (tgUser && tgUser.id) {
+  currentUser.name = `${tgUser.first_name || ''} ${tgUser.last_name || ''}`.trim() || "(…)";
+  currentUser.uid = tgUser.id.toString();
+  currentUser.photo = tgUser.photo_url || "";
+} else {
+  let storedId = localStorage.getItem("kbk_user_uid");
+  if (!storedId) {
+    storedId = Math.floor(100000000 + Math.random() * 900000000).toString();
+    localStorage.setItem("kbk_user_uid", storedId);
+  }
+  currentUser.uid = storedId;
+  currentUser.name = "(…)";
+}
+
+document.getElementById('homeName').innerText = currentUser.name;
+document.getElementById('homeUID').innerText = `UID: ${currentUser.uid}`;
+document.getElementById('myRowName').innerText = currentUser.name;
+document.getElementById('myRowUID').innerText = currentUser.uid;
+document.getElementById('assetsName').innerText = currentUser.name;
+document.getElementById('assetsUID').innerText = currentUser.uid;
+
+if (currentUser.photo) {
+  document.getElementById('homeAvatar').innerHTML = `<img src="${currentUser.photo}" alt="Profile" style="width:100%; height:100%; object-fit:cover;">`;
+  document.getElementById('myRowAvatar').innerHTML = `<img src="${currentUser.photo}" alt="Profile" style="width:100%; height:100%; object-fit:cover;">`;
+}
+
+// Function សម្រាប់ Auto Scale ទំហំអក្សរលើក្បាលពោះជ្រូក ដើម្បីកុំឱ្យហៀរ
+window.autoScalePigAmount = function(valString) {
+  const amountBox = document.getElementById('pigBellyAmount');
+  const curSpan = document.getElementById('pigBellyCur');
+  if (!amountBox) return;
+  const len = valString.toString().length;
+  if (len <= 4) {
+    amountBox.style.fontSize = "28px";
+    if (curSpan) curSpan.style.fontSize = "16px";
+  } else if (len <= 6) { // ឧ. 10.00 ឬ 100.0
+    amountBox.style.fontSize = "25px";
+    if (curSpan) curSpan.style.fontSize = "14.5px";
+  } else if (len <= 8) { // ឧ. 1000.00
+    amountBox.style.fontSize = "21px";
+    if (curSpan) curSpan.style.fontSize = "13px";
+  } else if (len <= 10) { // ឧ. 10000.00
+    amountBox.style.fontSize = "17.5px";
+    if (curSpan) curSpan.style.fontSize = "11.5px";
+  } else { // ធំជាង 100,000+
+    amountBox.style.fontSize = "14.5px";
+    if (curSpan) curSpan.style.fontSize = "10px";
+  }
+};
+
+window.setPigBellyDisplay = function(val, rate) {
+  const valEl = document.getElementById('pigBellyVal');
+  const rateEl = document.getElementById('pigBellyRate');
+  if (valEl) {
+    valEl.innerText = val;
+    autoScalePigAmount(val);
+  }
+  if (rateEl && rate !== undefined) {
+    rateEl.innerText = rate;
+  }
+};
+
+// កំណត់ទំហំដំបូង
+autoScalePigAmount("0.00");
+
+function renderHistory(txns) {
+  const historyList = document.getElementById('historyList');
+  const emptyState = document.getElementById('historyEmptyState');
+  if (!txns || Object.keys(txns).length === 0) {
+    historyList.innerHTML = '';
+    historyList.style.display = 'none';
+    emptyState.style.display = 'flex';
+    return;
+  }
+  emptyState.style.display = 'none';
+  historyList.style.display = 'flex';
+  
+  const sortedKeys = Object.keys(txns).sort((a,b) => (txns[b].timestamp || 0) - (txns[a].timestamp || 0));
+  let html = '';
+  sortedKeys.forEach(key => {
+    const t = txns[key];
+    html += `
+      <div class="transaction-card" onclick="openCardDetail(this)" data-id="${t.id}" data-name="${t.name || currentUser.name}" data-uid="${t.uid || currentUser.uid}" data-bank="${t.bank || 'KHQR'}" data-sender="${t.sender || '(មិនបានបញ្ជាក់)'}" data-date="${t.date}" data-amount="${t.amount}">
+        <div class="trans-left">
+          <div class="trans-icon-box">
+            <svg class="mini-pig-svg" viewBox="0 0 280 280">
+              <defs><linearGradient id="miniPig_${t.id}" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#1c1c24"/><stop offset="100%" stop-color="#0b0b0e"/></linearGradient></defs>
+              <g class="coin-drop-loop"><circle cx="138" cy="103" r="28" fill="#121217" stroke="#ffffff" stroke-width="3.5"/><text x="137" y="113" font-size="28" font-weight="900" fill="#ffffff" text-anchor="middle">$</text></g>
+              <g class="pig-shake"><path d="M 50 160 Q 28 150 33 133 Q 45 120 56 138" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/><rect x="75" y="200" width="26" height="34" rx="10" fill="#08080a" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><rect x="175" y="200" width="26" height="34" rx="10" fill="#08080a" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="140" cy="170" rx="86" ry="69" fill="url(#miniPig_${t.id})" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round"/><rect x="95" y="205" width="26" height="34" rx="10" fill="url(#miniPig_${t.id})" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><rect x="155" y="205" width="26" height="34" rx="10" fill="url(#miniPig_${t.id})" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><path d="M 90 115 C 78 82, 115 76, 120 110 Z" fill="url(#miniPig_${t.id})" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><path d="M 160 110 C 165 76, 202 82, 190 115 Z" fill="url(#miniPig_${t.id})" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="138" cy="115" rx="30" ry="7" fill="#08080b" stroke="#ffffff" stroke-width="2.5"/><circle cx="175" cy="150" r="5" fill="#ffffff"/><circle cx="205" cy="147" r="5" fill="#ffffff"/><ellipse cx="205" cy="172" rx="22" ry="16" fill="url(#miniPig_${t.id})" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="199" cy="172" rx="3.5" ry="5.5" fill="#ffffff"/><ellipse cx="212" cy="172" rx="3.5" ry="5.5" fill="#ffffff"/></g>
+            </svg>
+          </div>
+          <div class="trans-info">
+            <div class="trans-title">ដាក់ប្រាក់</div>
+            <div class="trans-date">${t.date}</div>
+          </div>
+        </div>
+        <div class="trans-right">
+          <div class="trans-amount">${t.amount}</div>
+          <div class="trans-status">${t.status || 'ទទួលបានជោគជ័យ'}</div>
+        </div>
+      </div>
+    `;
+  });
+  historyList.innerHTML = html;
+}
+
+async function syncUserToDatabase() {
+  try {
+    const userRef = ref(db, 'users/' + currentUser.uid);
+    const snapshot = await get(userRef);
+    if (!snapshot.exists()) {
+      await set(userRef, {
+        name: currentUser.name,
+        uid: currentUser.uid,
+        photo: currentUser.photo,
+        depositCount: 1,
+        balance: 30.53,
+        transactions: {},
+        createdAt: Date.now()
+      });
+    } else {
+      const data = snapshot.val();
+      currentUser.depositCount = data.depositCount || 1;
+      currentUser.balance = data.balance !== undefined ? data.balance : 30.53;
+      currentUser.transactions = data.transactions || {};
+      updateUIFromData(data);
+      await update(userRef, { name: currentUser.name, photo: currentUser.photo });
+    }
+    onValue(userRef, (snap) => {
+      if (snap.exists()) {
+        const d = snap.val();
+        updateUIFromData(d);
+      }
+    });
+  } catch (error) {
+    console.error("Firebase Sync Error:", error);
+  }
+}
+
+function updateUIFromData(data) {
+  if (!data) return;
+  currentUser.depositCount = data.depositCount || 1;
+  currentUser.balance = data.balance !== undefined ? data.balance : 30.53;
+  currentUser.transactions = data.transactions || {};
+  const rowCount = document.getElementById('myRowCount');
+  if (rowCount) rowCount.innerText = currentUser.depositCount;
+  const balVal = document.getElementById('balanceVal');
+  if (balVal && !isHidden) balVal.innerText = currentUser.balance.toFixed(2);
+  renderHistory(currentUser.transactions);
+}
+
+syncUserToDatabase();
+
+const btnViewAll = document.getElementById('btnViewAll');
+const allUsersRef = ref(db, 'users');
+onValue(allUsersRef, (snapshot) => {
+  const tableBody = document.getElementById("homeTableList");
+  let usersList = [];
+  if (snapshot.exists()) {
+    const usersData = snapshot.val();
+    Object.keys(usersData).forEach(k => {
+      usersList.push(usersData[k]);
+    });
+  }
+  if (!usersList.some(u => u.uid === currentUser.uid)) {
+    usersList.push(currentUser);
+  }
+  usersList.sort((a, b) => (b.depositCount || 0) - (a.depositCount || 0));
+  let html = '';
+  usersList.forEach((user, index) => {
+    const isMe = user.uid === currentUser.uid;
+    const displayName = isMe ? `${currentUser.name} (ខ្ញុំ)` : (user.name || '(…)');
+    const photo = isMe ? currentUser.photo : (user.photo || '');
+    const count = isMe ? currentUser.depositCount : (user.depositCount || 0);
+    const uid = user.uid || 'N/A';
+    html += `
+      <div class="table-row table-body">
+        <div class="col-name">
+          <span>${index + 1}.</span>
+          <span class="mini-profile-avatar" onclick="openProfileModal('${photo}', '${user.name || '(…)'}', '${uid}')">
+            ${photo ? `<img src="${photo}" style="width:100%; height:100%; object-fit:cover;">` : `<i data-lucide="user"></i>`}
+          </span>
+          <span class="name-text">${displayName}</span>
+        </div>
+        <div class="col-uid">${uid}</div>
+        <div class="col-count"${isMe ? ' id="myRowCount"' : ''}>${count}</div>
+      </div>
+    `;
+  });
+  tableBody.innerHTML = html;
+  lucide.createIcons();
+  if (usersList.length >= 6) {
+    btnViewAll.style.display = 'inline-flex';
+  } else {
+    btnViewAll.style.display = 'none';
+  }
+});
+
+let isTableFullscreen = false;
+const viewAllText = document.getElementById('viewAllText');
+const fullscreenIcon = document.getElementById('fullscreenIcon');
+const appContainer = document.querySelector('.app-container');
+const maxIconSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>`;
+const minIconSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14h6v6"/><path d="M20 10h-6V4"/><path d="M14 10l7-7"/><path d="M3 21l7-7"/></svg>`;
+
+window.toggleTableFullscreen = function() {
+  isTableFullscreen = !isTableFullscreen;
+  if (isTableFullscreen) {
+    appContainer.classList.add('table-fullscreen');
+    viewAllText.innerText = 'បង្រួម';
+    fullscreenIcon.innerHTML = minIconSvg;
+  } else {
+    appContainer.classList.remove('table-fullscreen');
+    viewAllText.innerText = 'មើលទាំងអស់';
+    fullscreenIcon.innerHTML = maxIconSvg;
+  }
+};
+
+window.openProfileModal = function(photoUrl, name, uid) {
+  const modal = document.getElementById('profileModal');
+  const modalAvatar = document.getElementById('modalAvatar');
+  const modalName = document.getElementById('modalName');
+  const modalUid = document.getElementById('modalUid');
+  modalAvatar.classList.remove('square-mode');
+  modalName.innerText = name || '(…)';
+  modalUid.innerText = uid ? `UID: ${uid}` : '';
+  if (photoUrl && photoUrl !== 'null' && photoUrl !== 'undefined' && photoUrl !== '') {
+    modalAvatar.innerHTML = `<img src="${photoUrl}" alt="${name}">`;
+  } else {
+    modalAvatar.innerHTML = `<i data-lucide="user" style="width: 60px; height: 60px; color: #ffffff;"></i>`;
+  }
+  modal.classList.add('active');
+  lucide.createIcons();
+};
+
+window.toggleAvatarShape = function() {
+  const avatarWrapper = document.getElementById('modalAvatar');
+  avatarWrapper.classList.toggle('square-mode');
+};
+
+window.closeProfileModal = function() {
+  const modal = document.getElementById('profileModal');
+  const avatarWrapper = document.getElementById('modalAvatar');
+  modal.classList.remove('active');
+  avatarWrapper.classList.remove('square-mode');
+};
+
+let selectedBankName = "";
+let currentDepositAmount = 0;
+let hasUploadedReceipt = false;
+
+window.checkStep1Validation = function() {
+  const btn = document.getElementById('btnConfirmDeposit');
+  const sender = document.getElementById('senderAccountName').value.trim();
+  if (currentDepositAmount > 0 && selectedBankName !== "" && sender !== "") {
+    btn.classList.remove('disabled');
+  } else {
+    btn.classList.add('disabled');
+  }
+};
+
+window.openBankModal = function() {
+  document.getElementById('bankModal').classList.add('active');
+};
+
+window.closeBankModal = function() {
+  document.getElementById('bankModal').classList.remove('active');
+};
+
+window.selectBank = function(name) {
+  selectedBankName = name;
+  document.getElementById('selectedMethodText').innerText = name;
+  document.getElementById('selectedMethodText').style.color = "#ffffff";
+  closeBankModal();
+  checkStep1Validation();
+};
+
+window.openTransDetailModal = function(data) {
+  document.getElementById('dtlTxnID').innerText = data.id || 'TXN-' + Math.floor(1000000 + Math.random() * 9000000);
+  document.getElementById('dtlAccountName').innerText = currentUser.name || '(…)';
+  document.getElementById('dtlUID').innerText = currentUser.uid || 'N/A';
+  document.getElementById('dtlBank').innerText = data.bank || 'KHQR';
+  document.getElementById('dtlSenderName').innerText = data.sender || '(មិនបានបញ្ជាក់)';
+  document.getElementById('dtlDate').innerText = data.date || '--/--/----';
+  document.getElementById('dtlAmount').innerText = data.amount || '+0.00 USD';
+  document.getElementById('transDetailModal').classList.add('active');
+};
+
+window.closeTransDetailModal = function() {
+  document.getElementById('transDetailModal').classList.remove('active');
+};
+
+window.openCardDetail = function(el) {
+  const data = {
+    id: el.getAttribute('data-id'),
+    name: el.getAttribute('data-name'),
+    uid: el.getAttribute('data-uid'),
+    bank: el.getAttribute('data-bank'),
+    sender: el.getAttribute('data-sender'),
+    date: el.getAttribute('data-date'),
+    amount: el.getAttribute('data-amount')
+  };
+  openTransDetailModal(data);
+};
+
+// Functions សម្រាប់បើកបិទ Modal ពត៌មានលម្អិតការប្រាក់
+window.openInterestDetailModal = function(data) {
+  document.getElementById('dtlIntID').innerText = data.id || 'INT-883921';
+  document.getElementById('dtlIntName').innerText = currentUser.name || '(…)';
+  document.getElementById('dtlIntUID').innerText = currentUser.uid || 'N/A';
+  document.getElementById('dtlIntDate').innerText = data.date || '30/01/2026 00:00';
+  document.getElementById('dtlIntBalance').innerText = (!isHidden ? currentUser.balance.toFixed(2) : '30.53') + ' USD';
+  document.getElementById('dtlIntRate').innerText = data.rate || '+0.00%';
+  document.getElementById('dtlIntAmount').innerText = data.amount || '+0.00 USD';
+  document.getElementById('interestDetailModal').classList.add('active');
+};
+
+window.closeInterestDetailModal = function() {
+  document.getElementById('interestDetailModal').classList.remove('active');
+};
+
+let tempPendingDeposit = null;
+
+const pageAssets = document.getElementById('pageAssets');
+const pageDeposit = document.getElementById('pageDeposit');
+const pageHistory = document.getElementById('pageHistory');
+const pageSuccess = document.getElementById('pageSuccess');
+const pageInterest = document.getElementById('pageInterest');
+const switchDock = document.getElementById('switchDock');
+
+window.openDepositPage = function() {
+  pageAssets.classList.remove('active');
+  pageDeposit.classList.add('active');
+  switchDock.style.display = 'none';
+  document.getElementById('depositStep1').style.display = 'flex';
+  document.getElementById('depositStep2').style.display = 'none';
+  checkStep1Validation();
+};
+
+window.closeDepositPage = function() {
+  pageDeposit.classList.remove('active');
+  pageAssets.classList.add('active');
+  switchDock.style.display = 'flex';
+};
+
+window.selectPigAmount = function(amount, el) {
+  currentDepositAmount = amount;
+  document.getElementById('depositDisplayVal').innerText = amount.toFixed(2);
+  document.querySelectorAll('.pig-option-btn').forEach(btn => btn.classList.remove('selected'));
+  if (el) el.classList.add('selected');
+  checkStep1Validation();
+};
+
+window.goToDepositStep2 = function() {
+  if (currentDepositAmount <= 0 || selectedBankName === "" || document.getElementById('senderAccountName').value.trim() === "") {
+    return;
+  }
+  document.getElementById('depositStep1').style.display = 'none';
+  document.getElementById('depositStep2').style.display = 'flex';
+  hasUploadedReceipt = false;
+  document.getElementById('btnFinalSubmit').classList.add('disabled');
+};
+
+window.handleReceiptUpload = function(input) {
+  if (input.files && input.files[0]) {
+    const fileName = input.files[0].name;
+    document.getElementById('receiptFileName').innerText = "បានជ្រើសរើស៖ " + fileName;
+    document.getElementById('receiptFileName').style.color = "#00bcd4";
+    hasUploadedReceipt = true;
+    document.getElementById('btnFinalSubmit').classList.remove('disabled');
+  }
+};
+
+window.submitFinalDeposit = async function() {
+  if (!hasUploadedReceipt) return;
+  const val = currentDepositAmount || 0.00;
+  const senderName = document.getElementById('senderAccountName').value.trim() || '(មិនបានបញ្ជាក់)';
+  const now = new Date();
+  const dateStr = ("0" + now.getDate()).slice(-2) + "/" + ("0" + (now.getMonth() + 1)).slice(-2) + "/" + now.getFullYear() + " " + ("0" + now.getHours()).slice(-2) + ":" + ("0" + now.getMinutes()).slice(-2);
+  const txnID = 'TXN-' + Math.floor(1000000 + Math.random() * 9000000);
+  
+  currentUser.depositCount = (currentUser.depositCount || 0) + 1;
+  currentUser.balance = (currentUser.balance || 30.53) + val;
+  
+  const newTxn = {
+    id: txnID,
+    name: currentUser.name,
+    uid: currentUser.uid,
+    bank: selectedBankName,
+    sender: senderName,
+    date: dateStr,
+    amount: '+' + val.toFixed(2) + ' USD',
+    status: 'ទទួលបានជោគជ័យ',
+    timestamp: Date.now()
+  };
+  
+  tempPendingDeposit = newTxn;
+  
+  if (currentUser.uid) {
+    try {
+      await set(ref(db, `users/${currentUser.uid}/transactions/${txnID}`), newTxn);
+      await update(ref(db, `users/${currentUser.uid}`), {
+        depositCount: currentUser.depositCount,
+        balance: currentUser.balance
+      });
+    } catch(e) {
+      console.error(e);
+    }
+  }
+
+  document.getElementById('scAmountHeader').innerText = val.toFixed(2);
+  document.getElementById('scTxnID').innerText = txnID;
+  document.getElementById('scAccountName').innerText = currentUser.name;
+  document.getElementById('scUID').innerText = currentUser.uid;
+  document.getElementById('scBank').innerText = selectedBankName;
+  document.getElementById('scSenderName').innerText = senderName;
+  document.getElementById('scDate').innerText = dateStr;
+  document.getElementById('scAmount').innerText = '+' + val.toFixed(2) + ' USD';
+
+  pageDeposit.classList.remove('active');
+  pageSuccess.classList.add('active');
+  lucide.createIcons();
+};
+
+window.confirmSuccessPage = function() {
+  pageSuccess.classList.remove('active');
+  pageHistory.classList.add('active');
+  switchDock.style.display = 'none';
+  currentDepositAmount = 0;
+  selectedBankName = "";
+  hasUploadedReceipt = false;
+  document.getElementById('depositDisplayVal').innerText = '0.00';
+  document.getElementById('selectedMethodText').innerText = 'ជ្រើសរើសវិធីដាក់ប្រាក់';
+  document.getElementById('selectedMethodText').style.color = '#d1d1d6';
+  document.getElementById('senderAccountName').value = '';
+  document.getElementById('receiptFileName').innerText = "បញ្ចូលរូបភាពវិក្កយបត្របាញ់ប្រាក់ (Receipt)";
+  document.getElementById('receiptFileName').style.color = "#334155";
+  document.getElementById('receiptFileInput').value = '';
+  document.querySelectorAll('.pig-option-btn').forEach(btn => btn.classList.remove('selected'));
+  checkStep1Validation();
+};
+
+const wallet = document.getElementById('wallet');
+wallet.addEventListener('click', () => {
+  wallet.classList.toggle('open');
+});
+
+let isHidden = false;
+const eyeSvg = document.getElementById('eyeSvg');
+const eyeOpenSvg = `<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" stroke="#ffffff"/><circle cx="12" cy="12" r="3" stroke="#ffffff"/>`;
+const eyeClosedSvg = `<path d="M9.88 9.88a3 3 0 1 0 4.24 4.24" stroke="#ffffff" stroke-width="1.8"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68" stroke="#ffffff" stroke-width="1.8"/><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61" stroke="#ffffff" stroke-width="1.8"/><line x1="2" y1="2" x2="22" y2="22" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round"/>`;
+
+window.toggleBalance = function() {
+  isHidden = !isHidden;
+  const balanceVal = document.getElementById('balanceVal');
+  if (isHidden) {
+    balanceVal.innerText = '••••••';
+    eyeSvg.innerHTML = eyeClosedSvg;
+  } else {
+    balanceVal.innerText = currentUser.balance.toFixed(2);
+    eyeSvg.innerHTML = eyeOpenSvg;
+  }
+};
+
+window.openHistoryPage = function() {
+  pageAssets.classList.remove('active');
+  pageHistory.classList.add('active');
+  switchDock.style.display = 'none';
+};
+
+window.closeHistoryPage = function() {
+  pageHistory.classList.remove('active');
+  pageAssets.classList.add('active');
+  switchDock.style.display = 'flex';
+};
+
+window.openInterestPage = function() {
+  pageAssets.classList.remove('active');
+  pageInterest.classList.add('active');
+  switchDock.style.display = 'none';
+};
+
+window.closeInterestPage = function() {
+  pageInterest.classList.remove('active');
+  pageAssets.classList.add('active');
+  switchDock.style.display = 'flex';
+};
+
+let currentAssetsSlide = 0;
+window.setAssetsSlide = function(idx) {
+  currentAssetsSlide = idx;
+  const track = document.getElementById('assetsTrack');
+  track.style.transform = `translateX(-${idx * 50}%)`;
+  document.getElementById('dot0').classList.toggle('active', idx === 0);
+  document.getElementById('dot1').classList.toggle('active', idx === 1);
+};
+
+const carouselWrapper = document.querySelector('.assets-carousel-wrapper');
+let carStartX = 0;
+carouselWrapper.addEventListener('touchstart', (e) => {
+  carStartX = e.touches[0].clientX;
+}, { passive: true });
+
+carouselWrapper.addEventListener('touchend', (e) => {
+  const carDiff = e.changedTouches[0].clientX - carStartX;
+  if (carDiff > 35) {
+    setAssetsSlide(0);
+  } else if (carDiff < -35) {
+    setAssetsSlide(1);
+  }
+});
+
+const slidingPill = document.getElementById('slidingPill');
+const btnHome = document.getElementById('btnHome');
+const btnAssets = document.getElementById('btnAssets');
+const pageHome = document.getElementById('pageHome');
+
+slidingPill.style.transform = 'translateX(0%)';
+
+window.selectTab = function(tab) {
+  pageHistory.classList.remove('active');
+  pageDeposit.classList.remove('active');
+  pageSuccess.classList.remove('active');
+  pageInterest.classList.remove('active');
+  switchDock.style.display = 'flex';
+  
+  if (tab === 'home') {
+    slidingPill.style.transform = 'translateX(0%)';
+    btnHome.classList.add('active');
+    btnAssets.classList.remove('active');
+    pageHome.classList.add('active');
+    pageAssets.classList.remove('active');
+  } else {
+    slidingPill.style.transform = 'translateX(100%)';
+    btnAssets.classList.add('active');
+    btnHome.classList.remove('active');
+    pageAssets.classList.add('active');
+    pageHome.classList.remove('active');
+  }
+};
+
+let startX = 0;
+switchDock.addEventListener('touchstart', (e) => {
+  startX = e.touches[0].clientX;
+}, { passive: true });
+
+switchDock.addEventListener('touchend', (e) => {
+  let endX = e.changedTouches[0].clientX;
+  let diff = endX - startX;
+  if (diff > 30) {
+    window.selectTab('assets');
+  } else if (diff < -30) {
+    window.selectTab('home');
+  }
+});
+
+lucide.createIcons();
+</script>
+</body>
+</html>
