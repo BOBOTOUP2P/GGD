@@ -237,8 +237,6 @@ html,body{width:100%;min-height:100vh;background-color:#000000;color:#ffffff;ove
       <rect x="175" y="200" width="26" height="34" rx="10" fill="url(#pigBackLegGrad)" class="line-art" />
       <ellipse cx="140" cy="170" rx="86" ry="69" fill="url(#pigDarkGrad)" class="line-art" />
       <path d="M 80 135 C 105 118, 150 118, 175 128" class="highlight-line" />
-      <rect x="95" y="205" width="26" height="34" rx="10" fill="url(#pigDarkGrad)" class="line-art" />
-      <rect x="155" y="205" width="26" height="34" rx="10" fill="url(#pigDarkGrad)" class="line-art" />
       <path d="M 90 115 C 78 82, 115 76, 120 110 Z" fill="url(#pigDarkGrad)" class="line-art" />
       <path d="M 160 110 C 165 76, 202 82, 190 115 Z" fill="url(#pigDarkGrad)" class="line-art" />
       <path d="M 166 107 C 170 88, 188 92, 182 110 Z" fill="#252530" opacity="0.6"/>
@@ -302,7 +300,6 @@ html,body{width:100%;min-height:100vh;background-color:#000000;color:#ffffff;ove
   </div>
 </div>
 
-<!-- Modal ព័ត៌មានលម្អិតនៃការប្រាក់ -->
 <div id="interestDetailModal" class="detail-modal" onclick="closeInterestDetailModal()">
   <div class="detail-card" onclick="event.stopPropagation()">
     <div class="detail-header-title" style="color: #22c55e;">ព័ត៌មានលម្អិតនៃការប្រាក់</div>
@@ -392,7 +389,6 @@ html,body{width:100%;min-height:100vh;background-color:#000000;color:#ffffff;ove
           </div>
         </div>
         
-        <!-- Slide រូបជ្រូកការប្រាក់ -->
         <div class="assets-slide">
           <div class="pig-card-wrapper" onclick="event.stopPropagation(); openInterestPage();">
             <div class="pig-card-container">
@@ -406,10 +402,8 @@ html,body{width:100%;min-height:100vh;background-color:#000000;color:#ffffff;ove
                 </g>
                 <g class="pig-shake">
                   <path d="M 50 160 Q 28 150 33 133 Q 45 120 56 138" fill="none" stroke="#71717a" stroke-width="2.5" stroke-linecap="round"/>
-                  <!-- ជើងបាតក្រោមទាំងពីរ -->
                   <rect x="75" y="200" width="26" height="34" rx="10" fill="url(#pigBackLegGrad)" class="line-art"/>
                   <rect x="175" y="200" width="26" height="34" rx="10" fill="url(#pigBackLegGrad)" class="line-art"/>
-                  <!-- តួខ្លួនជ្រូក -->
                   <ellipse cx="140" cy="170" rx="86" ry="69" fill="url(#pigDarkGrad)" class="line-art"/>
                   <path d="M 80 135 C 105 118, 150 118, 175 128" class="highlight-line"/>
                   <path d="M 90 115 C 78 82, 115 76, 120 110 Z" fill="url(#pigDarkGrad)" class="line-art"/>
@@ -427,7 +421,6 @@ html,body{width:100%;min-height:100vh;background-color:#000000;color:#ffffff;ove
               </svg>
               <div class="pig-belly-content">
                 <div class="pig-belly-label">ការប្រាក់សរុប</div>
-                <!-- ដាក់ ID សម្រាប់ Auto-Scale ទំហំអក្សរពេលលេខច្រើន -->
                 <div class="pig-belly-amount" id="pigBellyAmount">
                   <span id="pigBellyVal">0.00</span> 
                   <span id="pigBellyCur" style="font-size:16px; font-weight:700;">USD</span>
@@ -606,7 +599,7 @@ html,body{width:100%;min-height:100vh;background-color:#000000;color:#ffffff;ove
         <div class="detail-row"><span class="detail-row-lbl">កាលបរិច្ឆេទ:</span><span class="detail-row-val" id="scDate">--/--/----</span></div>
         <div class="detail-row"><span class="detail-row-lbl">ចំនួនទឹកប្រាក់:</span><span class="detail-row-val" id="scAmount" style="color: #00d2d3; font-size: 15px;">+0.00 USD</span></div>
       </div>
-      <button class="success-page-btn" onclick="confirmSuccessPage()">យល់ព្រម</button>
+      <button class="success-page-btn" id="btnConfirmSuccess">យល់ព្រម</button>
     </div>
   </div>
 
@@ -746,11 +739,12 @@ if (tg) {
 }
 
 const tgUser = tg?.initDataUnsafe?.user;
+
 let currentUser = {
   name: "(…)",
   uid: "",
   photo: "",
-  depositCount: 0, // កំណត់ដំបូងស្មើ 0 ដង
+  totalDeposits: 0,
   balance: 30.53,
   transactions: {}
 };
@@ -773,16 +767,15 @@ document.getElementById('homeName').innerText = currentUser.name;
 document.getElementById('homeUID').innerText = `UID: ${currentUser.uid}`;
 document.getElementById('myRowName').innerText = currentUser.name;
 document.getElementById('myRowUID').innerText = currentUser.uid;
+document.getElementById('myRowCount').innerText = currentUser.totalDeposits;
 document.getElementById('assetsName').innerText = currentUser.name;
 document.getElementById('assetsUID').innerText = currentUser.uid;
-document.getElementById('myRowCount').innerText = currentUser.depositCount;
 
 if (currentUser.photo) {
   document.getElementById('homeAvatar').innerHTML = `<img src="${currentUser.photo}" alt="Profile" style="width:100%; height:100%; object-fit:cover;">`;
   document.getElementById('myRowAvatar').innerHTML = `<img src="${currentUser.photo}" alt="Profile" style="width:100%; height:100%; object-fit:cover;">`;
 }
 
-// Function សម្រាប់ Auto Scale ទំហំអក្សរលើក្បាលពោះជ្រូក ដើម្បីកុំឱ្យហៀរ
 window.autoScalePigAmount = function(valString) {
   const amountBox = document.getElementById('pigBellyAmount');
   const curSpan = document.getElementById('pigBellyCur');
@@ -870,15 +863,15 @@ async function syncUserToDatabase() {
         name: currentUser.name,
         uid: currentUser.uid,
         photo: currentUser.photo,
-        depositCount: 0,
+        totalDeposits: 0,
         balance: 30.53,
         transactions: {},
         createdAt: Date.now()
       });
     } else {
       const data = snapshot.val();
-      currentUser.depositCount = data.depositCount !== undefined ? data.depositCount : 0;
-      currentUser.balance = data.balance !== undefined ? data.balance : 30.53;
+      currentUser.totalDeposits = data.totalDeposits !== undefined ? Number(data.totalDeposits) : 0;
+      currentUser.balance = data.balance !== undefined ? Number(data.balance) : 30.53;
       currentUser.transactions = data.transactions || {};
       updateUIFromData(data);
       await update(userRef, { name: currentUser.name, photo: currentUser.photo });
@@ -896,11 +889,11 @@ async function syncUserToDatabase() {
 
 function updateUIFromData(data) {
   if (!data) return;
-  currentUser.depositCount = data.depositCount !== undefined ? data.depositCount : 0;
-  currentUser.balance = data.balance !== undefined ? data.balance : 30.53;
+  currentUser.totalDeposits = data.totalDeposits !== undefined ? Number(data.totalDeposits) : 0;
+  currentUser.balance = data.balance !== undefined ? Number(data.balance) : 30.53;
   currentUser.transactions = data.transactions || {};
   const rowCount = document.getElementById('myRowCount');
-  if (rowCount) rowCount.innerText = currentUser.depositCount;
+  if (rowCount) rowCount.innerText = currentUser.totalDeposits;
   const balVal = document.getElementById('balanceVal');
   if (balVal && !isHidden) balVal.innerText = currentUser.balance.toFixed(2);
   renderHistory(currentUser.transactions);
@@ -922,13 +915,13 @@ onValue(allUsersRef, (snapshot) => {
   if (!usersList.some(u => u.uid === currentUser.uid)) {
     usersList.push(currentUser);
   }
-  usersList.sort((a, b) => (b.depositCount || 0) - (a.depositCount || 0));
+  usersList.sort((a, b) => (b.totalDeposits || 0) - (a.totalDeposits || 0));
   let html = '';
   usersList.forEach((user, index) => {
     const isMe = user.uid === currentUser.uid;
     const displayName = isMe ? `${currentUser.name} (ខ្ញុំ)` : (user.name || '(…)');
     const photo = isMe ? currentUser.photo : (user.photo || '');
-    const count = isMe ? currentUser.depositCount : (user.depositCount !== undefined ? user.depositCount : 0);
+    const count = isMe ? currentUser.totalDeposits : (user.totalDeposits || 0);
     const uid = user.uid || 'N/A';
     html += `
       <div class="table-row table-body">
@@ -1060,7 +1053,6 @@ window.openCardDetail = function(el) {
   openTransDetailModal(data);
 };
 
-// Functions សម្រាប់បើកបិទ Modal ពត៌មានលម្អិតការប្រាក់
 window.openInterestDetailModal = function(data) {
   document.getElementById('dtlIntID').innerText = data.id || 'INT-883921';
   document.getElementById('dtlIntName').innerText = currentUser.name || '(…)';
@@ -1128,7 +1120,7 @@ window.handleReceiptUpload = function(input) {
   }
 };
 
-window.submitFinalDeposit = async function() {
+window.submitFinalDeposit = function() {
   if (!hasUploadedReceipt) return;
   const val = currentDepositAmount || 0.00;
   const senderName = document.getElementById('senderAccountName').value.trim() || '(មិនបានបញ្ជាក់)';
@@ -1136,15 +1128,7 @@ window.submitFinalDeposit = async function() {
   const dateStr = ("0" + now.getDate()).slice(-2) + "/" + ("0" + (now.getMonth() + 1)).slice(-2) + "/" + now.getFullYear() + " " + ("0" + now.getHours()).slice(-2) + ":" + ("0" + now.getMinutes()).slice(-2);
   const txnID = 'TXN-' + Math.floor(1000000 + Math.random() * 9000000);
   
-  // បូកបន្ថែមចំនួនដង +1 នៅពេលដាក់ប្រាក់ជោគជ័យ
-  currentUser.depositCount = (currentUser.depositCount || 0) + 1;
-  currentUser.balance = (currentUser.balance || 30.53) + val;
-  
-  // Update ចំនួនដងទៅលើ UI ទំព័រដើមភ្លាមៗ
-  const rowCount = document.getElementById('myRowCount');
-  if (rowCount) rowCount.innerText = currentUser.depositCount;
-  
-  const newTxn = {
+  tempPendingDeposit = {
     id: txnID,
     name: currentUser.name,
     uid: currentUser.uid,
@@ -1152,23 +1136,10 @@ window.submitFinalDeposit = async function() {
     sender: senderName,
     date: dateStr,
     amount: '+' + val.toFixed(2) + ' USD',
+    valAmount: val,
     status: 'ទទួលបានជោគជ័យ',
     timestamp: Date.now()
   };
-  
-  tempPendingDeposit = newTxn;
-  
-  if (currentUser.uid) {
-    try {
-      await set(ref(db, `users/${currentUser.uid}/transactions/${txnID}`), newTxn);
-      await update(ref(db, `users/${currentUser.uid}`), {
-        depositCount: currentUser.depositCount,
-        balance: currentUser.balance
-      });
-    } catch(e) {
-      console.error(e);
-    }
-  }
 
   document.getElementById('scAmountHeader').innerText = val.toFixed(2);
   document.getElementById('scTxnID').innerText = txnID;
@@ -1184,10 +1155,62 @@ window.submitFinalDeposit = async function() {
   lucide.createIcons();
 };
 
-window.confirmSuccessPage = function() {
+// ប្រើ Event Listener ផ្ទាល់លើប៊ូតុង "យល់ព្រម" ធានាថាដំណើរការ +1 ទៅ Firebase 100%
+document.getElementById('btnConfirmSuccess').addEventListener('click', async () => {
+  if (tempPendingDeposit) {
+    const txnData = { ...tempPendingDeposit };
+    tempPendingDeposit = null;
+
+    try {
+      const userRef = ref(db, `users/${currentUser.uid}`);
+      const snap = await get(userRef);
+      let latestCount = 0;
+      let latestBal = 30.53;
+      
+      if (snap.exists()) {
+        const d = snap.val();
+        latestCount = d.totalDeposits !== undefined ? Number(d.totalDeposits) : 0;
+        latestBal = d.balance !== undefined ? Number(d.balance) : 30.53;
+      }
+
+      const newCount = latestCount + 1;
+      const newBalance = latestBal + (txnData.valAmount || 0);
+
+      // រក្សាទុកចូល Firebase
+      await set(ref(db, `users/${currentUser.uid}/transactions/${txnData.id}`), {
+        id: txnData.id,
+        name: txnData.name,
+        uid: txnData.uid,
+        bank: txnData.bank,
+        sender: txnData.sender,
+        date: txnData.date,
+        amount: txnData.amount,
+        status: txnData.status,
+        timestamp: txnData.timestamp
+      });
+
+      await update(userRef, {
+        totalDeposits: newCount,
+        balance: newBalance
+      });
+
+      currentUser.totalDeposits = newCount;
+      currentUser.balance = newBalance;
+
+      const myRowCountEl = document.getElementById('myRowCount');
+      if (myRowCountEl) myRowCountEl.innerText = newCount;
+      const balanceValEl = document.getElementById('balanceVal');
+      if (balanceValEl && !isHidden) balanceValEl.innerText = newBalance.toFixed(2);
+
+    } catch (err) {
+      console.error("Firebase update failed on confirm:", err);
+    }
+  }
+
   pageSuccess.classList.remove('active');
   pageHistory.classList.add('active');
   switchDock.style.display = 'none';
+  
   currentDepositAmount = 0;
   selectedBankName = "";
   hasUploadedReceipt = false;
@@ -1200,7 +1223,7 @@ window.confirmSuccessPage = function() {
   document.getElementById('receiptFileInput').value = '';
   document.querySelectorAll('.pig-option-btn').forEach(btn => btn.classList.remove('selected'));
   checkStep1Validation();
-};
+});
 
 const wallet = document.getElementById('wallet');
 wallet.addEventListener('click', () => {
