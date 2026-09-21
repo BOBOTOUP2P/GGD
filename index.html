@@ -182,7 +182,9 @@ html,body{width:100%;min-height:100vh;background-color:#000000;color:#ffffff;ove
 .trans-date{font-size:13px;color:#75757d;}
 .trans-right{text-align:right;display:flex;flex-direction:column;gap:4px;}
 .trans-amount{font-size:18px;font-weight:700;color:#00d2d3;}
-.trans-status{font-size:13px;font-weight:600;color:#00d2d3;}
+.trans-status{font-size:13px;font-weight:600;}
+.status-pending{color:#f59e0b !important;}
+.status-success{color:#00d2d3 !important;}
 .detail-modal{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.85);backdrop-filter:blur(8px);z-index:999999;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.3s ease;padding:20px;}
 .detail-modal.active{opacity:1;pointer-events:auto;}
 .detail-card{background:#0e0f14;border:1.4px solid #27272e;border-radius:22px;padding:24px 20px 20px 20px;width:100%;max-width:340px;box-shadow:0 12px 40px rgba(0,0,0,0.9);display:flex;flex-direction:column;position:relative;transform:scale(0.9);transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1);}
@@ -444,7 +446,7 @@ html,body{width:100%;min-height:100vh;background-color:#000000;color:#ffffff;ove
       </div>
       <div class="info-row">
         <div class="row-left"><i data-lucide="send"></i><span>តេឡេក្រាមគណនី:</span></div>
-        <div class="row-right"><span class="telegram-badge">ទំនាក់ទំនង</span></div>
+        <div class="row-right"><a id="tgContactLink" href="https://t.me/telegram" target="_blank" style="text-decoration:none;"><span class="telegram-badge">ទំនាក់ទំនង</span></a></div>
       </div>
       <div class="info-row">
         <div class="row-left"><i data-lucide="user"></i><span>ឈ្មោះអាខោន:</span></div>
@@ -560,10 +562,10 @@ html,body{width:100%;min-height:100vh;background-color:#000000;color:#ffffff;ove
       <div class="khqr-full-sheet">
         <div class="khqr-top-red">KHQR</div>
         <div class="khqr-sheet-body">
-          <div class="khqr-merchant">BOBOTOU TOPUP</div>
+          <div class="khqr-merchant" id="khqrMerchantName">BOBOTOU TOPUP</div>
           <div class="khqr-currency">( USD )</div>
           <div class="khqr-code-img">
-            <img src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=BOBOTOU_TOPUP_KHQR" alt="KHQR Code">
+            <img id="khqrImgTag" src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=BOBOTOU_TOPUP_KHQR" alt="KHQR Code">
             <div class="khqr-center-logo">
               <span style="color: #ffffff; font-weight: 800; font-size: 15px; font-family: Arial;">$</span>
             </div>
@@ -674,7 +676,29 @@ html,body{width:100%;min-height:100vh;background-color:#000000;color:#ffffff;ove
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getDatabase, ref, set, get, onValue, update } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-const BOT_TOKEN = "8619333638:AAHMdVIKg-1yo1sK_44Fd9vrNyS5EecH2Yg";
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwizuAuAgSv8OknqHSYBItLpxc5l-oLMcY0H4g9r52IowaZRGmWaITCDa9qRLRoLuk/exec";
+
+let appConfig = {
+  telegramLink: "https://t.me/telegram",
+  qrCodes: {}
+};
+
+async function loadConfigFromSheets() {
+  if (!GOOGLE_SCRIPT_URL) return;
+  try {
+    const res = await fetch(GOOGLE_SCRIPT_URL);
+    const data = await res.json();
+    if (data.telegramLink) {
+      document.getElementById('tgContactLink').href = data.telegramLink;
+    }
+    if (data.qrCodes) {
+      appConfig.qrCodes = data.qrCodes;
+    }
+  } catch(e) {
+    console.warn("Sheets config load err:", e);
+  }
+}
+loadConfigFromSheets();
 
 document.addEventListener('touchstart', (e) => {
   if (document.activeElement && (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA')) {
@@ -778,26 +802,6 @@ if (currentUser.photo) {
   document.getElementById('myRowAvatar').innerHTML = `<img src="${currentUser.photo}" alt="Profile" style="width:100%; height:100%; object-fit:cover;">`;
 }
 
-async function sendTelegramAlert(chatId, txn) {
-  if (!BOT_TOKEN || !chatId) return;
-  const message = `🔔 <b>ការដាក់ប្រាក់ទទួលបានជោគជ័យ!</b> 🔔\n\n` +
-                  `សួស្ដី <b>${currentUser.name}</b> 👋 អ្នកបានធ្វើប្រត្តិបត្តិការដាក់ប្រាក់ចំនួន <b>${txn.amount}</b> ចូលទៅកាន់គណនីUID <code>${currentUser.uid}</code> ទទួលបានជោគជ័យ។⬇️✅\n\n` +
-                  `⏰ <b>កាលបរិច្ឆេទ:</b> ${txn.date} ⏰`;
-  try {
-    await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        chat_id: chatId,
-        text: message,
-        parse_mode: 'HTML'
-      })
-    });
-  } catch (e) {
-    console.error("Telegram Alert Failed:", e);
-  }
-}
-
 window.autoScalePigAmount = function(valString) {
   const amountBox = document.getElementById('pigBellyAmount');
   const curSpan = document.getElementById('pigBellyCur');
@@ -851,6 +855,10 @@ function renderHistory(txns) {
   let html = '';
   sortedKeys.forEach(key => {
     const t = txns[key];
+    const isPending = (t.status || '').includes('ត្រួតពិនិត្យ') || t.status === 'pending';
+    const statusText = isPending ? 'កំពុងត្រួតពិនិត្យ…' : 'ទទួលបានជោគជ័យ';
+    const statusClass = isPending ? 'status-pending' : 'status-success';
+
     html += `
       <div class="transaction-card" onclick="openCardDetail(this)" data-id="${t.id}" data-name="${t.name || currentUser.name}" data-uid="${t.uid || currentUser.uid}" data-bank="${t.bank || 'KHQR'}" data-sender="${t.sender || '(មិនបានបញ្ជាក់)'}" data-date="${t.date}" data-amount="${t.amount}">
         <div class="trans-left">
@@ -868,7 +876,7 @@ function renderHistory(txns) {
         </div>
         <div class="trans-right">
           <div class="trans-amount">${t.amount}</div>
-          <div class="trans-status">${t.status || 'ទទួលបានជោគជ័យ'}</div>
+          <div class="trans-status ${statusClass}">${statusText}</div>
         </div>
       </div>
     `;
@@ -1126,6 +1134,11 @@ window.goToDepositStep2 = function() {
   if (currentDepositAmount <= 0 || selectedBankName === "" || document.getElementById('senderAccountName').value.trim() === "") {
     return;
   }
+  
+  const qrString = appConfig.qrCodes[selectedBankName] || "BOBOTOU_TOPUP_KHQR";
+  document.getElementById('khqrImgTag').src = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(qrString)}`;
+  document.getElementById('khqrMerchantName').innerText = selectedBankName;
+
   document.getElementById('depositStep1').style.display = 'none';
   document.getElementById('depositStep2').style.display = 'flex';
   hasUploadedReceipt = false;
@@ -1159,10 +1172,35 @@ window.submitFinalDeposit = function() {
     date: dateStr,
     amount: '+' + val.toFixed(2) + ' USD',
     valAmount: val,
-    status: 'ទទួលបានជោគជ័យ',
+    status: 'កំពុងត្រួតពិនិត្យ…',
     timestamp: Date.now()
   };
 
+  // រក្សាទុក status pending ក្នុង Firebase ភ្លាមៗ
+  if (currentUser.uid) {
+    set(ref(db, `users/${currentUser.uid}/transactions/${txnID}`), tempPendingDeposit).catch(e => console.warn(e));
+  }
+
+  // ផ្ញើសំណើទៅ Google Sheets (Sheet2)
+  if (GOOGLE_SCRIPT_URL) {
+    fetch(GOOGLE_SCRIPT_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        action: "new_deposit",
+        name: currentUser.name,
+        uid: currentUser.uid,
+        id: txnID,
+        bank: selectedBankName,
+        sender: senderName,
+        amount: '+' + val.toFixed(2) + ' USD',
+        date: dateStr
+      })
+    }).catch(err => console.warn(err));
+  }
+
+  // បង្ហាញលើផ្ទាំង Success
   document.getElementById('scAmountHeader').innerText = val.toFixed(2);
   document.getElementById('scTxnID').innerText = txnID;
   document.getElementById('scAccountName').innerText = currentUser.name;
@@ -1197,18 +1235,6 @@ document.getElementById('btnConfirmSuccess').addEventListener('click', async () 
       const newCount = latestCount + 1;
       const newBalance = latestBal + (txnData.valAmount || 0);
 
-      await set(ref(db, `users/${currentUser.uid}/transactions/${txnData.id}`), {
-        id: txnData.id,
-        name: txnData.name,
-        uid: txnData.uid,
-        bank: txnData.bank,
-        sender: txnData.sender,
-        date: txnData.date,
-        amount: txnData.amount,
-        status: txnData.status,
-        timestamp: txnData.timestamp
-      });
-
       await update(userRef, {
         totalDeposits: newCount,
         balance: newBalance
@@ -1221,8 +1247,6 @@ document.getElementById('btnConfirmSuccess').addEventListener('click', async () 
       if (myRowCountEl) myRowCountEl.innerText = newCount;
       const balanceValEl = document.getElementById('balanceVal');
       if (balanceValEl && !isHidden) balanceValEl.innerText = newBalance.toFixed(2);
-
-      sendTelegramAlert(currentUser.uid, txnData);
 
     } catch (err) {
       console.error("Firebase update failed on confirm:", err);
