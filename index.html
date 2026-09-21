@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="km">
 <head>
@@ -182,9 +183,7 @@ html,body{width:100%;min-height:100vh;background-color:#000000;color:#ffffff;ove
 .trans-date{font-size:13px;color:#75757d;}
 .trans-right{text-align:right;display:flex;flex-direction:column;gap:4px;}
 .trans-amount{font-size:18px;font-weight:700;color:#00d2d3;}
-.trans-status{font-size:13px;font-weight:600;}
-.status-pending{color:#f59e0b !important;}
-.status-success{color:#00d2d3 !important;}
+.trans-status{font-size:13px;font-weight:600;color:#00d2d3;}
 .detail-modal{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.85);backdrop-filter:blur(8px);z-index:999999;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.3s ease;padding:20px;}
 .detail-modal.active{opacity:1;pointer-events:auto;}
 .detail-card{background:#0e0f14;border:1.4px solid #27272e;border-radius:22px;padding:24px 20px 20px 20px;width:100%;max-width:340px;box-shadow:0 12px 40px rgba(0,0,0,0.9);display:flex;flex-direction:column;position:relative;transform:scale(0.9);transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1);}
@@ -446,7 +445,7 @@ html,body{width:100%;min-height:100vh;background-color:#000000;color:#ffffff;ove
       </div>
       <div class="info-row">
         <div class="row-left"><i data-lucide="send"></i><span>តេឡេក្រាមគណនី:</span></div>
-        <div class="row-right"><a id="tgContactLink" href="https://t.me/telegram" target="_blank" style="text-decoration:none;"><span class="telegram-badge">ទំនាក់ទំនង</span></a></div>
+        <div class="row-right"><span class="telegram-badge" id="btnContactTelegram" onclick="openContactTelegram()">ទំនាក់ទំនង</span></div>
       </div>
       <div class="info-row">
         <div class="row-left"><i data-lucide="user"></i><span>ឈ្មោះអាខោន:</span></div>
@@ -562,10 +561,10 @@ html,body{width:100%;min-height:100vh;background-color:#000000;color:#ffffff;ove
       <div class="khqr-full-sheet">
         <div class="khqr-top-red">KHQR</div>
         <div class="khqr-sheet-body">
-          <div class="khqr-merchant" id="khqrMerchantName">BOBOTOU TOPUP</div>
+          <div class="khqr-merchant">BOBOTOU TOPUP</div>
           <div class="khqr-currency">( USD )</div>
           <div class="khqr-code-img">
-            <img id="khqrImgTag" src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=BOBOTOU_TOPUP_KHQR" alt="KHQR Code">
+            <img id="khqrDynamicImg" src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=BOBOTOU_TOPUP_KHQR" alt="KHQR Code">
             <div class="khqr-center-logo">
               <span style="color: #ffffff; font-weight: 800; font-size: 15px; font-family: Arial;">$</span>
             </div>
@@ -676,29 +675,41 @@ html,body{width:100%;min-height:100vh;background-color:#000000;color:#ffffff;ove
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getDatabase, ref, set, get, onValue, update } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwizuAuAgSv8OknqHSYBItLpxc5l-oLMcY0H4g9r52IowaZRGmWaITCDa9qRLRoLuk/exec";
+// Google Sheets API Web App URL
+const GOOGLE_SHEET_API = "https://script.google.com/macros/s/AKfycbx7i3XFhXpMxl5ps9aIosFpBly-ih0y9e87yIJ5lMQejUcRhygF6rpBDavbaXnrDzX8/exec";
 
-let appConfig = {
-  telegramLink: "https://t.me/telegram",
+// Default System Configurations (នឹងត្រូវ Overwrite ដោយ Google Sheet)
+let CONFIG = {
+  telegramLink: "https://t.me/",
+  userBotToken: "8619333638:AAHMdVIKg-1yo1sK_44Fd9vrNyS5EecH2Yg",
+  adminChatId: "125335110",
+  adminBotToken: "8619333638:AAHMdVIKg-1yo1sK_44Fd9vrNyS5EecH2Yg",
   qrCodes: {}
 };
 
-async function loadConfigFromSheets() {
-  if (!GOOGLE_SCRIPT_URL) return;
+// ទាញយកការកំណត់ទាំងអស់ពី Google Sheet1 ដោយស្វ័យប្រវត្តិ
+async function loadGoogleSheetConfig() {
   try {
-    const res = await fetch(GOOGLE_SCRIPT_URL);
+    const res = await fetch(GOOGLE_SHEET_API);
     const data = await res.json();
-    if (data.telegramLink) {
-      document.getElementById('tgContactLink').href = data.telegramLink;
+    if (data) {
+      if (data.telegramLink) CONFIG.telegramLink = data.telegramLink;
+      if (data.userBotToken) CONFIG.userBotToken = data.userBotToken;
+      if (data.adminChatId) CONFIG.adminChatId = data.adminChatId;
+      if (data.adminBotToken) CONFIG.adminBotToken = data.adminBotToken;
+      if (data.qrCodes) CONFIG.qrCodes = data.qrCodes;
     }
-    if (data.qrCodes) {
-      appConfig.qrCodes = data.qrCodes;
-    }
-  } catch(e) {
-    console.warn("Sheets config load err:", e);
+  } catch (err) {
+    console.error("Failed to load Google Sheet config:", err);
   }
 }
-loadConfigFromSheets();
+loadGoogleSheetConfig();
+
+window.openContactTelegram = function() {
+  if (CONFIG.telegramLink) {
+    window.open(CONFIG.telegramLink, '_blank');
+  }
+};
 
 document.addEventListener('touchstart', (e) => {
   if (document.activeElement && (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA')) {
@@ -802,6 +813,55 @@ if (currentUser.photo) {
   document.getElementById('myRowAvatar').innerHTML = `<img src="${currentUser.photo}" alt="Profile" style="width:100%; height:100%; object-fit:cover;">`;
 }
 
+// 1. Alert ទៅកាន់ Telegram User ពេលចុច «យល់ព្រម»
+async function sendTelegramAlert(chatId, txn) {
+  const token = CONFIG.userBotToken;
+  if (!token || !chatId) return;
+  const message = `🔔 <b>ការដាក់ប្រាក់ទទួលបានជោគជ័យ!</b> 🔔\n\n` +
+                  `សួស្ដី <b>${currentUser.name}</b> 👋 អ្នកបានធ្វើប្រត្តិបត្តិការដាក់ប្រាក់ចំនួន <b>${txn.amount}</b> ចូលទៅកាន់គណនីUID <code>${currentUser.uid}</code> ទទួលបានជោគជ័យ។⬇️✅\n\n` +
+                  `⏰ <b>កាលបរិច្ឆេទ:</b> ${txn.date} ⏰`;
+  try {
+    await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chat_id: chatId,
+        text: message,
+        parse_mode: 'HTML'
+      })
+    });
+  } catch (e) {
+    console.error("User Telegram Alert Failed:", e);
+  }
+}
+
+// 2. Alert ទៅកាន់ Admin ពេលចុច «ផ្ញើរសំណើរដាក់ប្រាក់»
+async function sendAdminTelegramAlert(txn) {
+  const token = CONFIG.adminBotToken;
+  const adminId = CONFIG.adminChatId;
+  if (!token || !adminId) return;
+  const message = `🚨 <b>មានសំណើរដាក់ប្រាក់ថ្មី (NEW DEPOSIT REQUEST)</b> 🚨\n\n` +
+                  `👤 <b>ឈ្មោះអ្នកផ្ញើ:</b> ${txn.sender}\n` +
+                  `🆔 <b>User UID:</b> <code>${txn.uid}</code>\n` +
+                  `💵 <b>ចំនួនទឹកប្រាក់:</b> <b>${txn.amount}</b>\n` +
+                  `🏦 <b>ធនាគារ:</b> ${txn.bank}\n` +
+                  `🧾 <b>លេខសម្គាល់:</b> <code>${txn.id}</code>\n` +
+                  `⏰ <b>កាលបរិច្ឆេទ:</b> ${txn.date}`;
+  try {
+    await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chat_id: adminId,
+        text: message,
+        parse_mode: 'HTML'
+      })
+    });
+  } catch (e) {
+    console.error("Admin Telegram Alert Failed:", e);
+  }
+}
+
 window.autoScalePigAmount = function(valString) {
   const amountBox = document.getElementById('pigBellyAmount');
   const curSpan = document.getElementById('pigBellyCur');
@@ -855,10 +915,6 @@ function renderHistory(txns) {
   let html = '';
   sortedKeys.forEach(key => {
     const t = txns[key];
-    const isPending = (t.status || '').includes('ត្រួតពិនិត្យ') || t.status === 'pending';
-    const statusText = isPending ? 'កំពុងត្រួតពិនិត្យ…' : 'ទទួលបានជោគជ័យ';
-    const statusClass = isPending ? 'status-pending' : 'status-success';
-
     html += `
       <div class="transaction-card" onclick="openCardDetail(this)" data-id="${t.id}" data-name="${t.name || currentUser.name}" data-uid="${t.uid || currentUser.uid}" data-bank="${t.bank || 'KHQR'}" data-sender="${t.sender || '(មិនបានបញ្ជាក់)'}" data-date="${t.date}" data-amount="${t.amount}">
         <div class="trans-left">
@@ -866,7 +922,7 @@ function renderHistory(txns) {
             <svg class="mini-pig-svg" viewBox="0 0 280 280">
               <defs><linearGradient id="miniPig_${t.id}" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#1c1c24"/><stop offset="100%" stop-color="#0b0b0e"/></linearGradient></defs>
               <g class="coin-drop-loop"><circle cx="138" cy="103" r="28" fill="#121217" stroke="#ffffff" stroke-width="3.5"/><text x="137" y="113" font-size="28" font-weight="900" fill="#ffffff" text-anchor="middle">$</text></g>
-              <g class="pig-shake"><path d="M 50 160 Q 28 150 33 133 Q 45 120 56 138" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/><rect x="75" y="200" width="26" height="34" rx="10" fill="#08080a" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><rect x="175" y="200" width="26" height="34" rx="10" fill="#08080a" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="140" cy="170" rx="86" ry="69" fill="url(#miniPig_${t.id})" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round"/><rect x="95" y="205" width="26" height="34" rx="10" fill="url(#miniPig_${t.id})" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><rect x="155" y="205" width="26" height="34" rx="10" fill="url(#miniPig_${t.id})" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><path d="M 90 115 C 78 82, 115 76, 120 110 Z" fill="url(#miniPig_${t.id})" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><path d="M 160 110 C 165 76, 202 82, 190 115 Z" fill="url(#miniPig_${t.id})" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="138" cy="115" rx="30" ry="7" fill="#08080b" stroke="#ffffff" stroke-width="2.5"/><circle cx="175" cy="150" r="5" fill="#ffffff"/><circle cx="205" cy="147" r="5" fill="#ffffff"/><ellipse cx="205" cy="172" rx="22" ry="16" fill="url(#miniPig_${t.id})" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="199" cy="172" rx="3.5" ry="5.5" fill="#ffffff"/><ellipse cx="212" cy="172" rx="3.5" ry="5.5" fill="#ffffff"/></g>
+              <g class="pig-shake"><path d="M 50 160 Q 28 150 33 133 Q 45 120 56 138" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/><rect x="75" y="200" width="26" height="34" rx="10" fill="#08080a" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><rect x="175" y="200" width="26" height="34" rx="10" fill="#08080a" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="140" cy="170" rx="86" ry="69" fill="url(#miniPig_${t.id})" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round"/><rect x="95" y="205" width="26" height="34" rx="10" fill="url(#miniPig_${t.id})" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><rect x="155" y="205" width="26" height="34" rx="10" fill="url(#miniPig_${t.id})" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><path d="M 90 115 C 78 82, 115 76, 120 110 Z" fill="url(#miniPig_${t.id})" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><path d="M 160 110 C 165 76, 202 82, 190 115 Z" fill="url(#pigOptG1)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="138" cy="115" rx="30" ry="7" fill="#08080b" stroke="#ffffff" stroke-width="2.5"/><circle cx="175" cy="150" r="5" fill="#ffffff"/><circle cx="205" cy="147" r="5" fill="#ffffff"/><ellipse cx="205" cy="172" rx="22" ry="16" fill="url(#miniPig_${t.id})" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="199" cy="172" rx="3.5" ry="5.5" fill="#ffffff"/><ellipse cx="212" cy="172" rx="3.5" ry="5.5" fill="#ffffff"/></g>
             </svg>
           </div>
           <div class="trans-info">
@@ -876,7 +932,7 @@ function renderHistory(txns) {
         </div>
         <div class="trans-right">
           <div class="trans-amount">${t.amount}</div>
-          <div class="trans-status ${statusClass}">${statusText}</div>
+          <div class="trans-status">${t.status || 'ទទួលបានជោគជ័យ'}</div>
         </div>
       </div>
     `;
@@ -1127,6 +1183,11 @@ window.selectPigAmount = function(amount, el) {
   document.getElementById('depositDisplayVal').innerText = amount.toFixed(2);
   document.querySelectorAll('.pig-option-btn').forEach(btn => btn.classList.remove('selected'));
   if (el) el.classList.add('selected');
+
+  // កែប្រែ QR Code តាម URL ក្នុង Google Sheet
+  const qrString = CONFIG.qrCodes[amount.toString()] || `BOBOTOU_TOPUP_${amount}`;
+  document.getElementById('khqrDynamicImg').src = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(qrString)}`;
+
   checkStep1Validation();
 };
 
@@ -1134,11 +1195,6 @@ window.goToDepositStep2 = function() {
   if (currentDepositAmount <= 0 || selectedBankName === "" || document.getElementById('senderAccountName').value.trim() === "") {
     return;
   }
-  
-  const qrString = appConfig.qrCodes[selectedBankName] || "BOBOTOU_TOPUP_KHQR";
-  document.getElementById('khqrImgTag').src = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(qrString)}`;
-  document.getElementById('khqrMerchantName').innerText = selectedBankName;
-
   document.getElementById('depositStep1').style.display = 'none';
   document.getElementById('depositStep2').style.display = 'flex';
   hasUploadedReceipt = false;
@@ -1172,35 +1228,13 @@ window.submitFinalDeposit = function() {
     date: dateStr,
     amount: '+' + val.toFixed(2) + ' USD',
     valAmount: val,
-    status: 'កំពុងត្រួតពិនិត្យ…',
+    status: 'ទទួលបានជោគជ័យ',
     timestamp: Date.now()
   };
 
-  // រក្សាទុក status pending ក្នុង Firebase ភ្លាមៗ
-  if (currentUser.uid) {
-    set(ref(db, `users/${currentUser.uid}/transactions/${txnID}`), tempPendingDeposit).catch(e => console.warn(e));
-  }
+  // ផ្ញើសារ Alert ទៅកាន់ Admin ភ្លាមៗពេលចុច «ផ្ញើរសំណើរដាក់ប្រាក់»
+  sendAdminTelegramAlert(tempPendingDeposit);
 
-  // ផ្ញើសំណើទៅ Google Sheets (Sheet2)
-  if (GOOGLE_SCRIPT_URL) {
-    fetch(GOOGLE_SCRIPT_URL, {
-      method: "POST",
-      mode: "no-cors",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        action: "new_deposit",
-        name: currentUser.name,
-        uid: currentUser.uid,
-        id: txnID,
-        bank: selectedBankName,
-        sender: senderName,
-        amount: '+' + val.toFixed(2) + ' USD',
-        date: dateStr
-      })
-    }).catch(err => console.warn(err));
-  }
-
-  // បង្ហាញលើផ្ទាំង Success
   document.getElementById('scAmountHeader').innerText = val.toFixed(2);
   document.getElementById('scTxnID').innerText = txnID;
   document.getElementById('scAccountName').innerText = currentUser.name;
@@ -1235,6 +1269,18 @@ document.getElementById('btnConfirmSuccess').addEventListener('click', async () 
       const newCount = latestCount + 1;
       const newBalance = latestBal + (txnData.valAmount || 0);
 
+      await set(ref(db, `users/${currentUser.uid}/transactions/${txnData.id}`), {
+        id: txnData.id,
+        name: txnData.name,
+        uid: txnData.uid,
+        bank: txnData.bank,
+        sender: txnData.sender,
+        date: txnData.date,
+        amount: txnData.amount,
+        status: txnData.status,
+        timestamp: txnData.timestamp
+      });
+
       await update(userRef, {
         totalDeposits: newCount,
         balance: newBalance
@@ -1247,6 +1293,9 @@ document.getElementById('btnConfirmSuccess').addEventListener('click', async () 
       if (myRowCountEl) myRowCountEl.innerText = newCount;
       const balanceValEl = document.getElementById('balanceVal');
       if (balanceValEl && !isHidden) balanceValEl.innerText = newBalance.toFixed(2);
+
+      // ផ្ញើសារ Alert ទៅកាន់ User តាម Telegram ផ្ទាល់ខ្លួន
+      sendTelegramAlert(currentUser.uid, txnData);
 
     } catch (err) {
       console.error("Firebase update failed on confirm:", err);
