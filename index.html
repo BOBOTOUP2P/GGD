@@ -173,7 +173,6 @@ html,body{width:100%;min-height:100vh;background-color:#000000;color:#ffffff;ove
 .history-back-btn{background:#141416;border:1px solid #27272e;color:#ffffff;width:38px;height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;cursor:pointer;}
 .history-topbar-title{font-size:18px;font-weight:700;color:#ffffff;}
 
-/* កែសម្រួល overflow និង flex-shrink ដើម្បីឱ្យអូសចុះក្រោមបានស្រួល និងមិនបង្រួមតូចចង្អៀត */
 #historyList, #interestList{overflow-y:auto;max-height:calc(100vh - 120px);-webkit-overflow-scrolling:touch;padding-bottom:30px;display:flex;flex-direction:column;gap:12px;}
 .transaction-card{position:relative;background-color:#0f1012;border-radius:18px;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;overflow:hidden;box-shadow:0 4px 15px rgba(0,0,0,0.4);border:1px solid #1a1a1e;cursor:pointer;transition:transform 0.15s ease,background-color 0.15s ease;animation:fadeIn 0.3s ease;flex-shrink:0;min-height:84px;}
 .transaction-card:active{transform:scale(0.98);background-color:#16171d;}
@@ -201,14 +200,20 @@ html,body{width:100%;min-height:100vh;background-color:#000000;color:#ffffff;ove
 .detail-row-val{color:#ffffff;font-weight:600;text-align:right;max-width:60%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .detail-close-btn{width:100%;height:44px;background-color:#1c1d24;border:1.2px solid #3f3f46;border-radius:12px;color:#ffffff;font-size:14px;font-weight:700;cursor:pointer;margin-top:16px;transition:all 0.2s ease;}
 .detail-close-btn:active{background-color:#2a2b36;border-color:#00bcd4;}
-.success-page-content{display:flex;flex-direction:column;align-items:center;width:100%;padding:20px 4px 30px 4px;}
-.success-page-circle{width:76px;height:76px;border-radius:50%;background:rgba(34,197,94,0.12);border:2px solid #22c55e;display:flex;align-items:center;justify-content:center;color:#22c55e;margin-bottom:14px;box-shadow:0 0 25px rgba(34,197,94,0.35);}
-.success-page-title{font-size:20px;font-weight:700;color:#22c55e;margin-bottom:6px;}
-.success-page-amount{font-size:28px;font-weight:800;color:#ffffff;margin-bottom:4px;letter-spacing:0.5px;}
-.success-page-sub{font-size:13.5px;color:#a1a1aa;margin-bottom:20px;text-align:center;}
-.success-details-card{width:100%;background:#0e0f14;border:1.2px solid #27272e;border-radius:18px;padding:14px 16px;margin-bottom:20px;box-shadow:0 4px 15px rgba(0,0,0,0.5);}
-.success-page-btn{width:100%;height:50px;background-color:#00bcd4;border:none;border-radius:14px;color:#000000;font-size:15px;font-weight:700;cursor:pointer;transition:all 0.2s ease;}
+
+/* កែសម្រួល modal ជោគជ័យឱ្យលោត Pop-up ចំកណ្តាលអេក្រង់ និងមិនជាន់គ្នា */
+.success-modal-overlay{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.85);backdrop-filter:blur(8px);z-index:999999;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.3s ease;padding:20px;}
+.success-modal-overlay.active{opacity:1;pointer-events:auto;}
+.success-page-content{display:flex;flex-direction:column;align-items:center;width:100%;max-width:340px;background:#0b0b0f;border:1.4px solid #27272e;border-radius:24px;padding:26px 20px 22px 20px;box-shadow:0 12px 40px rgba(0,0,0,0.9);transform:scale(0.9);transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1);}
+.success-modal-overlay.active .success-page-content{transform:scale(1);}
+.success-page-circle{width:70px;height:70px;border-radius:50%;background:rgba(34,197,94,0.12);border:2px solid #22c55e;display:flex;align-items:center;justify-content:center;color:#22c55e;margin-bottom:12px;box-shadow:0 0 25px rgba(34,197,94,0.35);}
+.success-page-title{font-size:20px;font-weight:700;color:#22c55e;margin-bottom:4px;}
+.success-page-amount{font-size:26px;font-weight:800;color:#ffffff;margin-bottom:2px;letter-spacing:0.5px;}
+.success-page-sub{font-size:13px;color:#a1a1aa;margin-bottom:16px;text-align:center;}
+.success-details-card{width:100%;background:#0e0f14;border:1.2px solid #27272e;border-radius:18px;padding:12px 14px;margin-bottom:18px;box-shadow:0 4px 15px rgba(0,0,0,0.5);}
+.success-page-btn{width:100%;height:46px;background-color:#00bcd4;border:none;border-radius:12px;color:#000000;font-size:15px;font-weight:700;cursor:pointer;transition:all 0.2s ease;}
 .success-page-btn:active{transform:scale(0.98);}
+
 @keyframes arrowFly3D{0%{transform:translateY(4px) scale(0.92) rotateX(15deg);filter:drop-shadow(0 0 4px rgba(255,255,255,0.4));}50%{transform:translateY(-5px) scale(1.08) rotateX(0deg);filter:drop-shadow(0 0 10px rgba(255,255,255,0.9));}100%{transform:translateY(4px) scale(0.92) rotateX(15deg);filter:drop-shadow(0 0 4px rgba(255,255,255,0.4));}}
 .flying-arrow-3d{animation:arrowFly3D 2.2s infinite ease-in-out;color:#ffffff;display:flex;align-items:center;justify-content:center;}
 .interest-card{position:relative;background-color:#0f1012;border-radius:18px;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;overflow:hidden;box-shadow:0 4px 15px rgba(0,0,0,0.4);border:1px solid #1a1a1e;animation:fadeIn 0.3s ease;cursor:pointer;transition:transform 0.15s ease,background-color 0.15s ease;flex-shrink:0;min-height:84px;}
@@ -593,7 +598,8 @@ html,body{width:100%;min-height:100vh;background-color:#000000;color:#ffffff;ove
     </div>
   </div>
 
-  <div class="page-view" id="pageSuccess">
+  <!-- Pop-up Modal ជោគជ័យ (មិនជាន់គ្នាជាមួយទំព័រផ្សេង) -->
+  <div id="successModalOverlay" class="success-modal-overlay">
     <div class="success-page-content">
       <div class="success-page-circle"><i data-lucide="check" style="width: 44px; height: 44px; stroke-width: 3.2;"></i></div>
       <div class="success-page-title">ទទួលបានជោគជ័យ</div>
@@ -686,15 +692,26 @@ import { getDatabase, ref, set, get, onValue, update } from "https://www.gstatic
 
 const GOOGLE_SHEET_API = "https://script.google.com/macros/s/AKfycbx7i3XFhXpMxl5ps9aIosFpBly-ih0y9e87yIJ5lMQejUcRhygF6rpBDavbaXnrDzX8/exec";
 
+// ទាញយក Config ដែលបានរក្សាទុកក្នុង LocalStorage ជាមុន ដើម្បីបង្ហាញភ្លាមៗមិនបាច់រង់ចាំ
+let savedConfig = JSON.parse(localStorage.getItem("cached_admin_config") || "{}");
+
 let CONFIG = {
-  telegramLink: "https://t.me/",
-  companyLogo: "https://i.ibb.co/Rkt5HqTQ/IMG-2370.jpg",
-  companyName: "មាសបៃតង",
-  userBotToken: "8619333638:AAHMdVIKg-1yo1sK_44Fd9vrNyS5EecH2Yg",
-  adminChatId: "125335110",
-  adminBotToken: "8619333638:AAHMdVIKg-1yo1sK_44Fd9vrNyS5EecH2Yg",
-  qrCodes: {}
+  telegramLink: savedConfig.telegramLink || "https://t.me/",
+  companyLogo: savedConfig.companyLogo || "https://i.ibb.co/Rkt5HqTQ/IMG-2370.jpg",
+  companyName: savedConfig.companyName || "មាសបៃតង",
+  userBotToken: savedConfig.userBotToken || "8619333638:AAHMdVIKg-1yo1sK_44Fd9vrNyS5EecH2Yg",
+  adminChatId: savedConfig.adminChatId || "125335110",
+  adminBotToken: savedConfig.adminBotToken || "8619333638:AAHMdVIKg-1yo1sK_44Fd9vrNyS5EecH2Yg",
+  qrCodes: savedConfig.qrCodes || {}
 };
+
+function renderCompanyUI() {
+  const logoEl = document.getElementById('companyLogoBadge');
+  const nameEl = document.getElementById('companyNameText');
+  if (logoEl) logoEl.innerHTML = `<img src="${CONFIG.companyLogo}" alt="Company">`;
+  if (nameEl) nameEl.innerText = CONFIG.companyName;
+}
+renderCompanyUI();
 
 let notifiedDoneTxns = JSON.parse(localStorage.getItem("notified_done_txns") || "[]");
 
@@ -703,20 +720,20 @@ async function loadGoogleSheetConfig() {
     const res = await fetch(GOOGLE_SHEET_API);
     const data = await res.json();
     if (data) {
-      if (data.telegramLink) CONFIG.telegramLink = data.telegramLink;
-      if (data.companyLogo) {
-        CONFIG.companyLogo = data.companyLogo;
-        document.getElementById('companyLogoBadge').innerHTML = `<img src="${data.companyLogo}" alt="Company">`;
-      }
-      if (data.companyName) {
-        CONFIG.companyName = data.companyName;
-        document.getElementById('companyNameText').innerText = data.companyName;
-      }
-      if (data.userBotToken) CONFIG.userBotToken = data.userBotToken;
-      if (data.adminChatId) CONFIG.adminChatId = data.adminChatId;
-      if (data.adminBotToken) CONFIG.adminBotToken = data.adminBotToken;
-      if (data.qrCodes) CONFIG.qrCodes = data.qrCodes;
+      let isUpdated = false;
+      if (data.telegramLink && data.telegramLink !== CONFIG.telegramLink) { CONFIG.telegramLink = data.telegramLink; isUpdated = true; }
+      if (data.companyLogo && data.companyLogo !== CONFIG.companyLogo) { CONFIG.companyLogo = data.companyLogo; isUpdated = true; }
+      if (data.companyName && data.companyName !== CONFIG.companyName) { CONFIG.companyName = data.companyName; isUpdated = true; }
+      if (data.userBotToken && data.userBotToken !== CONFIG.userBotToken) { CONFIG.userBotToken = data.userBotToken; isUpdated = true; }
+      if (data.adminChatId && data.adminChatId !== CONFIG.adminChatId) { CONFIG.adminChatId = data.adminChatId; isUpdated = true; }
+      if (data.adminBotToken && data.adminBotToken !== CONFIG.adminBotToken) { CONFIG.adminBotToken = data.adminBotToken; isUpdated = true; }
+      if (data.qrCodes) { CONFIG.qrCodes = data.qrCodes; isUpdated = true; }
       
+      if (isUpdated) {
+        localStorage.setItem("cached_admin_config", JSON.stringify(CONFIG));
+        renderCompanyUI();
+      }
+
       if (data.transactions && data.transactions.length > 0) {
         data.transactions.forEach(t => {
           if (t.uid === currentUser.uid) {
@@ -762,7 +779,7 @@ async function checkAndSyncSheetTransaction(sheetTxn) {
   }
 }
 
-setInterval(loadGoogleSheetConfig, 5000);
+setInterval(loadGoogleSheetConfig, 4000);
 
 window.openContactTelegram = function() {
   if (CONFIG.telegramLink) {
@@ -872,7 +889,6 @@ if (currentUser.photo) {
   document.getElementById('myRowAvatar').innerHTML = `<img src="${currentUser.photo}" alt="Profile" style="width:100%; height:100%; object-fit:cover;">`;
 }
 
-// 1. Alert ទៅកាន់ User ពេលប្តូរជា Done ក្នុង Sheet
 async function sendTelegramAlert(chatId, txn) {
   const token = CONFIG.userBotToken;
   if (!token || !chatId) return;
@@ -894,7 +910,6 @@ async function sendTelegramAlert(chatId, txn) {
   }
 }
 
-// 2. Alert ទៅកាន់ Admin ពេលចុច «ផ្ញើរសំណើរដាក់ប្រាក់»
 async function sendAdminTelegramAlert(txn) {
   const token = CONFIG.adminBotToken;
   const adminId = CONFIG.adminChatId;
@@ -932,10 +947,7 @@ function showSuccessPopup(txn) {
   document.getElementById('scDate').innerText = txn.date;
   document.getElementById('scAmount').innerText = txn.amount;
 
-  pageHistory.classList.remove('active');
-  pageDeposit.classList.remove('active');
-  pageSuccess.classList.add('active');
-  switchDock.style.display = 'none';
+  document.getElementById('successModalOverlay').classList.add('active');
   lucide.createIcons();
 }
 
@@ -1249,7 +1261,6 @@ window.closeInterestDetailModal = function() {
 const pageAssets = document.getElementById('pageAssets');
 const pageDeposit = document.getElementById('pageDeposit');
 const pageHistory = document.getElementById('pageHistory');
-const pageSuccess = document.getElementById('pageSuccess');
 const pageInterest = document.getElementById('pageInterest');
 const switchDock = document.getElementById('switchDock');
 
@@ -1355,9 +1366,7 @@ window.submitFinalDeposit = async function() {
 };
 
 document.getElementById('btnConfirmSuccess').addEventListener('click', () => {
-  pageSuccess.classList.remove('active');
-  pageHistory.classList.add('active');
-  switchDock.style.display = 'none';
+  document.getElementById('successModalOverlay').classList.remove('active');
 });
 
 const wallet = document.getElementById('wallet');
@@ -1440,7 +1449,6 @@ slidingPill.style.transform = 'translateX(0%)';
 window.selectTab = function(tab) {
   pageHistory.classList.remove('active');
   pageDeposit.classList.remove('active');
-  pageSuccess.classList.remove('active');
   pageInterest.classList.remove('active');
   switchDock.style.display = 'flex';
   
