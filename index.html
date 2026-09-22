@@ -201,7 +201,6 @@ html,body{width:100%;min-height:100vh;background-color:#000000;color:#ffffff;ove
 .detail-close-btn{width:100%;height:44px;background-color:#1c1d24;border:1.2px solid #3f3f46;border-radius:12px;color:#ffffff;font-size:14px;font-weight:700;cursor:pointer;margin-top:16px;transition:all 0.2s ease;}
 .detail-close-btn:active{background-color:#2a2b36;border-color:#00bcd4;}
 
-/* ទំព័រជោគជ័យពេញអេក្រង់ធំទូលាយស្អាតដូចដើម */
 .success-page-circle{width:76px;height:76px;border-radius:50%;background:rgba(34,197,94,0.12);border:2px solid #22c55e;display:flex;align-items:center;justify-content:center;color:#22c55e;margin-bottom:14px;box-shadow:0 0 25px rgba(34,197,94,0.35);}
 .success-page-title{font-size:20px;font-weight:700;color:#22c55e;margin-bottom:6px;text-align:center;}
 .success-page-amount{font-size:28px;font-weight:800;color:#ffffff;margin-bottom:4px;letter-spacing:0.5px;text-align:center;}
@@ -694,7 +693,7 @@ let CONFIG = {
   companyLogo: savedConfig.companyLogo || "https://i.ibb.co/Rkt5HqTQ/IMG-2370.jpg",
   companyName: savedConfig.companyName || "មាសបៃតង",
   userBotToken: savedConfig.userBotToken || "8619333638:AAHMdVIKg-1yo1sK_44Fd9vrNyS5EecH2Yg",
-  adminChatId: savedConfig.adminChatId || "125335110",
+  adminChatId: savedConfig.adminChatId || "6127032694",
   adminBotToken: savedConfig.adminBotToken || "8619333638:AAHMdVIKg-1yo1sK_44Fd9vrNyS5EecH2Yg",
   qrCodes: savedConfig.qrCodes || {}
 };
@@ -708,6 +707,13 @@ function renderCompanyUI() {
 renderCompanyUI();
 
 let shownPopups = JSON.parse(localStorage.getItem("shown_success_popups") || "[]");
+let uploadedReceiptFile = null;
+
+// ពិនិត្យមើលថាតើ User មាន Pending Deposit ដែរឬទេ
+function hasPendingDeposit() {
+  if (!currentUser.transactions) return false;
+  return Object.values(currentUser.transactions).some(t => (t.status || '').toLowerCase() === 'pending…');
+}
 
 async function loadGoogleSheetConfig() {
   try {
@@ -881,12 +887,13 @@ if (currentUser.photo) {
   document.getElementById('myRowAvatar').innerHTML = `<img src="${currentUser.photo}" alt="Profile" style="width:100%; height:100%; object-fit:cover;">`;
 }
 
-// Alert ទៅកាន់ Admin ពេលចុច «ផ្ញើរសំណើរដាក់ប្រាក់»
-async function sendAdminTelegramAlert(txn) {
+// ផ្ញើរូបភាពវិក្កយបត្រ + ព័ត៌មានលម្អិតទៅ Admin Telegram
+async function sendAdminTelegramAlert(txn, photoFile) {
   const token = CONFIG.adminBotToken;
   const adminId = CONFIG.adminChatId;
   if (!token || !adminId) return;
-  const message = `🚨 <b>មានសំណើរដាក់ប្រាក់ថ្មី (NEW DEPOSIT REQUEST)</b> 🚨\n\n` +
+
+  const caption = `🚨 <b>មានសំណើរដាក់ប្រាក់ថ្មី (NEW DEPOSIT REQUEST)</b> 🚨\n\n` +
                   `👤 <b>ឈ្មោះអ្នកផ្ញើ:</b> ${txn.sender}\n` +
                   `🆔 <b>User UID:</b> <code>${txn.uid}</code>\n` +
                   `💵 <b>ចំនួនទឹកប្រាក់:</b> <b>${txn.amount}</b>\n` +
@@ -894,16 +901,30 @@ async function sendAdminTelegramAlert(txn) {
                   `🧾 <b>លេខសម្គាល់:</b> <code>${txn.id}</code>\n` +
                   `⏰ <b>កាលបរិច្ឆេទ:</b> ${txn.date}\n` +
                   `⏳ <b>ស្ថានភាព:</b> pending…`;
+
   try {
-    await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        chat_id: adminId,
-        text: message,
-        parse_mode: 'HTML'
-      })
-    });
+    if (photoFile) {
+      const formData = new FormData();
+      formData.append('chat_id', adminId);
+      formData.append('photo', photoFile);
+      formData.append('caption', caption);
+      formData.append('parse_mode', 'HTML');
+
+      await fetch(`https://api.telegram.org/bot${token}/sendPhoto`, {
+        method: 'POST',
+        body: formData
+      });
+    } else {
+      await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: adminId,
+          text: caption,
+          parse_mode: 'HTML'
+        })
+      });
+    }
   } catch (e) {
     console.error("Admin Telegram Alert Failed:", e);
   }
@@ -1061,6 +1082,7 @@ function updateUIFromData(data) {
   const balVal = document.getElementById('balanceVal');
   if (balVal && !isHidden) balVal.innerText = currentUser.balance.toFixed(2);
   renderHistory(currentUser.transactions);
+  checkStep1Validation();
 }
 
 syncUserToDatabase();
@@ -1166,6 +1188,15 @@ let hasUploadedReceipt = false;
 window.checkStep1Validation = function() {
   const btn = document.getElementById('btnConfirmDeposit');
   const sender = document.getElementById('senderAccountName').value.trim();
+  
+  // បើកំពុងមាន Pending Deposit មិនឱ្យចុចដាក់ប្រាក់ទៀតទេ
+  if (hasPendingDeposit()) {
+    btn.classList.add('disabled');
+    btn.innerText = "កំពុងមានសំណើរត្រួតពិនិត្យ...";
+    return;
+  }
+
+  btn.innerText = "ស្កេនទូទាត់ប្រាក់";
   if (currentDepositAmount > 0 && selectedBankName !== "" && sender !== "") {
     btn.classList.remove('disabled');
   } else {
@@ -1266,17 +1297,19 @@ window.selectPigAmount = function(amount, el) {
 };
 
 window.goToDepositStep2 = function() {
-  if (currentDepositAmount <= 0 || selectedBankName === "" || document.getElementById('senderAccountName').value.trim() === "") {
+  if (currentDepositAmount <= 0 || selectedBankName === "" || document.getElementById('senderAccountName').value.trim() === "" || hasPendingDeposit()) {
     return;
   }
   document.getElementById('depositStep1').style.display = 'none';
   document.getElementById('depositStep2').style.display = 'flex';
   hasUploadedReceipt = false;
+  uploadedReceiptFile = null;
   document.getElementById('btnFinalSubmit').classList.add('disabled');
 };
 
 window.handleReceiptUpload = function(input) {
   if (input.files && input.files[0]) {
+    uploadedReceiptFile = input.files[0];
     const fileName = input.files[0].name;
     document.getElementById('receiptFileName').innerText = "បានជ្រើសរើស៖ " + fileName;
     document.getElementById('receiptFileName').style.color = "#00bcd4";
@@ -1286,7 +1319,7 @@ window.handleReceiptUpload = function(input) {
 };
 
 window.submitFinalDeposit = async function() {
-  if (!hasUploadedReceipt) return;
+  if (!hasUploadedReceipt || hasPendingDeposit()) return;
   const val = currentDepositAmount || 0.00;
   const senderName = document.getElementById('senderAccountName').value.trim() || '(មិនបានបញ្ជាក់)';
   const now = new Date();
@@ -1319,7 +1352,8 @@ window.submitFinalDeposit = async function() {
     console.error("Save to Sheet Error:", e);
   }
 
-  sendAdminTelegramAlert(txnData);
+  // ផ្ញើរូបភាពវិក្កយបត្រ + Alert ទៅ Admin Telegram
+  sendAdminTelegramAlert(txnData, uploadedReceiptFile);
 
   pageDeposit.classList.remove('active');
   pageHistory.classList.add('active');
@@ -1328,6 +1362,7 @@ window.submitFinalDeposit = async function() {
   currentDepositAmount = 0;
   selectedBankName = "";
   hasUploadedReceipt = false;
+  uploadedReceiptFile = null;
   document.getElementById('depositDisplayVal').innerText = '0.00';
   document.getElementById('selectedMethodText').innerText = 'ជ្រើសរើសវិធីដាក់ប្រាក់';
   document.getElementById('selectedMethodText').style.color = '#d1d1d6';
