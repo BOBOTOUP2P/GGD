@@ -116,6 +116,7 @@ html,body{width:100%;min-height:100vh;background-color:#000000;color:#ffffff;ove
 .row-left svg{color:#00bcd4;width:20px;height:20px;stroke-width:2;}
 .row-right{display:flex;align-items:center;gap:10px;font-size:14px;color:#ffffff;}
 .avatar-badge{width:32px;height:32px;border-radius:50%;border:1.4px solid #71717a;background:radial-gradient(circle,#f59e0b 35%,#05684d 75%,#022c22 100%);display:inline-block;flex-shrink:0;overflow:hidden;}
+.avatar-badge img{width:100%;height:100%;object-fit:cover;}
 .telegram-badge{background-color:#0e0e12;border:1.3px solid #71717a;color:#ffffff;font-size:13px;font-weight:600;padding:5px 12px;border-radius:8px;letter-spacing:0.3px;cursor:pointer;display:inline-block;transition:all 0.2s ease;}
 .telegram-badge:active{background-color:#1f1f26;border-color:#a1a1aa;}
 .txt-cyan{color:#00bcd4;font-weight:600;}
@@ -171,8 +172,10 @@ html,body{width:100%;min-height:100vh;background-color:#000000;color:#ffffff;ove
 .history-topbar{position:sticky;top:0;background-color:#000000;z-index:20;display:flex;align-items:center;justify-content:space-between;padding-top:2px;padding-bottom:14px;border-bottom:1px solid #1a1a1f;margin-bottom:14px;}
 .history-back-btn{background:#141416;border:1px solid #27272e;color:#ffffff;width:38px;height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;cursor:pointer;}
 .history-topbar-title{font-size:18px;font-weight:700;color:#ffffff;}
-#historyList, #interestList{overflow-y:auto;max-height:calc(100vh - 120px);-webkit-overflow-scrolling:touch;padding-bottom:20px;display:flex;flex-direction:column;}
-.transaction-card{position:relative;background-color:#0f1012;border-radius:18px;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;overflow:hidden;box-shadow:0 4px 15px rgba(0,0,0,0.4);border:1px solid #1a1a1e;cursor:pointer;transition:transform 0.15s ease,background-color 0.15s ease;animation:fadeIn 0.3s ease;}
+
+/* កែសម្រួល overflow និង flex-shrink ដើម្បីឱ្យអូសចុះក្រោមបានស្រួល និងមិនបង្រួមតូចចង្អៀត */
+#historyList, #interestList{overflow-y:auto;max-height:calc(100vh - 120px);-webkit-overflow-scrolling:touch;padding-bottom:30px;display:flex;flex-direction:column;gap:12px;}
+.transaction-card{position:relative;background-color:#0f1012;border-radius:18px;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;overflow:hidden;box-shadow:0 4px 15px rgba(0,0,0,0.4);border:1px solid #1a1a1e;cursor:pointer;transition:transform 0.15s ease,background-color 0.15s ease;animation:fadeIn 0.3s ease;flex-shrink:0;min-height:84px;}
 .transaction-card:active{transform:scale(0.98);background-color:#16171d;}
 .transaction-card::before{content:'';position:absolute;left:0;top:6px;bottom:6px;width:4.5px;background-color:#eab308;border-radius:4px;}
 .transaction-card.status-done::before{background-color:#00d2d3;}
@@ -208,7 +211,7 @@ html,body{width:100%;min-height:100vh;background-color:#000000;color:#ffffff;ove
 .success-page-btn:active{transform:scale(0.98);}
 @keyframes arrowFly3D{0%{transform:translateY(4px) scale(0.92) rotateX(15deg);filter:drop-shadow(0 0 4px rgba(255,255,255,0.4));}50%{transform:translateY(-5px) scale(1.08) rotateX(0deg);filter:drop-shadow(0 0 10px rgba(255,255,255,0.9));}100%{transform:translateY(4px) scale(0.92) rotateX(15deg);filter:drop-shadow(0 0 4px rgba(255,255,255,0.4));}}
 .flying-arrow-3d{animation:arrowFly3D 2.2s infinite ease-in-out;color:#ffffff;display:flex;align-items:center;justify-content:center;}
-.interest-card{position:relative;background-color:#0f1012;border-radius:18px;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;overflow:hidden;box-shadow:0 4px 15px rgba(0,0,0,0.4);border:1px solid #1a1a1e;animation:fadeIn 0.3s ease;cursor:pointer;transition:transform 0.15s ease,background-color 0.15s ease;}
+.interest-card{position:relative;background-color:#0f1012;border-radius:18px;padding:16px 18px;display:flex;align-items:center;justify-content:space-between;overflow:hidden;box-shadow:0 4px 15px rgba(0,0,0,0.4);border:1px solid #1a1a1e;animation:fadeIn 0.3s ease;cursor:pointer;transition:transform 0.15s ease,background-color 0.15s ease;flex-shrink:0;min-height:84px;}
 .interest-card:active{transform:scale(0.98);background-color:#16171d;}
 .interest-card::before{content:'';position:absolute;left:0;top:6px;bottom:6px;width:4.5px;background-color:#22c55e;border-radius:4px;box-shadow:0 0 8px #22c55e;}
 .interest-icon-box{width:52px;height:52px;background-color:#0e0f14;border:1.3px solid #3f3f46;border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
@@ -242,6 +245,8 @@ html,body{width:100%;min-height:100vh;background-color:#000000;color:#ffffff;ove
       <rect x="175" y="200" width="26" height="34" rx="10" fill="url(#pigBackLegGrad)" class="line-art" />
       <ellipse cx="140" cy="170" rx="86" ry="69" fill="url(#pigDarkGrad)" class="line-art" />
       <path d="M 80 135 C 105 118, 150 118, 175 128" class="highlight-line" />
+      <rect x="95" y="205" width="26" height="34" rx="10" fill="url(#pigDarkGrad)" class="line-art" />
+      <rect x="155" y="205" width="26" height="34" rx="10" fill="url(#pigDarkGrad)" class="line-art" />
       <path d="M 90 115 C 78 82, 115 76, 120 110 Z" fill="url(#pigDarkGrad)" class="line-art" />
       <path d="M 160 110 C 165 76, 202 82, 190 115 Z" fill="url(#pigDarkGrad)" class="line-art" />
       <path d="M 166 107 C 170 88, 188 92, 182 110 Z" fill="#252530" opacity="0.6"/>
@@ -445,7 +450,7 @@ html,body{width:100%;min-height:100vh;background-color:#000000;color:#ffffff;ove
     <div class="info-list">
       <div class="info-row">
         <div class="row-left"><i data-lucide="camera"></i><span>រូបតំណាងក្រុមហ៊ុន:</span></div>
-        <div class="row-right"><span>មាសបៃតង</span><span class="avatar-badge"></span></div>
+        <div class="row-right"><span id="companyNameText">មាសបៃតង</span><span class="avatar-badge" id="companyLogoBadge"></span></div>
       </div>
       <div class="info-row">
         <div class="row-left"><i data-lucide="send"></i><span>តេឡេក្រាមគណនី:</span></div>
@@ -683,6 +688,8 @@ const GOOGLE_SHEET_API = "https://script.google.com/macros/s/AKfycbx7i3XFhXpMxl5
 
 let CONFIG = {
   telegramLink: "https://t.me/",
+  companyLogo: "https://i.ibb.co/Rkt5HqTQ/IMG-2370.jpg",
+  companyName: "មាសបៃតង",
   userBotToken: "8619333638:AAHMdVIKg-1yo1sK_44Fd9vrNyS5EecH2Yg",
   adminChatId: "125335110",
   adminBotToken: "8619333638:AAHMdVIKg-1yo1sK_44Fd9vrNyS5EecH2Yg",
@@ -697,12 +704,19 @@ async function loadGoogleSheetConfig() {
     const data = await res.json();
     if (data) {
       if (data.telegramLink) CONFIG.telegramLink = data.telegramLink;
+      if (data.companyLogo) {
+        CONFIG.companyLogo = data.companyLogo;
+        document.getElementById('companyLogoBadge').innerHTML = `<img src="${data.companyLogo}" alt="Company">`;
+      }
+      if (data.companyName) {
+        CONFIG.companyName = data.companyName;
+        document.getElementById('companyNameText').innerText = data.companyName;
+      }
       if (data.userBotToken) CONFIG.userBotToken = data.userBotToken;
       if (data.adminChatId) CONFIG.adminChatId = data.adminChatId;
       if (data.adminBotToken) CONFIG.adminBotToken = data.adminBotToken;
       if (data.qrCodes) CONFIG.qrCodes = data.qrCodes;
       
-      // ត្រួតពិនិត្យ Transactions ពី Google Sheet
       if (data.transactions && data.transactions.length > 0) {
         data.transactions.forEach(t => {
           if (t.uid === currentUser.uid) {
@@ -716,7 +730,6 @@ async function loadGoogleSheetConfig() {
   }
 }
 
-// ត្រួតពិនិត្យស្ថានភាព Done ឬ Refuse ពី Google Sheet
 async function checkAndSyncSheetTransaction(sheetTxn) {
   const txnRef = ref(db, `users/${currentUser.uid}/transactions/${sheetTxn.id}`);
   const snap = await get(txnRef);
@@ -724,11 +737,9 @@ async function checkAndSyncSheetTransaction(sheetTxn) {
     const dbTxn = snap.val();
     const currentStatus = (sheetTxn.status || '').trim();
     
-    // បើ Admin ប្តូរទៅជា Done ក្នុង Sheet
     if (currentStatus.toLowerCase() === 'done' && dbTxn.status !== 'done') {
       await update(txnRef, { status: 'done' });
       
-      // បូកលុយ និង +1 ចូល Firebase
       const val = parseFloat(sheetTxn.amount.replace(/[^0-9.]/g, '')) || 0;
       currentUser.totalDeposits = (currentUser.totalDeposits || 0) + 1;
       currentUser.balance = (currentUser.balance || 30.53) + val;
@@ -738,24 +749,19 @@ async function checkAndSyncSheetTransaction(sheetTxn) {
         balance: currentUser.balance
       });
 
-      // បង្ហាញផ្ទាំងជោគជ័យ
       showSuccessPopup(sheetTxn);
 
-      // ផ្ញើសារ SMS Alert ទៅ User
       if (!notifiedDoneTxns.includes(sheetTxn.id)) {
         sendTelegramAlert(currentUser.uid, sheetTxn);
         notifiedDoneTxns.push(sheetTxn.id);
         localStorage.setItem("notified_done_txns", JSON.stringify(notifiedDoneTxns));
       }
-    } 
-    // បើ Admin ប្តូរទៅជា Refuse ក្នុង Sheet
-    else if (currentStatus.toLowerCase() === 'refuse' && dbTxn.status !== 'refuse') {
+    } else if (currentStatus.toLowerCase() === 'refuse' && dbTxn.status !== 'refuse') {
       await update(txnRef, { status: 'refuse' });
     }
   }
 }
 
-// ពិនិត្យ Sheet រៀងរាល់ 5 វិនាទីម្តង
 setInterval(loadGoogleSheetConfig, 5000);
 
 window.openContactTelegram = function() {
@@ -1008,7 +1014,7 @@ function renderHistory(txns) {
             <svg class="mini-pig-svg" viewBox="0 0 280 280">
               <defs><linearGradient id="miniPig_${t.id}" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#1c1c24"/><stop offset="100%" stop-color="#0b0b0e"/></linearGradient></defs>
               <g class="coin-drop-loop"><circle cx="138" cy="103" r="28" fill="#121217" stroke="#ffffff" stroke-width="3.5"/><text x="137" y="113" font-size="28" font-weight="900" fill="#ffffff" text-anchor="middle">$</text></g>
-              <g class="pig-shake"><path d="M 50 160 Q 28 150 33 133 Q 45 120 56 138" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/><rect x="75" y="200" width="26" height="34" rx="10" fill="#08080a" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><rect x="175" y="200" width="26" height="34" rx="10" fill="#08080a" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="140" cy="170" rx="86" ry="69" fill="url(#miniPig_${t.id})" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round"/><rect x="95" y="205" width="26" height="34" rx="10" fill="url(#miniPig_${t.id})" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><rect x="155" y="205" width="26" height="34" rx="10" fill="url(#miniPig_${t.id})" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><path d="M 90 115 C 78 82, 115 76, 120 110 Z" fill="url(#miniPig_${t.id})" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><path d="M 160 110 C 165 76, 202 82, 190 115 Z" fill="url(#pigOptG1)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="138" cy="115" rx="30" ry="7" fill="#08080b" stroke="#ffffff" stroke-width="2.5"/><circle cx="175" cy="150" r="5" fill="#ffffff"/><circle cx="205" cy="147" r="5" fill="#ffffff"/><ellipse cx="205" cy="172" rx="22" ry="16" fill="url(#miniPig_${t.id})" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="199" cy="172" rx="3.5" ry="5.5" fill="#ffffff"/><ellipse cx="212" cy="172" rx="3.5" ry="5.5" fill="#ffffff"/></g>
+              <g class="pig-shake"><path d="M 50 160 Q 28 150 33 133 Q 45 120 56 138" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/><rect x="75" y="200" width="26" height="34" rx="10" fill="#08080a" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><rect x="175" y="200" width="26" height="34" rx="10" fill="#08080a" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="140" cy="170" rx="86" ry="69" fill="url(#miniPig_${t.id})" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round"/><rect x="95" y="205" width="26" height="34" rx="10" fill="url(#miniPig_${t.id})" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><rect x="155" y="205" width="26" height="34" rx="10" fill="url(#miniPig_${t.id})" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><path d="M 90 115 C 78 82, 115 76, 120 110 Z" fill="url(#miniPig_${t.id})" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><path d="M 160 110 C 165 76, 202 82, 190 115 Z" fill="url(#pigOptG1)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="138" cy="115" rx="30" ry="7" fill="#08080b" stroke="#ffffff" stroke-width="2.5"/><circle cx="175" cy="150" r="5" fill="#ffffff"/><circle cx="205" cy="147" r="5" fill="#ffffff"/><ellipse cx="205" cy="172" rx="22" ry="16" fill="url(#pigOptG1)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="199" cy="172" rx="3.5" ry="5.5" fill="#ffffff"/><ellipse cx="212" cy="172" rx="3.5" ry="5.5" fill="#ffffff"/></g>
             </svg>
           </div>
           <div class="trans-info">
@@ -1294,7 +1300,6 @@ window.handleReceiptUpload = function(input) {
   }
 };
 
-// ចុច «ផ្ញើរសំណើរដាក់ប្រាក់» -> ចូលទៅទំព័រប្រវត្តិប្រតិបត្តិការ (ស្ថានភាព: កំពុងត្រួតពិនិត្យ…)
 window.submitFinalDeposit = async function() {
   if (!hasUploadedReceipt) return;
   const val = currentDepositAmount || 0.00;
@@ -1316,10 +1321,8 @@ window.submitFinalDeposit = async function() {
     timestamp: Date.now()
   };
 
-  // 1. រក្សាទុកចូល Firebase ស្ថានភាព pending…
   await set(ref(db, `users/${currentUser.uid}/transactions/${txnID}`), txnData);
 
-  // 2. ផ្ញើទិន្នន័យទៅកាន់ Google Sheets (A-I)
   try {
     fetch(GOOGLE_SHEET_API, {
       method: 'POST',
@@ -1331,15 +1334,12 @@ window.submitFinalDeposit = async function() {
     console.error("Save to Sheet Error:", e);
   }
 
-  // 3. ផ្ញើសារ Alert ទៅ Admin
   sendAdminTelegramAlert(txnData);
 
-  // 4. ប្តូរទៅកាន់ទំព័រប្រវត្តិប្រតិបត្តិការភ្លាមៗ (មិនបង្ហាញផ្ទាំងជោគជ័យទេ)
   pageDeposit.classList.remove('active');
   pageHistory.classList.add('active');
   switchDock.style.display = 'none';
 
-  // Reset Form
   currentDepositAmount = 0;
   selectedBankName = "";
   hasUploadedReceipt = false;
@@ -1354,7 +1354,6 @@ window.submitFinalDeposit = async function() {
   checkStep1Validation();
 };
 
-// ប៊ូតុង «យល់ព្រម» លើផ្ទាំងជោគជ័យ (ពេល Admin approve Done រួច)
 document.getElementById('btnConfirmSuccess').addEventListener('click', () => {
   pageSuccess.classList.remove('active');
   pageHistory.classList.add('active');
