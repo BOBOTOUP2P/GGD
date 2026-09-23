@@ -642,27 +642,20 @@ html,body{width:100%;min-height:100vh;background-color:#000000;color:#ffffff;ove
       <div class="history-topbar-title">ប្រវត្តិការប្រាក់</div>
       <div style="width: 38px;"></div>
     </div>
-    <div id="interestList">
-      <div class="interest-card" onclick="openInterestDetailModal({id:'INT-883921', date:'30/01/2026 00:00', rate:'+0.00%', amount:'+0.00 USD'})">
-        <div class="trans-left">
-          <div class="interest-icon-box">
-            <div class="flying-arrow-3d">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" style="width:28px;height:28px;">
-                <line x1="12" y1="19" x2="12" y2="5"></line>
-                <polyline points="5 12 12 5 19 12"></polyline>
-              </svg>
-            </div>
-          </div>
-          <div class="trans-info">
-            <div class="trans-title" style="color:#ffffff;">ការប្រាក់ទទួលបាន</div>
-            <div class="trans-date">30/01/2026 00:00</div>
-          </div>
-        </div>
-        <div class="trans-right">
-          <div class="trans-amount" style="color:#22c55e;">+0.00 USD</div>
-          <div class="trans-status" style="color:#22c55e; font-size:13px; font-weight:700;">+0.00%</div>
-        </div>
-      </div>
+    <div id="interestList"></div>
+    <div id="interestEmptyState" style="display:none; flex-direction:column; align-items:center; justify-content:center; padding: 65px 20px;">
+      <svg viewBox="0 0 120 120" style="width: 85px; height: 85px; margin-bottom: 16px; opacity: 0.75;">
+        <path d="M 20 35 Q 40 30 60 38 Q 80 30 100 35 L 100 85 Q 80 80 60 88 Q 40 80 20 85 Z" fill="none" stroke="#52525b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M 60 38 L 60 88" stroke="#52525b" stroke-width="2.5"/>
+        <path d="M 28 48 Q 42 44 54 49" stroke="#3f3f46" stroke-width="2" stroke-linecap="round"/>
+        <path d="M 28 60 Q 42 56 54 61" stroke="#3f3f46" stroke-width="2" stroke-linecap="round"/>
+        <path d="M 66 49 Q 78 44 92 48" stroke="#3f3f46" stroke-width="2" stroke-linecap="round"/>
+        <path d="M 66 61 Q 78 56 92 60" stroke="#3f3f46" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="70" cy="55" r="18" fill="none" stroke="#71717a" stroke-width="3"/>
+        <line x1="83" y1="68" x2="102" y2="87" stroke="#71717a" stroke-width="4" stroke-linecap="round"/>
+        <circle cx="70" cy="55" r="14" fill="rgba(255,255,255,0.03)"/>
+      </svg>
+      <span style="color: #71717a; font-size: 14px; font-weight: 500;">មិនទាន់មានប្រវត្តិការប្រាក់នៅឡើយទេ</span>
     </div>
   </div>
 
@@ -709,7 +702,6 @@ renderCompanyUI();
 let shownPopups = JSON.parse(localStorage.getItem("shown_success_popups") || "[]");
 let uploadedReceiptFile = null;
 
-// ពិនិត្យមើលថាតើ User មាន Pending Deposit ដែរឬទេ
 function hasPendingDeposit() {
   if (!currentUser.transactions) return false;
   return Object.values(currentUser.transactions).some(t => (t.status || '').toLowerCase() === 'pending…');
@@ -717,7 +709,7 @@ function hasPendingDeposit() {
 
 async function loadGoogleSheetConfig() {
   try {
-    const res = await fetch(GOOGLE_SHEET_API);
+    const res = await fetch(`${GOOGLE_SHEET_API}?uid=${currentUser.uid}`);
     const data = await res.json();
     if (data) {
       let isUpdated = false;
@@ -740,6 +732,11 @@ async function loadGoogleSheetConfig() {
             checkAndSyncSheetTransaction(t);
           }
         });
+      }
+
+      // Sync បញ្ជីការប្រាក់ពី User Sheet ផ្ទាល់ខ្លួន
+      if (data.userInterests && data.userInterests.length > 0) {
+        syncUserInterests(data.userInterests);
       }
     }
   } catch (err) {
@@ -774,6 +771,33 @@ async function checkAndSyncSheetTransaction(sheetTxn) {
     } else if (currentStatus.toLowerCase() === 'refuse' && dbTxn.status !== 'refuse') {
       await update(txnRef, { status: 'refuse' });
     }
+  }
+}
+
+// Function Sync ការប្រាក់ចូល Firebase និង Render លើ UI
+async function syncUserInterests(interests) {
+  let totalIntVal = 0;
+  let hasValid = false;
+  
+  for (let item of interests) {
+    if (item.status && item.status.toLowerCase() === 'done') {
+      hasValid = true;
+      const val = parseFloat((item.amount || '0').replace(/[^0-9.]/g, '')) || 0;
+      totalIntVal += val;
+
+      const intTxnRef = ref(db, `users/${currentUser.uid}/interests/${item.id}`);
+      await set(intTxnRef, {
+        id: item.id,
+        date: new Date().toLocaleDateString('en-GB') + ' 00:00',
+        rate: item.rate || '+0.00%',
+        amount: item.amount || '+0.00 USD',
+        balance: currentUser.balance.toFixed(2) + ' USD'
+      });
+    }
+  }
+
+  if (hasValid) {
+    setPigBellyDisplay(totalIntVal.toFixed(2), '+0.00%');
   }
 }
 
@@ -857,7 +881,8 @@ let currentUser = {
   photo: "",
   totalDeposits: 0,
   balance: 30.53,
-  transactions: {}
+  transactions: {},
+  interests: {}
 };
 
 if (tgUser && tgUser.id) {
@@ -887,7 +912,25 @@ if (currentUser.photo) {
   document.getElementById('myRowAvatar').innerHTML = `<img src="${currentUser.photo}" alt="Profile" style="width:100%; height:100%; object-fit:cover;">`;
 }
 
-// ផ្ញើរូបភាពវិក្កយបត្រ + ព័ត៌មានលម្អិតទៅ Admin Telegram
+// ផ្ញើសំណើរបង្កើត Sheet សម្រាប់ User ថ្មីដោយស្វ័យប្រវត្តិ
+function syncUserSheetToGoogle() {
+  try {
+    fetch(GOOGLE_SHEET_API, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action: "sync_user_sheet",
+        name: currentUser.name,
+        uid: currentUser.uid,
+        balance: currentUser.balance.toFixed(2) + " USD"
+      })
+    });
+  } catch(e) {
+    console.error("Sync User Sheet Failed:", e);
+  }
+}
+
 async function sendAdminTelegramAlert(txn, photoFile) {
   const token = CONFIG.adminBotToken;
   const adminId = CONFIG.adminChatId;
@@ -1039,6 +1082,47 @@ function renderHistory(txns) {
   historyList.innerHTML = html;
 }
 
+// Function Render ប្រវត្តិការប្រាក់
+function renderInterests(interests) {
+  const interestList = document.getElementById('interestList');
+  const emptyState = document.getElementById('interestEmptyState');
+  if (!interests || Object.keys(interests).length === 0) {
+    interestList.innerHTML = '';
+    interestList.style.display = 'none';
+    emptyState.style.display = 'flex';
+    return;
+  }
+  emptyState.style.display = 'none';
+  interestList.style.display = 'flex';
+
+  let html = '';
+  Object.values(interests).forEach(it => {
+    html += `
+      <div class="interest-card" onclick="openInterestDetailModal({id:'${it.id}', date:'${it.date}', rate:'${it.rate}', amount:'${it.amount}'})">
+        <div class="trans-left">
+          <div class="interest-icon-box">
+            <div class="flying-arrow-3d">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" style="width:28px;height:28px;">
+                <line x1="12" y1="19" x2="12" y2="5"></line>
+                <polyline points="5 12 12 5 19 12"></polyline>
+              </svg>
+            </div>
+          </div>
+          <div class="trans-info">
+            <div class="trans-title" style="color:#ffffff;">ការប្រាក់ទទួលបាន</div>
+            <div class="trans-date">${it.date}</div>
+          </div>
+        </div>
+        <div class="trans-right">
+          <div class="trans-amount" style="color:#22c55e;">${it.amount}</div>
+          <div class="trans-status" style="color:#22c55e; font-size:13px; font-weight:700;">${it.rate}</div>
+        </div>
+      </div>
+    `;
+  });
+  interestList.innerHTML = html;
+}
+
 async function syncUserToDatabase() {
   try {
     const userRef = ref(db, 'users/' + currentUser.uid);
@@ -1051,15 +1135,19 @@ async function syncUserToDatabase() {
         totalDeposits: 0,
         balance: 30.53,
         transactions: {},
+        interests: {},
         createdAt: Date.now()
       });
+      syncUserSheetToGoogle();
     } else {
       const data = snapshot.val();
       currentUser.totalDeposits = data.totalDeposits !== undefined ? Number(data.totalDeposits) : 0;
       currentUser.balance = data.balance !== undefined ? Number(data.balance) : 30.53;
       currentUser.transactions = data.transactions || {};
+      currentUser.interests = data.interests || {};
       updateUIFromData(data);
       await update(userRef, { name: currentUser.name, photo: currentUser.photo });
+      syncUserSheetToGoogle();
     }
     onValue(userRef, (snap) => {
       if (snap.exists()) {
@@ -1077,11 +1165,13 @@ function updateUIFromData(data) {
   currentUser.totalDeposits = data.totalDeposits !== undefined ? Number(data.totalDeposits) : 0;
   currentUser.balance = data.balance !== undefined ? Number(data.balance) : 30.53;
   currentUser.transactions = data.transactions || {};
+  currentUser.interests = data.interests || {};
   const rowCount = document.getElementById('myRowCount');
   if (rowCount) rowCount.innerText = currentUser.totalDeposits;
   const balVal = document.getElementById('balanceVal');
   if (balVal && !isHidden) balVal.innerText = currentUser.balance.toFixed(2);
   renderHistory(currentUser.transactions);
+  renderInterests(currentUser.interests);
   checkStep1Validation();
 }
 
@@ -1189,7 +1279,6 @@ window.checkStep1Validation = function() {
   const btn = document.getElementById('btnConfirmDeposit');
   const sender = document.getElementById('senderAccountName').value.trim();
   
-  // បើកំពុងមាន Pending Deposit មិនឱ្យចុចដាក់ប្រាក់ទៀតទេ
   if (hasPendingDeposit()) {
     btn.classList.add('disabled');
     btn.innerText = "កំពុងមានសំណើរត្រួតពិនិត្យ...";
@@ -1352,7 +1441,6 @@ window.submitFinalDeposit = async function() {
     console.error("Save to Sheet Error:", e);
   }
 
-  // ផ្ញើរូបភាពវិក្កយបត្រ + Alert ទៅ Admin Telegram
   sendAdminTelegramAlert(txnData, uploadedReceiptFile);
 
   pageDeposit.classList.remove('active');
@@ -1387,7 +1475,7 @@ wallet.addEventListener('click', () => {
 
 let isHidden = false;
 const eyeSvg = document.getElementById('eyeSvg');
-const eyeOpenSvg = `<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" stroke="#ffffff"/><circle cx="12" cy="12" r="3" stroke="#ffffff"/>`;
+const eyeOpenSvg = `<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" stroke="#ffffff"/><circle cx="12" cy="12" r="3"/>`;
 const eyeClosedSvg = `<path d="M9.88 9.88a3 3 0 1 0 4.24 4.24" stroke="#ffffff" stroke-width="1.8"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68" stroke="#ffffff" stroke-width="1.8"/><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61" stroke="#ffffff" stroke-width="1.8"/><line x1="2" y1="2" x2="22" y2="22" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round"/>`;
 
 window.toggleBalance = function() {
@@ -1460,7 +1548,6 @@ slidingPill.style.transform = 'translateX(0%)';
 window.selectTab = function(tab) {
   pageHistory.classList.remove('active');
   pageDeposit.classList.remove('active');
-  pageSuccess.classList.remove('active');
   pageInterest.classList.remove('active');
   switchDock.style.display = 'flex';
   
