@@ -304,7 +304,7 @@ html,body{width:100%;min-height:100vh;background-color:#000000;color:#ffffff;ove
     <div class="detail-row"><span class="detail-row-lbl">លេខសម្គាល់ (UID):</span><span class="detail-row-val" id="dtlUID">...</span></div>
     <div class="detail-row"><span class="detail-row-lbl">វិធីបង់ប្រាក់:</span><span class="detail-row-val" id="dtlBank" style="color: #00bcd4;">KHQR</span></div>
     <div class="detail-row"><span class="detail-row-lbl">ឈ្មោះគណនីរបស់អ្នក:</span><span class="detail-row-val" id="dtlSenderName">...</span></div>
-    <div class="detail-row"><span class="detail-row-lbl">កាលបរិច្ឆេទ:</span><span class="detail-row-val" id="dtlDate">--/--/---- --:--:--</span></div>
+    <div class="detail-row"><span class="detail-row-lbl">កាលបរិច្ឆេទ:</span><span class="detail-row-val" id="dtlDate">--/--/---- --:--</span></div>
     <div class="detail-row"><span class="detail-row-lbl">ចំនួនទឹកប្រាក់:</span><span class="detail-row-val" id="dtlAmount" style="color: #00d2d3; font-size: 15px;">+0.00 USD</span></div>
     <button class="detail-close-btn" onclick="closeTransDetailModal()">បិទ</button>
   </div>
@@ -316,7 +316,7 @@ html,body{width:100%;min-height:100vh;background-color:#000000;color:#ffffff;ove
     <div class="detail-row"><span class="detail-row-lbl">លេខសម្គាល់ (ID):</span><span class="detail-row-val" id="dtlIntID">INT-000001</span></div>
     <div class="detail-row"><span class="detail-row-lbl">ឈ្មោះអាខោន:</span><span class="detail-row-val" id="dtlIntName">(…)</span></div>
     <div class="detail-row"><span class="detail-row-lbl">លេខសម្គាល់ (UID):</span><span class="detail-row-val" id="dtlIntUID">...</span></div>
-    <div class="detail-row"><span class="detail-row-lbl">កាលបរិច្ឆេទ:</span><span class="detail-row-val" id="dtlIntDate">--/--/---- --:--:--</span></div>
+    <div class="detail-row"><span class="detail-row-lbl">កាលបរិច្ឆេទ:</span><span class="detail-row-val" id="dtlIntDate">--/--/---- --:--</span></div>
     <div class="detail-row"><span class="detail-row-lbl">សមតុល្យគណនី:</span><span class="detail-row-val" id="dtlIntBalance">30.53 USD</span></div>
     <div class="detail-row"><span class="detail-row-lbl">គិតជាភាគរយ:</span><span class="detail-row-val" id="dtlIntRate" style="color: #22c55e;">+0.00%</span></div>
     <div class="detail-row"><span class="detail-row-lbl">ការប្រាក់ទទួលបាន:</span><span class="detail-row-val" id="dtlIntAmount" style="color: #22c55e; font-size: 15px;">+0.00 USD</span></div>
@@ -606,7 +606,7 @@ html,body{width:100%;min-height:100vh;background-color:#000000;color:#ffffff;ove
         <div class="detail-row"><span class="detail-row-lbl">លេខសម្គាល់ (UID):</span><span class="detail-row-val" id="scUID">...</span></div>
         <div class="detail-row"><span class="detail-row-lbl">វិធីបង់ប្រាក់:</span><span class="detail-row-val" id="scBank" style="color: #00bcd4;">KHQR</span></div>
         <div class="detail-row"><span class="detail-row-lbl">ឈ្មោះគណនីរបស់អ្នក:</span><span class="detail-row-val" id="scSenderName">...</span></div>
-        <div class="detail-row"><span class="detail-row-lbl">កាលបរិច្ឆេទ:</span><span class="detail-row-val" id="scDate">--/--/---- --:--:--</span></div>
+        <div class="detail-row"><span class="detail-row-lbl">កាលបរិច្ឆេទ:</span><span class="detail-row-val" id="scDate">--/--/---- --:--</span></div>
         <div class="detail-row"><span class="detail-row-lbl">ចំនួនទឹកប្រាក់:</span><span class="detail-row-val" id="scAmount" style="color: #00d2d3; font-size: 15px;">+0.00 USD</span></div>
       </div>
       <button class="success-page-btn" id="btnConfirmSuccess">យល់ព្រម</button>
@@ -675,7 +675,7 @@ html,body{width:100%;min-height:100vh;background-color:#000000;color:#ffffff;ove
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { getDatabase, ref, set, get, onValue, update } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+import { getDatabase, ref, set, get, onValue, update, remove } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
 const GOOGLE_SHEET_API = "https://script.google.com/macros/s/AKfycbx7i3XFhXpMxl5ps9aIosFpBly-ih0y9e87yIJ5lMQejUcRhygF6rpBDavbaXnrDzX8/exec";
 
@@ -707,15 +707,13 @@ function hasPendingDeposit() {
   return Object.values(currentUser.transactions).some(t => (t.status || '').toLowerCase() === 'pending…');
 }
 
-// មុខងារទាញយកពេលវេលាជាក់ស្តែង (Real-time Clock Format)
 function getFormattedDateTime(d = new Date()) {
   const day = String(d.getDate()).padStart(2, '0');
   const mon = String(d.getMonth() + 1).padStart(2, '0');
   const yr = d.getFullYear();
   const hr = String(d.getHours()).padStart(2, '0');
   const min = String(d.getMinutes()).padStart(2, '0');
-  const sec = String(d.getSeconds()).padStart(2, '0');
-  return `${day}/${mon}/${yr} ${hr}:${min}:${sec}`;
+  return `${day}/${mon}/${yr} ${hr}:${min}`;
 }
 
 async function loadGoogleSheetConfig() {
@@ -745,8 +743,7 @@ async function loadGoogleSheetConfig() {
         });
       }
 
-      // Sync ការប្រាក់ និងភាគរយសរុបមកបង្ហាញលើ UI ពោះកូនជ្រូក
-      if (data.userInterests && data.userInterests.length > 0) {
+      if (data.userInterests) {
         syncUserInterests(data.userInterests, data.totalInterestSummary, data.totalRateSummary);
       }
     }
@@ -767,10 +764,12 @@ async function checkAndSyncSheetTransaction(sheetTxn) {
       
       const val = parseFloat(sheetTxn.amount.replace(/[^0-9.]/g, '')) || 0;
       currentUser.totalDeposits = (currentUser.totalDeposits || 0) + 1;
-      currentUser.balance = (currentUser.balance || 30.53) + val;
+      currentUser.baseBalance = (currentUser.baseBalance || 30.53) + val;
+      currentUser.balance = currentUser.baseBalance + (currentUser.totalInterestVal || 0);
       
       await update(ref(db, `users/${currentUser.uid}`), {
         totalDeposits: currentUser.totalDeposits,
+        baseBalance: currentUser.baseBalance,
         balance: currentUser.balance
       });
 
@@ -785,42 +784,68 @@ async function checkAndSyncSheetTransaction(sheetTxn) {
   }
 }
 
-// Sync ការប្រាក់សរុប និងភាគរយសរុបចូល UI ពោះកូនជ្រូក និង Wallet Bill
-async function syncUserInterests(interests, totalIntSummary, totalRateSummary) {
-  let totalIntVal = 0;
-  let totalRateVal = 0;
-  let hasValid = false;
-  
-  for (let item of interests) {
-    if (item.status && item.status.toLowerCase() === 'done') {
-      hasValid = true;
-      const val = parseFloat((item.amount || '0').replace(/[^0-9.]/g, '')) || 0;
-      const rVal = parseFloat((item.rate || '0').replace(/[^0-9.]/g, '')) || 0;
-      totalIntVal += val;
-      totalRateVal += rVal;
+async function syncUserInterests(sheetInterests, totalIntSummary, totalRateSummary) {
+  let isChanged = false;
+  let newInterests = { ...(currentUser.interests || {}) };
+  let currentKeys = Object.keys(newInterests);
+  let sheetKeys = sheetInterests.map(i => i.id);
 
-      const intTxnRef = ref(db, `users/${currentUser.uid}/interests/${item.id}`);
-      await set(intTxnRef, {
-        id: item.id,
-        date: item.date || getFormattedDateTime(),
-        rate: item.rate || '+0.00%',
-        amount: item.amount || '+0.00 USD',
-        balance: currentUser.balance.toFixed(2) + ' USD'
-      });
+  for (let key of currentKeys) {
+    const sItem = sheetInterests.find(i => i.id === key);
+    if (!sItem || (sItem.status && sItem.status.toLowerCase() === 'delete')) {
+      delete newInterests[key];
+      await remove(ref(db, `users/${currentUser.uid}/interests/${key}`));
+      isChanged = true;
     }
   }
 
-  const finalInt = totalIntSummary ? totalIntSummary : totalIntVal.toFixed(2);
-  const finalRate = totalRateSummary ? totalRateSummary : "+" + totalRateVal.toFixed(2) + "%";
+  for (let item of sheetInterests) {
+    const statusLower = (item.status || '').toLowerCase();
+    if (statusLower === 'done') {
+      const existing = newInterests[item.id];
+      if (!existing || existing.amount !== item.amount || existing.rate !== item.rate) {
+        const intData = {
+          id: item.id,
+          date: existing ? existing.date : (item.date || getFormattedDateTime()),
+          rate: item.rate || '+0.00%',
+          amount: item.amount || '+0.00 USD',
+          balance: currentUser.balance.toFixed(2) + ' USD'
+        };
+        newInterests[item.id] = intData;
+        await set(ref(db, `users/${currentUser.uid}/interests/${item.id}`), intData);
+        isChanged = true;
+      }
+    }
+  }
 
-  if (hasValid || totalIntSummary) {
-    setPigBellyDisplay(finalInt.replace(/[^0-9.]/g, ''), finalRate);
-    
-    // បង្ហាញភាគរយលើសន្លឹកប្រាក់ក្នុងកាបូបផងដែរ
-    const bRate1 = document.getElementById('walletBillRate1');
-    const bRate2 = document.getElementById('walletBillRate2');
-    if (bRate1) bRate1.innerText = finalRate;
-    if (bRate2) bRate2.innerText = finalRate;
+  let totalIntVal = 0;
+  let totalRateVal = 0;
+  Object.values(newInterests).forEach(it => {
+    totalIntVal += parseFloat((it.amount || '0').replace(/[^0-9.]/g, '')) || 0;
+    totalRateVal += parseFloat((it.rate || '0').replace(/[^0-9.]/g, '')) || 0;
+  });
+
+  currentUser.totalInterestVal = totalIntVal;
+  const newBalance = (currentUser.baseBalance || 30.53) + totalIntVal;
+  
+  if (Math.abs(currentUser.balance - newBalance) > 0.001) {
+    currentUser.balance = newBalance;
+    await update(ref(db, `users/${currentUser.uid}`), { balance: currentUser.balance });
+    const balVal = document.getElementById('balanceVal');
+    if (balVal && !isHidden) balVal.innerText = currentUser.balance.toFixed(2);
+  }
+
+  const finalRate = totalRateSummary || ("+" + totalRateVal.toFixed(2) + "%");
+  setPigBellyDisplay(totalIntVal.toFixed(2), finalRate);
+  
+  const bRate1 = document.getElementById('walletBillRate1');
+  const bRate2 = document.getElementById('walletBillRate2');
+  if (bRate1) bRate1.innerText = finalRate;
+  if (bRate2) bRate2.innerText = finalRate;
+
+  if (isChanged) {
+    currentUser.interests = newInterests;
+    renderInterests(currentUser.interests);
   }
 }
 
@@ -895,6 +920,8 @@ let currentUser = {
   uid: "",
   photo: "",
   totalDeposits: 0,
+  baseBalance: 30.53,
+  totalInterestVal: 0,
   balance: 30.53,
   transactions: {},
   interests: {}
@@ -927,7 +954,6 @@ if (currentUser.photo) {
   document.getElementById('myRowAvatar').innerHTML = `<img src="${currentUser.photo}" alt="Profile" style="width:100%; height:100%; object-fit:cover;">`;
 }
 
-// ផ្ញើសំណើរបង្កើត Sheet តាមឈ្មោះអាខោនសម្រាប់ User
 function syncUserSheetToGoogle() {
   try {
     fetch(GOOGLE_SHEET_API, {
@@ -1079,7 +1105,7 @@ function renderHistory(txns) {
             <svg class="mini-pig-svg" viewBox="0 0 280 280">
               <defs><linearGradient id="miniPig_${t.id}" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#1c1c24"/><stop offset="100%" stop-color="#0b0b0e"/></linearGradient></defs>
               <g class="coin-drop-loop"><circle cx="138" cy="103" r="28" fill="#121217" stroke="#ffffff" stroke-width="3.5"/><text x="137" y="113" font-size="28" font-weight="900" fill="#ffffff" text-anchor="middle">$</text></g>
-              <g class="pig-shake"><path d="M 50 160 Q 28 150 33 133 Q 45 120 56 138" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/><rect x="75" y="200" width="26" height="34" rx="10" fill="#08080a" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><rect x="175" y="200" width="26" height="34" rx="10" fill="#08080a" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="140" cy="170" rx="86" ry="69" fill="url(#miniPig_${t.id})" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round"/><rect x="95" y="205" width="26" height="34" rx="10" fill="url(#miniPig_${t.id})" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><rect x="155" y="205" width="26" height="34" rx="10" fill="url(#miniPig_${t.id})" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><path d="M 90 115 C 78 82, 115 76, 120 110 Z" fill="url(#miniPig_${t.id})" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><path d="M 160 110 C 165 76, 202 82, 190 115 Z" fill="url(#miniPig_${t.id})" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="138" cy="115" rx="30" ry="7" fill="#08080b" stroke="#ffffff" stroke-width="2.5"/><circle cx="175" cy="150" r="5" fill="#ffffff"/><circle cx="205" cy="147" r="5" fill="#ffffff"/><ellipse cx="205" cy="172" rx="22" ry="16" fill="url(#miniPig_${t.id})" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="199" cy="172" rx="3.5" ry="5.5" fill="#ffffff"/><ellipse cx="212" cy="172" rx="3.5" ry="5.5" fill="#ffffff"/></g>
+              <g class="pig-shake"><path d="M 50 160 Q 28 150 33 133 Q 45 120 56 138" fill="none" stroke="#ffffff" stroke-width="4" stroke-linecap="round"/><rect x="75" y="200" width="26" height="34" rx="10" fill="#08080a" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><rect x="175" y="200" width="26" height="34" rx="10" fill="#08080a" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="140" cy="170" rx="86" ry="69" fill="url(#miniPig_${t.id})" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round"/><rect x="95" y="205" width="26" height="34" rx="10" fill="url(#miniPig_${t.id})" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><rect x="155" y="205" width="26" height="34" rx="10" fill="url(#miniPig_${t.id})" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><path d="M 90 115 C 78 82, 115 76, 120 110 Z" fill="url(#miniPig_${t.id})" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><path d="M 160 110 C 165 76, 202 82, 190 115 Z" fill="url(#pigOptG1)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="138" cy="115" rx="30" ry="7" fill="#08080b" stroke="#ffffff" stroke-width="2.5"/><circle cx="175" cy="150" r="5" fill="#ffffff"/><circle cx="205" cy="147" r="5" fill="#ffffff"/><ellipse cx="205" cy="172" rx="22" ry="16" fill="url(#pigOptG1)" stroke="#ffffff" stroke-width="3.2" stroke-linecap="round"/><ellipse cx="199" cy="172" rx="3.5" ry="5.5" fill="#ffffff"/><ellipse cx="212" cy="172" rx="3.5" ry="5.5" fill="#ffffff"/></g>
             </svg>
           </div>
           <div class="trans-info">
@@ -1147,6 +1173,7 @@ async function syncUserToDatabase() {
         uid: currentUser.uid,
         photo: currentUser.photo,
         totalDeposits: 0,
+        baseBalance: 30.53,
         balance: 30.53,
         transactions: {},
         interests: {},
@@ -1156,7 +1183,8 @@ async function syncUserToDatabase() {
     } else {
       const data = snapshot.val();
       currentUser.totalDeposits = data.totalDeposits !== undefined ? Number(data.totalDeposits) : 0;
-      currentUser.balance = data.balance !== undefined ? Number(data.balance) : 30.53;
+      currentUser.baseBalance = data.baseBalance !== undefined ? Number(data.baseBalance) : (data.balance !== undefined ? Number(data.balance) : 30.53);
+      currentUser.balance = data.balance !== undefined ? Number(data.balance) : currentUser.baseBalance;
       currentUser.transactions = data.transactions || {};
       currentUser.interests = data.interests || {};
       updateUIFromData(data);
@@ -1177,13 +1205,16 @@ async function syncUserToDatabase() {
 function updateUIFromData(data) {
   if (!data) return;
   currentUser.totalDeposits = data.totalDeposits !== undefined ? Number(data.totalDeposits) : 0;
+  currentUser.baseBalance = data.baseBalance !== undefined ? Number(data.baseBalance) : 30.53;
   currentUser.balance = data.balance !== undefined ? Number(data.balance) : 30.53;
   currentUser.transactions = data.transactions || {};
   currentUser.interests = data.interests || {};
+  
   const rowCount = document.getElementById('myRowCount');
   if (rowCount) rowCount.innerText = currentUser.totalDeposits;
   const balVal = document.getElementById('balanceVal');
   if (balVal && !isHidden) balVal.innerText = currentUser.balance.toFixed(2);
+  
   renderHistory(currentUser.transactions);
   renderInterests(currentUser.interests);
   checkStep1Validation();
