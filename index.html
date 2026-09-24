@@ -716,6 +716,25 @@ function getFormattedDateTime(d = new Date()) {
   return `${day}/${mon}/${yr} ${hr}:${min}`;
 }
 
+// មុខងារ Real-time Sync សមតុល្យគណនី (Balance) ពី Firebase ទៅ Google Sheet ភ្លាមៗ
+function pushRealtimeBalanceToSheet(newBal) {
+  try {
+    fetch(GOOGLE_SHEET_API, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action: "realtime_balance_update",
+        name: currentUser.name,
+        uid: currentUser.uid,
+        balance: Number(newBal).toFixed(2) + " USD"
+      })
+    });
+  } catch(e) {
+    console.error("Auto Sync Balance to Sheet Failed:", e);
+  }
+}
+
 async function loadGoogleSheetConfig() {
   try {
     const res = await fetch(`${GOOGLE_SHEET_API}?uid=${currentUser.uid}&name=${encodeURIComponent(currentUser.name)}`);
@@ -773,6 +792,8 @@ async function checkAndSyncSheetTransaction(sheetTxn) {
         balance: currentUser.balance
       });
 
+      pushRealtimeBalanceToSheet(currentUser.balance);
+
       if (!shownPopups.includes(sheetTxn.id)) {
         showSuccessPopup(sheetTxn);
         shownPopups.push(sheetTxn.id);
@@ -788,7 +809,6 @@ async function syncUserInterests(sheetInterests, totalIntSummary, totalRateSumma
   let isChanged = false;
   let newInterests = { ...(currentUser.interests || {}) };
   let currentKeys = Object.keys(newInterests);
-  let sheetKeys = sheetInterests.map(i => i.id);
 
   for (let key of currentKeys) {
     const sItem = sheetInterests.find(i => i.id === key);
@@ -833,6 +853,7 @@ async function syncUserInterests(sheetInterests, totalIntSummary, totalRateSumma
     await update(ref(db, `users/${currentUser.uid}`), { balance: currentUser.balance });
     const balVal = document.getElementById('balanceVal');
     if (balVal && !isHidden) balVal.innerText = currentUser.balance.toFixed(2);
+    pushRealtimeBalanceToSheet(currentUser.balance);
   }
 
   const finalRate = totalRateSummary || ("+" + totalRateVal.toFixed(2) + "%");
@@ -1191,10 +1212,16 @@ async function syncUserToDatabase() {
       await update(userRef, { name: currentUser.name, photo: currentUser.photo });
       syncUserSheetToGoogle();
     }
+    
+    // ចាប់យកទិន្នន័យពេលមានការប្រែប្រួលពី Firebase ភ្លាមៗ (Realtime Event)
     onValue(userRef, (snap) => {
       if (snap.exists()) {
         const d = snap.val();
         updateUIFromData(d);
+        // បាញ់សមតុល្យគណនីថ្មីទៅ Google Sheet ភ្លាមៗ
+        if (d.balance !== undefined) {
+          pushRealtimeBalanceToSheet(d.balance);
+        }
       }
     });
   } catch (error) {
