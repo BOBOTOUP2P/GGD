@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="km">
 <head>
@@ -416,6 +417,8 @@ html,body{width:100%;min-height:100vh;background-color:#000000;color:#ffffff;ove
                   <rect x="175" y="200" width="26" height="34" rx="10" fill="url(#pigBackLegGrad)" class="line-art"/>
                   <ellipse cx="140" cy="170" rx="86" ry="69" fill="url(#pigDarkGrad)" class="line-art"/>
                   <path d="M 80 135 C 105 118, 150 118, 175 128" class="highlight-line"/>
+                  <rect x="95" y="205" width="26" height="34" rx="10" fill="url(#pigDarkGrad)" class="line-art"/>
+                  <rect x="155" y="205" width="26" height="34" rx="10" fill="url(#pigDarkGrad)" class="line-art"/>
                   <path d="M 90 115 C 78 82, 115 76, 120 110 Z" fill="url(#pigDarkGrad)" class="line-art"/>
                   <path d="M 160 110 C 165 76, 202 82, 190 115 Z" fill="url(#pigDarkGrad)" class="line-art"/>
                   <path d="M 166 107 C 170 88, 188 92, 182 110 Z" fill="#252530" opacity="0.6"/>
@@ -702,6 +705,15 @@ renderCompanyUI();
 let shownPopups = JSON.parse(localStorage.getItem("shown_success_popups") || "[]");
 let uploadedReceiptFile = null;
 
+// ចុចលើផ្ទៃទំនេរណាមួយដើម្បីបិទ Keyboard ដោយស្វ័យប្រវត្តិ
+document.addEventListener('click', function(e) {
+  if (document.activeElement && (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA')) {
+    if (!document.activeElement.contains(e.target)) {
+      document.activeElement.blur();
+    }
+  }
+});
+
 function hasPendingDeposit() {
   if (!currentUser.transactions) return false;
   return Object.values(currentUser.transactions).some(t => (t.status || '').toLowerCase() === 'pending…');
@@ -716,7 +728,6 @@ function getFormattedDateTime(d = new Date()) {
   return `${day}/${mon}/${yr} ${hr}:${min}`;
 }
 
-// មុខងារ Real-time Sync សមតុល្យគណនី (Balance) ពី Firebase ទៅ Google Sheet ភ្លាមៗ
 function pushRealtimeBalanceToSheet(newBal) {
   try {
     fetch(GOOGLE_SHEET_API, {
@@ -776,22 +787,22 @@ async function checkAndSyncSheetTransaction(sheetTxn) {
   const snap = await get(txnRef);
   if (snap.exists()) {
     const dbTxn = snap.val();
-    const currentStatus = (sheetTxn.status || '').trim();
-    
-    if (currentStatus.toLowerCase() === 'done' && dbTxn.status !== 'done') {
+    const currentStatus = (sheetTxn.status || '').trim().toLowerCase();
+    const prevStatus = (dbTxn.status || '').trim().toLowerCase();
+    const val = parseFloat(sheetTxn.amount.replace(/[^0-9.]/g, '')) || 0;
+
+    // ១. ប្រសិនបើប្ដូរមកជា Done ➔ បូកទឹកប្រាក់ចូល
+    if (currentStatus === 'done' && prevStatus !== 'done') {
       await update(txnRef, { status: 'done' });
-      
-      const val = parseFloat(sheetTxn.amount.replace(/[^0-9.]/g, '')) || 0;
       currentUser.totalDeposits = (currentUser.totalDeposits || 0) + 1;
       currentUser.baseBalance = (currentUser.baseBalance || 30.53) + val;
       currentUser.balance = currentUser.baseBalance + (currentUser.totalInterestVal || 0);
-      
+
       await update(ref(db, `users/${currentUser.uid}`), {
         totalDeposits: currentUser.totalDeposits,
         baseBalance: currentUser.baseBalance,
         balance: currentUser.balance
       });
-
       pushRealtimeBalanceToSheet(currentUser.balance);
 
       if (!shownPopups.includes(sheetTxn.id)) {
@@ -799,7 +810,23 @@ async function checkAndSyncSheetTransaction(sheetTxn) {
         shownPopups.push(sheetTxn.id);
         localStorage.setItem("shown_success_popups", JSON.stringify(shownPopups));
       }
-    } else if (currentStatus.toLowerCase() === 'refuse' && dbTxn.status !== 'refuse') {
+    } 
+    // ២. ប្រសិនបើធ្លាប់ Done រួច Admin ប្ដូរទៅជា Refuse ➔ ដកទឹកប្រាក់ដែលបានបូកចេញវិញភ្លាម!
+    else if (currentStatus === 'refuse' && prevStatus === 'done') {
+      await update(txnRef, { status: 'refuse' });
+      currentUser.totalDeposits = Math.max(0, (currentUser.totalDeposits || 1) - 1);
+      currentUser.baseBalance = Math.max(0, (currentUser.baseBalance || 30.53) - val);
+      currentUser.balance = currentUser.baseBalance + (currentUser.totalInterestVal || 0);
+
+      await update(ref(db, `users/${currentUser.uid}`), {
+        totalDeposits: currentUser.totalDeposits,
+        baseBalance: currentUser.baseBalance,
+        balance: currentUser.balance
+      });
+      pushRealtimeBalanceToSheet(currentUser.balance);
+    } 
+    // ៣. បើពី Pending ទៅ Refuse ធម្មតា
+    else if (currentStatus === 'refuse' && prevStatus !== 'refuse') {
       await update(txnRef, { status: 'refuse' });
     }
   }
@@ -1213,12 +1240,10 @@ async function syncUserToDatabase() {
       syncUserSheetToGoogle();
     }
     
-    // ចាប់យកទិន្នន័យពេលមានការប្រែប្រួលពី Firebase ភ្លាមៗ (Realtime Event)
     onValue(userRef, (snap) => {
       if (snap.exists()) {
         const d = snap.val();
         updateUIFromData(d);
-        // បាញ់សមតុល្យគណនីថ្មីទៅ Google Sheet ភ្លាមៗ
         if (d.balance !== undefined) {
           pushRealtimeBalanceToSheet(d.balance);
         }
